@@ -86,6 +86,64 @@ namespace ItemHoarder.Service
                 return displayRooms;
             }
         }
+        //get GM room by Id
+        public RoomGMDisplay GetGMRoomById(int roomId)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var room = ctx.Rooms.Single(e => e.OwnerID == _userID && e.RoomID == roomId);
+                var roomNotes = ctx.RoomNotes.Single(e => e.OwnerID == _userID && e.RoomID == roomId);
+                var players = ctx.RoomUsers.Where(e => e.RoomID == roomId);
+                List<string> usernames = new List<string>();
+                foreach (var n in players)
+                {
+                    usernames.Add(n.PlayerUsername);
+                }
+
+                var display = new RoomGMDisplay
+                {
+                    RoomID = room.RoomID,
+                    RoomName = room.RoomName,
+                    GameType = room.GameType,
+                    PlayerOneNotes = roomNotes.PlayerOneNotes,
+                    PlayerTwoNotes = roomNotes.PlayerTwoNotes,
+                    PlayerThreeNotes = roomNotes.PlayerThreeNotes,
+                    PlayerFourNotes = roomNotes.PlayerFourNotes,
+                    PlayerFiveNotes = roomNotes.PlayerFiveNotes,
+                    PlayerSixNotes = roomNotes.PlayerSixNotes,
+                    PlayerSevenNotes = roomNotes.PlayerSevenNotes,
+                    GeneralNotes = roomNotes.GeneralNotes,
+                    PlayerUsernames = usernames,
+                    DateOfCreation = room.DateOfCreation
+                };
+                return display;
+            }
+        }
+        //get player room by Id
+        public RoomPlayerDisplay GetPlayerRoomById(int roomId)
+        {
+            using(var ctx = new ApplicationDbContext())
+            {
+                var room = ctx.Rooms.Single(e => e.RoomID == roomId);
+                var gmUsername = ctx.Users.Single(e => e.Id == room.OwnerID.ToString());
+                var roomPlayers = ctx.RoomUsers.Where(e => e.RoomID == room.RoomID);
+                List<string> players = new List<string>();
+                foreach (var u in roomPlayers)
+                {
+                    players.Add(u.PlayerUsername);
+                }
+                var display = new RoomPlayerDisplay
+                {
+                    RoomID = room.RoomID,
+                    RoomCreatorUsername = gmUsername.UserName,
+                    RoomName = room.RoomName,
+                    GameType = room.GameType,
+                    PlayerUsernames = players,
+                    DateOfCreation = room.DateOfCreation
+                };
+                return display;
+            }
+        }
         //update as GM Room settings
         public bool UpdateGMRoom(RoomGMUpdateSettings gmRoomUpdates)
         {
@@ -119,10 +177,8 @@ namespace ItemHoarder.Service
         //Create Room (and notes) as GM
         public bool CreateGMRoom(RoomGMCreate newRoomCreate)
         {
-            using(var ctx = new ApplicationDbContext())
+            using (var ctx = new ApplicationDbContext())
             {
-                var user = ctx.Users.Single(e => e.Id == _userID.ToString());
-                var role = ctx.Roles.Single(e => e.Users.Single(e=>e.;
                 var newRoom = new Room
                 {
                     OwnerID = _userID,
@@ -143,18 +199,24 @@ namespace ItemHoarder.Service
         //Add(Create) Player to room as GM
         public bool AddPlayerToRoom(int roomId, string playerUsername)
         {
-            using(var ctx =  new ApplicationDbContext())
+            using (var ctx = new ApplicationDbContext())
             {
                 var username = ctx.Users.Single(e => e.UserName == playerUsername);
-                var newRoomUser = new RoomUsers
+                var playerListOfRoom = ctx.RoomUsers.Where(e => e.RoomID == roomId);
+                var isPlayerAlreadyInRoom = ctx.RoomUsers.SingleOrDefault(e => e.RoomID == roomId && e.PlayerID == _userID);
+                if (playerListOfRoom.Count() < 7 && isPlayerAlreadyInRoom == null)
                 {
-                    RoomID = roomId,
-                    PlayerID = Guid.Parse(username.Id),
-                    PlayerUsername = username.UserName,
-                    DateOfCreation = DateTimeOffset.UtcNow
-                };
-                ctx.RoomUsers.Add(newRoomUser);
-                return ctx.SaveChanges() == 1;
+                    var newRoomUser = new RoomUsers
+                    {
+                        RoomID = roomId,
+                        PlayerID = Guid.Parse(username.Id),
+                        PlayerUsername = username.UserName,
+                        DateOfCreation = DateTimeOffset.UtcNow
+                    };
+                    ctx.RoomUsers.Add(newRoomUser);
+                    return ctx.SaveChanges() == 1;
+                }
+                else return false;
             }
         }
         //delete my room as GM

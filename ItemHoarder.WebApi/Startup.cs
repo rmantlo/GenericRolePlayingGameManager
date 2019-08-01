@@ -43,17 +43,10 @@ namespace ItemHoarder.WebApi
                 }
             }
             //creating GM role
-            if (!roleManager.RoleExists("GameMaster"))
+            if (!roleManager.RoleExists("User"))
             {
                 var role = new IdentityRole();
-                role.Name = "GameMaster";
-                roleManager.Create(role);
-            }
-            //creating Player role
-            if (!roleManager.RoleExists("Player"))
-            {
-                var role = new IdentityRole();
-                role.Name = "Player";
+                role.Name = "User";
                 roleManager.Create(role);
             }
         }
