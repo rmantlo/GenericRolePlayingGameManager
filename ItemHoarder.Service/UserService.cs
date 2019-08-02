@@ -49,8 +49,8 @@ namespace ItemHoarder.Service
             using (var ctx = new ApplicationDbContext())
             {
                 var oldProfile = ctx.Profiles.SingleOrDefault(e => e.UserID == _userId);
-                oldProfile.ProfileImage = profile.ProfileImage;
-                oldProfile.About = profile.About;
+                if (profile.ProfileImage != null && profile.ProfileImage != "") { oldProfile.ProfileImage = profile.ProfileImage; };
+                if(profile.About != null && profile.About != "") { oldProfile.About = profile.About; };
                 oldProfile.DateOfModification = DateTimeOffset.UtcNow;
                 return ctx.SaveChanges() == 1;
             }
@@ -59,7 +59,7 @@ namespace ItemHoarder.Service
         //delete profile info
         public bool DeleteProfileInfo()
         {
-            using(var ctx = new ApplicationDbContext())
+            using (var ctx = new ApplicationDbContext())
             {
                 var profile = ctx.Profiles.Single(e => e.UserID == _userId);
                 ctx.Profiles.Remove(profile);
