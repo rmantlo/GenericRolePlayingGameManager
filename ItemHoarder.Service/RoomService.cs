@@ -21,12 +21,12 @@ namespace ItemHoarder.Service
         {
             using (var ctx = new ApplicationDbContext())
             {
-                var room = ctx.Rooms.Where(e => e.OwnerID == _userID);
+                var room = ctx.Rooms.Where(e => e.OwnerID == _userID).ToList();
                 List<RoomGMDisplay> displayRooms = new List<RoomGMDisplay>();
                 foreach (var i in room)
                 {
                     var roomNotes = ctx.RoomNotes.Single(e => e.OwnerID == _userID && e.RoomID == i.RoomID);
-                    var roomPlayers = ctx.RoomUsers.Where(e => e.RoomID == i.RoomID);
+                    var roomPlayers = ctx.RoomUsers.Where(e => e.RoomID == i.RoomID).ToList();
                     List<string> usernames = new List<string>();
                     foreach (var n in roomPlayers)
                     {
@@ -60,13 +60,13 @@ namespace ItemHoarder.Service
             using (var ctx = new ApplicationDbContext())
             {
                 List<RoomPlayerDisplay> displayRooms = new List<RoomPlayerDisplay>();
-                var roomUsers = ctx.RoomUsers.Where(e => e.PlayerID == _userID);
+                var roomUsers = ctx.RoomUsers.Where(e => e.PlayerID == _userID).ToList();
                 foreach (var r in roomUsers)
                 {
                     var room = ctx.Rooms.Single(e => e.RoomID == r.RoomID);
 
                     var gmUsername = ctx.Users.Single(e => e.Id == room.OwnerID.ToString());
-                    var roomPlayers = ctx.RoomUsers.Where(e => e.RoomID == room.RoomID);
+                    var roomPlayers = ctx.RoomUsers.Where(e => e.RoomID == room.RoomID).ToList();
                     List<string> players = new List<string>();
                     foreach (var u in roomPlayers)
                     {
@@ -122,7 +122,7 @@ namespace ItemHoarder.Service
         //get player room by Id
         public RoomPlayerDisplay GetPlayerRoomById(int roomId)
         {
-            using(var ctx = new ApplicationDbContext())
+            using (var ctx = new ApplicationDbContext())
             {
                 var room = ctx.Rooms.Single(e => e.RoomID == roomId);
                 var gmUsername = ctx.Users.Single(e => e.Id == room.OwnerID.ToString());
@@ -145,11 +145,11 @@ namespace ItemHoarder.Service
             }
         }
         //update as GM Room settings
-        public bool UpdateGMRoom(RoomGMUpdateSettings gmRoomUpdates)
+        public bool UpdateGMRoom(int roomId, RoomGMUpdateSettings gmRoomUpdates)
         {
             using (var ctx = new ApplicationDbContext())
             {
-                var room = ctx.Rooms.Where(e => e.OwnerID == _userID).SingleOrDefault(e => e.RoomID == gmRoomUpdates.RoomID);
+                var room = ctx.Rooms.Where(e => e.OwnerID == _userID).SingleOrDefault(e => e.RoomID == roomId);
                 room.RoomName = gmRoomUpdates.RoomName;
                 room.GameType = gmRoomUpdates.GameType;
                 room.DateOfModification = DateTimeOffset.UtcNow;
@@ -157,11 +157,11 @@ namespace ItemHoarder.Service
             }
         }
         //update as GM room notes
-        public bool UpdateRoomNotes(RoomGMUpdateNotes gmRoomUpdates)
+        public bool UpdateRoomNotes(int roomId, RoomGMUpdateNotes gmRoomUpdates)
         {
             using (var ctx = new ApplicationDbContext())
             {
-                var roomNotes = ctx.RoomNotes.Single(e => e.OwnerID == _userID && e.RoomID == gmRoomUpdates.RoomID);
+                var roomNotes = ctx.RoomNotes.Single(e => e.OwnerID == _userID && e.RoomID == roomId);
                 roomNotes.PlayerOneNotes = gmRoomUpdates.PlayerOneNotes;
                 roomNotes.PlayerTwoNotes = gmRoomUpdates.PlayerTwoNotes;
                 roomNotes.PlayerThreeNotes = gmRoomUpdates.PlayerThreeNotes;
@@ -187,36 +187,44 @@ namespace ItemHoarder.Service
                     DateOfCreation = DateTimeOffset.UtcNow,
                 };
                 ctx.Rooms.Add(newRoom);
+                bool save = ctx.SaveChanges() == 1;
                 var newNotes = new RoomNotes
                 {
+                    RoomID = newRoom.RoomID,
                     OwnerID = _userID,
                     DateOfCreation = DateTimeOffset.UtcNow
                 };
                 ctx.RoomNotes.Add(newNotes);
-                return ctx.SaveChanges() == 2;
+                return (ctx.SaveChanges() == 1 && save == true);
             }
         }
         //Add(Create) Player to room as GM
-        public bool AddPlayerToRoom(int roomId, string playerUsername)
+        public string AddPlayerToRoom(int roomId, string playerUsername)
         {
             using (var ctx = new ApplicationDbContext())
             {
-                var username = ctx.Users.Single(e => e.UserName == playerUsername);
+                var username = ctx.Users.SingleOrDefault(e => e.UserName == playerUsername);
+                if (username == null) return "Username not found";
                 var playerListOfRoom = ctx.RoomUsers.Where(e => e.RoomID == roomId);
                 var isPlayerAlreadyInRoom = ctx.RoomUsers.SingleOrDefault(e => e.RoomID == roomId && e.PlayerID == _userID);
-                if (playerListOfRoom.Count() < 7 && isPlayerAlreadyInRoom == null)
+                if (isPlayerAlreadyInRoom == null)
                 {
-                    var newRoomUser = new RoomUsers
+                    if (playerListOfRoom.Count() < 7)
                     {
-                        RoomID = roomId,
-                        PlayerID = Guid.Parse(username.Id),
-                        PlayerUsername = username.UserName,
-                        DateOfCreation = DateTimeOffset.UtcNow
-                    };
-                    ctx.RoomUsers.Add(newRoomUser);
-                    return ctx.SaveChanges() == 1;
+                        var newRoomUser = new RoomUsers
+                        {
+                            RoomID = roomId,
+                            PlayerID = Guid.Parse(username.Id),
+                            PlayerUsername = username.UserName,
+                            DateOfCreation = DateTimeOffset.UtcNow
+                        };
+                        ctx.RoomUsers.Add(newRoomUser);
+                        if (ctx.SaveChanges() == 1) return "Player added to room";
+                        else return "Player not added to room";
+                    }
+                    else return "Already 7 players in room";
                 }
-                else return false;
+                else return "Player already in room";
             }
         }
         //delete my room as GM
@@ -224,28 +232,31 @@ namespace ItemHoarder.Service
         {
             using (var ctx = new ApplicationDbContext())
             {
+                int count = 0;
                 var room = ctx.Rooms.SingleOrDefault(e => e.OwnerID == _userID && e.RoomID == roomId);
                 ctx.Rooms.Remove(room);
+                if (ctx.SaveChanges() == 1)
+                {
+                    var roomNotes = ctx.RoomNotes.SingleOrDefault(e => e.OwnerID == _userID && e.RoomID == roomId);
+                    ctx.RoomNotes.Remove(roomNotes);
 
-                var roomNotes = ctx.RoomNotes.SingleOrDefault(e => e.OwnerID == _userID && e.RoomID == roomId);
-                ctx.RoomNotes.Remove(roomNotes);
+                    var roomUsers = ctx.RoomUsers.Where(e => e.RoomID == roomId);
+                    foreach (var r in roomUsers) { ctx.RoomUsers.Remove(r); }
+                    var roomClasses = ctx.RoomClasses.Where(e => e.OwnerID == _userID && e.RoomID == roomId);
+                    foreach (var c in roomClasses) { ctx.RoomClasses.Remove(c); }
+                    var roomRaces = ctx.RoomRaces.Where(e => e.OwnerID == _userID && e.RoomID == roomId);
+                    foreach (var r in roomRaces) { ctx.RoomRaces.Remove(r); }
+                    var proSkills = ctx.RoomProficiencies.Where(e => e.OwnerID == _userID && e.RoomID == roomId);
+                    foreach (var p in proSkills) { ctx.RoomProficiencies.Remove(p); }
+                    var roomBackgrounds = ctx.RoomBackgrounds.Where(e => e.OwnerID == _userID && e.RoomID == roomId);
+                    foreach (var b in roomBackgrounds) { ctx.RoomBackgrounds.Remove(b); }
+                    var roomFeatures = ctx.RoomFeatures.Where(e => e.OwnerID == _userID && e.RoomID == roomId);
+                    foreach (var f in roomFeatures) { ctx.RoomFeatures.Remove(f); }
 
-                var roomUsers = ctx.RoomUsers.Where(e => e.RoomID == roomId);
-                foreach (var r in roomUsers) { ctx.RoomUsers.Remove(r); }
-                var roomClasses = ctx.RoomClasses.Where(e => e.OwnerID == _userID && e.RoomID == roomId);
-                foreach (var c in roomClasses) { ctx.RoomClasses.Remove(c); }
-                var roomRaces = ctx.RoomRaces.Where(e => e.OwnerID == _userID && e.RoomID == roomId);
-                foreach (var r in roomRaces) { ctx.RoomRaces.Remove(r); }
-                var proSkills = ctx.RoomProficiencies.Where(e => e.OwnerID == _userID && e.RoomID == roomId);
-                foreach (var p in proSkills) { ctx.RoomProficiencies.Remove(p); }
-                var roomBackgrounds = ctx.RoomBackgrounds.Where(e => e.OwnerID == _userID && e.RoomID == roomId);
-                foreach (var b in roomBackgrounds) { ctx.RoomBackgrounds.Remove(b); }
-                var roomFeatures = ctx.RoomFeatures.Where(e => e.OwnerID == _userID && e.RoomID == roomId);
-                foreach (var f in roomFeatures) { ctx.RoomFeatures.Remove(f); }
-
-                int count = 2 + roomUsers.Count() + roomClasses.Count() + roomRaces.Count() + proSkills.Count() + roomBackgrounds.Count() + roomFeatures.Count();
-
-                return ctx.SaveChanges() == count;
+                    count = 1 + roomUsers.Count() + roomClasses.Count() + roomRaces.Count() + proSkills.Count() + roomBackgrounds.Count() + roomFeatures.Count();
+                    return ctx.SaveChanges() == count;
+                }
+                else return false;
             }
         }
         //delete myself from a room as player

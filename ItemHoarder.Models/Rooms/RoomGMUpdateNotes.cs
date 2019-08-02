@@ -8,7 +8,6 @@ namespace ItemHoarder.Models.Rooms
 {
     public class RoomGMUpdateNotes
     {
-        public int RoomID { get; set; }
         public string PlayerOneNotes { get; set; }
         public string PlayerTwoNotes { get; set; }
         public string PlayerThreeNotes { get; set; }

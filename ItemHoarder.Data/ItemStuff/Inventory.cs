@@ -13,7 +13,6 @@ namespace ItemHoarder.Data.ItemStuff
         [Key]
         public int ID { get; set; }
         public int CharInstanceID { get; set; }
-        public bool IsEquipted { get; set; }
         //[ForeignKey("Item")]
         //public int ItemID { get; set; }
         public virtual ICollection<InventoryItem> InventoryItems { get; set; }

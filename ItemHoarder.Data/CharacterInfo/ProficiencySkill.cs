@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
@@ -20,6 +21,8 @@ namespace ItemHoarder.Data.CharacterInfo
         public double Intelligence { get; set; }
         public double Wisdom { get; set; }
         public double Charisma { get; set; }
+        [DefaultValue(false)]
+        public bool IsDeactivated { get; set; }
         public DateTimeOffset DateOfCreation { get; set; }
         public DateTimeOffset? DateOfModification { get; set; }
     }

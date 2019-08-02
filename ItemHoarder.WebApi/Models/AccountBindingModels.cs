@@ -6,12 +6,6 @@ using Newtonsoft.Json;
 namespace ItemHoarder.WebApi.Models
 {
     // Models used as parameters to AccountController actions.
-    public enum Role
-    {
-        Admin = 1,
-        GM,
-        Player
-    }
     public class AddExternalLoginBindingModel
     {
         [Required]
@@ -57,9 +51,6 @@ namespace ItemHoarder.WebApi.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
-        [Display(Name = "Account Role")]
-        [DefaultValue("Player")]
-        public Role Role { get; set; }
     }
 
     public class RegisterExternalBindingModel
