@@ -150,27 +150,43 @@ namespace ItemHoarder.Service
             using (var ctx = new ApplicationDbContext())
             {
                 var room = ctx.Rooms.Where(e => e.OwnerID == _userID).SingleOrDefault(e => e.RoomID == roomId);
-                room.RoomName = gmRoomUpdates.RoomName;
-                room.GameType = gmRoomUpdates.GameType;
-                room.DateOfModification = DateTimeOffset.UtcNow;
-                return ctx.SaveChanges() == 1;
+                if (gmRoomUpdates.RoomName != null && gmRoomUpdates.RoomName != "" && gmRoomUpdates.GameType != null && gmRoomUpdates.GameType != "")
+                {
+                    room.RoomName = gmRoomUpdates.RoomName;
+                    room.GameType = gmRoomUpdates.GameType;
+                    room.DateOfModification = DateTimeOffset.UtcNow;
+                    return ctx.SaveChanges() == 1;
+                }
+                else if (gmRoomUpdates.GameType != null && gmRoomUpdates.GameType != "")
+                {
+                    room.GameType = gmRoomUpdates.GameType;
+                    room.DateOfModification = DateTimeOffset.UtcNow;
+                    return ctx.SaveChanges() == 1;
+                }
+                else if (gmRoomUpdates.RoomName != null && gmRoomUpdates.RoomName != "")
+                {
+                    room.RoomName = gmRoomUpdates.RoomName;
+                    room.DateOfModification = DateTimeOffset.UtcNow;
+                    return ctx.SaveChanges() == 1;
+                }
+                else return false;
             }
         }
         //update as GM room notes
-        public bool UpdateRoomNotes(int roomId, RoomGMUpdateNotes gmRoomUpdates)
+        public bool UpdateRoomNotes(int roomId, RoomGMUpdateNotes gmNote)
         {
             using (var ctx = new ApplicationDbContext())
             {
-                var roomNotes = ctx.RoomNotes.Single(e => e.OwnerID == _userID && e.RoomID == roomId);
-                roomNotes.PlayerOneNotes = gmRoomUpdates.PlayerOneNotes;
-                roomNotes.PlayerTwoNotes = gmRoomUpdates.PlayerTwoNotes;
-                roomNotes.PlayerThreeNotes = gmRoomUpdates.PlayerThreeNotes;
-                roomNotes.PlayerFourNotes = gmRoomUpdates.PlayerFourNotes;
-                roomNotes.PlayerFiveNotes = gmRoomUpdates.PlayerFiveNotes;
-                roomNotes.PlayerSixNotes = gmRoomUpdates.PlayerSixNotes;
-                roomNotes.PlayerSevenNotes = gmRoomUpdates.PlayerSevenNotes;
-                roomNotes.GeneralNotes = gmRoomUpdates.GeneralNotes;
-                roomNotes.DateOfModification = DateTimeOffset.UtcNow;
+                var rNotes = ctx.RoomNotes.Single(e => e.OwnerID == _userID && e.RoomID == roomId);
+                if (gmNote.PlayerOneNotes != null && gmNote.PlayerOneNotes != "") { rNotes.PlayerOneNotes = gmNote.PlayerOneNotes; };
+                if (gmNote.PlayerTwoNotes != null && gmNote.PlayerTwoNotes != "") { rNotes.PlayerTwoNotes = gmNote.PlayerTwoNotes; };
+                if (gmNote.PlayerThreeNotes != null && gmNote.PlayerThreeNotes != "") { rNotes.PlayerThreeNotes = gmNote.PlayerThreeNotes; };
+                if (gmNote.PlayerFourNotes != null && gmNote.PlayerFourNotes != "") { rNotes.PlayerFourNotes = gmNote.PlayerFourNotes; };
+                if (gmNote.PlayerFiveNotes != null && gmNote.PlayerFiveNotes != "") { rNotes.PlayerFiveNotes = gmNote.PlayerFiveNotes; };
+                if (gmNote.PlayerSixNotes != null && gmNote.PlayerSixNotes != "") { rNotes.PlayerSixNotes = gmNote.PlayerSixNotes; };
+                if (gmNote.PlayerSevenNotes != null && gmNote.PlayerSevenNotes != "") { rNotes.PlayerSevenNotes = gmNote.PlayerSevenNotes; };
+
+                rNotes.DateOfModification = DateTimeOffset.UtcNow;
                 return ctx.SaveChanges() == 1;
             }
         }
