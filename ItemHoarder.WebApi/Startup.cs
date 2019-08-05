@@ -18,6 +18,7 @@ namespace ItemHoarder.WebApi
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             ConfigureAuth(app);
             MakeRoles();
+            //checks for deacticated classes/races/features/ etc that are not used in any char instances and deletes them
         }
 
         private void MakeRoles()

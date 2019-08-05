@@ -107,6 +107,7 @@ namespace ItemHoarder.Service.Characters
                 result.WeightInPounds = update.WeightInPounds;
                 result.HeightInInches = update.HeightInInches;
                 result.Gender = update.Gender;
+                result.DateOfModification = DateTimeOffset.UtcNow;
                 return ctx.SaveChanges() == 1;
             }
         }

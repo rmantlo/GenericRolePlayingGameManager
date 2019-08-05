@@ -78,6 +78,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Characters\Races\RaceCreate.cs" />
+    <Compile Include="Characters\Races\RaceDisplay.cs" />
     <Compile Include="Characters\Skeleton\CharSkeleDisplay.cs" />
     <Compile Include="Characters\Skeleton\CharSkeletonCreate.cs" />
     <Compile Include="ItemInventory\Items.cs" />
@@ -95,6 +97,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Characters\Classes\" />
     <Folder Include="Characters\Instanced\" />
   </ItemGroup>
   <ItemGroup>
