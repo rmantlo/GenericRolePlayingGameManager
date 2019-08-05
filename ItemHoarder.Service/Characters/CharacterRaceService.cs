@@ -1,5 +1,6 @@
 ﻿using ItemHoarder.Data;
 using ItemHoarder.Data.CharacterInfo;
+using ItemHoarder.Data.RoomFolder;
 using ItemHoarder.Models.Characters.Races;
 using System;
 using System.Collections.Generic;
@@ -137,7 +138,7 @@ namespace ItemHoarder.Service.Characters
         //create race
         public bool CreateRace(RaceCreate race)
         {
-            using(var ctx = new ApplicationDbContext())
+            using (var ctx = new ApplicationDbContext())
             {
                 var newRace = new CharacterRace
                 {
@@ -161,11 +162,47 @@ namespace ItemHoarder.Service.Characters
             }
         }
         //update race
+        public bool UpdateRace(int id, RaceCreate race)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                //didnt put security around this update because lazy
+                var result = ctx.CharacterRaces.Single(e => e.OwnerID == _userId && e.RaceID == id);
+                result.Name = race.Name;
+                result.Speed = race.Speed;
+                result.Size = race.Size;
+                result.Languages = race.Languages;
+                result.Trait = race.Trait;
+                result.TraitDescription = race.TraitDescription;
+                result.Strength = race.Strength;
+                result.Dexterity = race.Dexterity;
+                result.Constitution = race.Constitution;
+                result.Intelligence = race.Intelligence;
+                result.Wisdom = race.Wisdom;
+                result.Charisma = race.Charisma;
+                return ctx.SaveChanges() == 1;
+            }
+        }
         //add race to a room
+        public bool AddRaceToRoom(int raceId, int roomId)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var result = new RoomRaces
+                {
+                    OwnerID = _userId,
+                    RaceID = raceId,
+                    RoomID = roomId,
+                    DateOfCreation = DateTimeOffset.UtcNow
+                };
+                ctx.RoomRaces.Add(result);
+                return ctx.SaveChanges() == 1;
+            }
+        }
         //remove race from room
         public bool RemoveRaceFromRoom(int id, int roomId)
         {
-            using(var ctx = new ApplicationDbContext())
+            using (var ctx = new ApplicationDbContext())
             {
                 var result = ctx.RoomRaces.Single(e => e.OwnerID == _userId && e.RoomID == roomId && e.RaceID == id);
                 ctx.RoomRaces.Remove(result);
@@ -175,11 +212,16 @@ namespace ItemHoarder.Service.Characters
         //delete race: just switch to deactivated = true
         public bool DeleteRace(int id)
         {
-            using(var ctx = new ApplicationDbContext())
+            using (var ctx = new ApplicationDbContext())
             {
+                var roomRaces = ctx.RoomRaces.Where(e => e.OwnerID == _userId && e.RaceID == id).ToList();
+                foreach (var r in roomRaces)
+                {
+                    ctx.RoomRaces.Remove(r);
+                }
                 var race = ctx.CharacterRaces.Single(e => e.OwnerID == _userId && e.RaceID == id);
                 race.IsDeactivated = true;
-                return ctx.SaveChanges() == 1;
+                return ctx.SaveChanges() == 1 + roomRaces.Count();
             }
         }
     }
