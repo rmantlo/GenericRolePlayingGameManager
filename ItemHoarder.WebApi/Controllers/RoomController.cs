@@ -11,6 +11,7 @@ using System.Web.Http;
 namespace ItemHoarder.WebApi.Controllers
 {
     [Authorize]
+    [RoutePrefix("api")]
     public class RoomController : ApiController
     {
         //get Rooms as GM

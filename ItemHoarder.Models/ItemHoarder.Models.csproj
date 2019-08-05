@@ -78,6 +78,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Characters\Skeleton\CharSkeleDisplay.cs" />
     <Compile Include="Characters\Skeleton\CharSkeletonCreate.cs" />
     <Compile Include="ItemInventory\Items.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
