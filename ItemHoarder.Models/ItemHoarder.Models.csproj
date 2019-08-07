@@ -82,6 +82,10 @@
     <Compile Include="Characters\Backgrounds\BackgroundDisplay.cs" />
     <Compile Include="Characters\Classes\ClassCreate.cs" />
     <Compile Include="Characters\Classes\ClassDisplay.cs" />
+    <Compile Include="Characters\Features\FeatureCreate.cs" />
+    <Compile Include="Characters\Features\FeatureDisplay.cs" />
+    <Compile Include="Characters\ProficiencySkills\SkillCreate.cs" />
+    <Compile Include="Characters\ProficiencySkills\SkillDisplay.cs" />
     <Compile Include="Characters\Races\RaceCreate.cs" />
     <Compile Include="Characters\Races\RaceDisplay.cs" />
     <Compile Include="Characters\Skeleton\CharSkeleDisplay.cs" />

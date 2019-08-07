@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ItemHoarder.Models.Characters.Backgrounds
+namespace ItemHoarder.Models.Characters.ProficiencySkills
 {
-    public class BackgroundCreate
+    public class SkillCreate
     {
-        public string BackgroundName { get; set; }
-        public string BackgroundDescription { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
         public double Strength { get; set; }
         public double Dexterity { get; set; }
         public double Constitution { get; set; }

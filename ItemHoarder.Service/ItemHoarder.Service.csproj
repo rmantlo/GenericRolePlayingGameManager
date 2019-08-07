@@ -79,6 +79,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Characters\CharacterClassService.cs" />
+    <Compile Include="Characters\CharacterFeatureService.cs" />
+    <Compile Include="Characters\CharacterInstancedService.cs" />
+    <Compile Include="Characters\CharacterProficiencyService.cs" />
     <Compile Include="Characters\CharacterRaceService.cs" />
     <Compile Include="Characters\CharacterSkeletonService.cs" />
     <Compile Include="Characters\CharacterBackgroundService.cs" />

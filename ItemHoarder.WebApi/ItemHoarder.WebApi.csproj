@@ -216,7 +216,10 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\Characters\Characteristics\BackgroundController.cs" />
     <Compile Include="Controllers\Characters\Characteristics\ClassController.cs" />
+    <Compile Include="Controllers\Characters\Characteristics\FeaturesController.cs" />
+    <Compile Include="Controllers\Characters\Characteristics\ProficiencySkillsController.cs" />
     <Compile Include="Controllers\Characters\Characteristics\RaceController.cs" />
     <Compile Include="Controllers\Characters\CharSkeleController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
