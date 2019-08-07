@@ -99,12 +99,12 @@ namespace ItemHoarder.Service.Characters
             }
         }
         //get room races as player
-        public IEnumerable<RaceDisplay> GetRacesOfRoomImIn(int roomId)
+        public IEnumerable<RaceDisplay> GetRacesOfRoomAsPlayer(int roomId)
         {
             using (var ctx = new ApplicationDbContext())
             {
                 //check roomId againsts roomUsers to make sure Im actually in the room
-                bool AmInRoom = Convert.ToBoolean(ctx.RoomUsers.Select(e => e.RoomID == roomId && e.PlayerID == _userId).ToString());
+                bool AmInRoom = Convert.ToBoolean(ctx.RoomUsers.Select(e => e.RoomID == roomId && e.PlayerID == _userId));
                 List<RaceDisplay> roomRaces = new List<RaceDisplay>();
                 if (AmInRoom)
                 {

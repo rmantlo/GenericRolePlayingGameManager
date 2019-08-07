@@ -14,8 +14,10 @@ namespace ItemHoarder.WebApi.Controllers.Characters
     [RoutePrefix("api/character-skeleton")]
     public class CharSkeleController : ApiController
     {
-        //get all char skeletons
-        //[Route("")]
+        /// <summary>
+        /// Get all character skeletons created by user
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IHttpActionResult GetAll()
         {
@@ -23,7 +25,11 @@ namespace ItemHoarder.WebApi.Controllers.Characters
             var results = service.GetAllMyCharacterSkele();
             return Ok(results);
         }
-        //get char skeleton by ID
+        /// <summary>
+        /// Get character skeleton by id of user
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Route("{id}")]
         public IHttpActionResult Get(int id)
         {
@@ -31,7 +37,11 @@ namespace ItemHoarder.WebApi.Controllers.Characters
             var result = service.GetCharSkeletonById(id);
             return Ok(result);
         }
-        //create char skeleton
+        /// <summary>
+        /// Create new character skeleton
+        /// </summary>
+        /// <param name="skeleton"></param>
+        /// <returns></returns>
         [Route("create")]
         public IHttpActionResult Post(CharSkeletonCreate skeleton)
         {
@@ -40,7 +50,12 @@ namespace ItemHoarder.WebApi.Controllers.Characters
             if (service.CreateNewCharSkeleton(skeleton)) return Ok();
             else return BadRequest("Character skeleton not created");
         }
-        //update char skeleton
+        /// <summary>
+        /// Update existing character skeleton
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="skeleton"></param>
+        /// <returns></returns>
         [Route("update/{id}")]
         public IHttpActionResult Put(int id, CharSkeletonCreate skeleton)
         {
@@ -49,7 +64,11 @@ namespace ItemHoarder.WebApi.Controllers.Characters
             if (service.UpdateCharSkeleton(id, skeleton)) return Ok();
             else return BadRequest("Character skeleton not updated");
         }
-        //delete char skeleton
+        /// <summary>
+        /// Delete existing character skeleton by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Route("delete/{id}")]
         public IHttpActionResult Delete(int id)
         {

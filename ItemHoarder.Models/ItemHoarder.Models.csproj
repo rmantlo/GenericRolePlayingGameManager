@@ -78,11 +78,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Characters\Backgrounds\BackgroundCreate.cs" />
+    <Compile Include="Characters\Backgrounds\BackgroundDisplay.cs" />
+    <Compile Include="Characters\Classes\ClassCreate.cs" />
+    <Compile Include="Characters\Classes\ClassDisplay.cs" />
     <Compile Include="Characters\Races\RaceCreate.cs" />
     <Compile Include="Characters\Races\RaceDisplay.cs" />
     <Compile Include="Characters\Skeleton\CharSkeleDisplay.cs" />
     <Compile Include="Characters\Skeleton\CharSkeletonCreate.cs" />
-    <Compile Include="ItemInventory\Items.cs" />
+    <Compile Include="ItemInventory\ItemCreate.cs" />
+    <Compile Include="ItemInventory\ItemDisplay.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rooms\RoomGMCreate.cs" />
     <Compile Include="Rooms\RoomGMDisplay.cs" />
@@ -97,7 +102,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Characters\Classes\" />
     <Folder Include="Characters\Instanced\" />
   </ItemGroup>
   <ItemGroup>

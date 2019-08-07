@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ItemHoarder.Models
+namespace ItemHoarder.Models.Characters.Backgrounds
 {
-    public class Items
+    public class BackgroundDisplay
     {
     }
 }
