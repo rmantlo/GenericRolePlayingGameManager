@@ -21,6 +21,7 @@ namespace ItemHoarder.Models.ItemInventory
         public double Damage { get; set; }
         public double DamageResiliance { get; set; }
         public bool IsEquiptable { get; set; }
+        public bool IsEquipted { get; set; }
         public double Strength { get; set; }
         public double Dexterity { get; set; }
         public double Constitution { get; set; }

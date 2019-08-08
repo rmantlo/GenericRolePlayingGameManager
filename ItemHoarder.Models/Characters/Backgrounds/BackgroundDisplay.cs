@@ -11,6 +11,7 @@ namespace ItemHoarder.Models.Characters.Backgrounds
         public int BackgroundID { get; set; }
         public string BackgroundName { get; set; }
         public string BackgroundDescription { get; set; }
+        public string Proficiencies { get; set; }
         public double Strength { get; set; }
         public double Dexterity { get; set; }
         public double Constitution { get; set; }

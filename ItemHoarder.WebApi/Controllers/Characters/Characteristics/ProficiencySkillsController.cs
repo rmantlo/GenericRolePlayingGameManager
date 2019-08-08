@@ -121,10 +121,10 @@ namespace ItemHoarder.WebApi.Controllers.Characters.Characteristics
             if (service.DeleteSkill(id)) return Ok();
             else return BadRequest("Skill not deleted");
         }
-        private CharacterProficiencyService CreateProService()
+        private CharacterSkillService CreateProService()
         {
             var userId = Guid.Parse(User.Identity.GetUserId());
-            return new CharacterProficiencyService(userId);
+            return new CharacterSkillService(userId);
         }
     }
 }

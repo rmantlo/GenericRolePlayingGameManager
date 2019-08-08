@@ -1,50 +1,31 @@
-﻿using ItemHoarder.Data.CharacterInfo;
-using ItemHoarder.Data.ItemStuff;
+﻿using ItemHoarder.Data;
+using ItemHoarder.Models.Characters.Backgrounds;
+using ItemHoarder.Models.Characters.Classes;
+using ItemHoarder.Models.Characters.Features;
+using ItemHoarder.Models.Characters.ProficiencySkills;
+using ItemHoarder.Models.Characters.Races;
+using ItemHoarder.Models.Characters.Skeleton;
+using ItemHoarder.Models.ItemInventory;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ItemHoarder.Data
+namespace ItemHoarder.Models.Characters.Instanced
 {
-    public enum TypeOfAlignment
+    public class InstanceGMDisplay
     {
-        LawfulGood,
-        NeutralGood,
-        ChaoticGood,
-        LawfulNeutral,
-        TrueNeutral,
-        ChaoticNeutral,
-        LawfulEvil,
-        NeutralEvil,
-        ChaoticEvil
-    }
-    public class CharacterInstanced
-    {
-        [Key]
         public int CharInstanceID { get; set; }
-        [Required]
-        public Guid OwnerID { get; set; }
         public int? RoomID { get; set; }
-        [ForeignKey("CharSkeleton")]
-        public int CharSkeletonID { get; set; }
-        public virtual CharacterSkeleton CharSkeleton { get; set; }
-
-        [ForeignKey("Race")]
-        public int RaceID { get; set; }
-        public virtual CharacterRace Race { get; set; }
-
-        [ForeignKey("Class")]
-        public int ClassID { get; set; }
-        public virtual CharacterClass Class { get; set; }
-
-        [ForeignKey("Background")]
-        public int BackgroundID { get; set; }
-        public virtual CharacterBackground Background { get; set; }
-        public virtual ICollection<InventoryItem> InventoryItems { get; set; }
+        public string RoomName { get; set; }
+        public CharSkeleDisplay CharSkeleton { get; set; }
+        public RaceDisplay Race { get; set; }
+        public ClassDisplay Class { get; set; }
+        public BackgroundDisplay Background { get; set; }
+        public List<FeatureDisplay> Features { get; set; }
+        public List<SkillDisplay> ProficiencySkills { get; set; }
+        public List<InstanceItemDisplay> InventoryItems { get; set; }
         public TypeOfAlignment Alignment { get; set; }
         public string OtherLanguages { get; set; }
         public string AttacksAndSpells { get; set; }
@@ -71,9 +52,5 @@ namespace ItemHoarder.Data
         public int ElectrumPieces { get; set; } //2ep - 1Gp
         public int SilverPieces { get; set; } //5sp - 1 ep
         public int CopperPieces { get; set; } //10cp - 1 sp
-        public string CharacterNotes { get; set; }
-        public DateTimeOffset DateOfCreation { get; set; }
-        public DateTimeOffset? DateOfModification { get; set; }
-
     }
 }

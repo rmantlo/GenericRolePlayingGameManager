@@ -28,7 +28,9 @@ namespace ItemHoarder.Service.Characters
                     FeatureName = e.FeatureName,
                     Description = e.Description,
                     RaceIdPrerequisite = e.RaceIdPrerequisite,
-                    SkillPrerequisite = e.SkillPrerequisite,
+                    ClassIdPrerequisite = e.ClassIdPrerequisite,
+                    StatPrerequisite = e.StatPrerequisite,
+                    LvlPrerequisite = e.LvlPrerequisite,
                     Strength = e.Strength,
                     Dexterity = e.Dexterity,
                     Constitution = e.Constitution,
@@ -50,7 +52,9 @@ namespace ItemHoarder.Service.Characters
                     FeatureName = e.FeatureName,
                     Description = e.Description,
                     RaceIdPrerequisite = e.RaceIdPrerequisite,
-                    SkillPrerequisite = e.SkillPrerequisite,
+                    ClassIdPrerequisite = e.ClassIdPrerequisite,
+                    StatPrerequisite = e.StatPrerequisite,
+                    LvlPrerequisite = e.LvlPrerequisite,
                     Strength = e.Strength,
                     Dexterity = e.Dexterity,
                     Constitution = e.Constitution,
@@ -77,7 +81,9 @@ namespace ItemHoarder.Service.Characters
                         FeatureName = features.FeatureName,
                         Description = features.Description,
                         RaceIdPrerequisite = features.RaceIdPrerequisite,
-                        SkillPrerequisite = features.SkillPrerequisite,
+                        ClassIdPrerequisite = features.ClassIdPrerequisite,
+                        StatPrerequisite = features.StatPrerequisite,
+                        LvlPrerequisite = features.LvlPrerequisite,
                         Strength = features.Strength,
                         Dexterity = features.Dexterity,
                         Constitution = features.Constitution,
@@ -109,7 +115,9 @@ namespace ItemHoarder.Service.Characters
                             FeatureName = feature.FeatureName,
                             Description = feature.Description,
                             RaceIdPrerequisite = feature.RaceIdPrerequisite,
-                            SkillPrerequisite = feature.SkillPrerequisite,
+                            ClassIdPrerequisite = feature.ClassIdPrerequisite,
+                            StatPrerequisite = feature.StatPrerequisite,
+                            LvlPrerequisite = feature.LvlPrerequisite,
                             Strength = feature.Strength,
                             Dexterity = feature.Dexterity,
                             Constitution = feature.Constitution,
@@ -135,7 +143,9 @@ namespace ItemHoarder.Service.Characters
                     FeatureName = features.FeatureName,
                     Description = features.Description,
                     RaceIdPrerequisite = features.RaceIdPrerequisite,
-                    SkillPrerequisite = features.SkillPrerequisite,
+                    ClassIdPrerequisite = features.ClassIdPrerequisite,
+                    StatPrerequisite = features.StatPrerequisite,
+                    LvlPrerequisite = features.LvlPrerequisite,
                     Strength = features.Strength,
                     Dexterity = features.Dexterity,
                     Constitution = features.Constitution,
@@ -158,7 +168,9 @@ namespace ItemHoarder.Service.Characters
                 oldFeat.FeatureName = feature.FeatureName;
                 oldFeat.Description = feature.Description;
                 oldFeat.RaceIdPrerequisite = feature.RaceIdPrerequisite;
-                oldFeat.SkillPrerequisite = feature.SkillPrerequisite;
+                oldFeat.ClassIdPrerequisite = feature.ClassIdPrerequisite;
+                oldFeat.StatPrerequisite = feature.StatPrerequisite;
+                oldFeat.LvlPrerequisite = feature.LvlPrerequisite;
                 oldFeat.Strength = feature.Strength;
                 oldFeat.Dexterity = feature.Dexterity;
                 oldFeat.Constitution = feature.Constitution;
@@ -201,7 +213,7 @@ namespace ItemHoarder.Service.Characters
             using (var ctx = new ApplicationDbContext())
             {
                 var rooms = ctx.RoomFeatures.Where(e => e.OwnerID == _userId && e.FeatureID == id).ToList();
-                foreach(var f in rooms)
+                foreach (var f in rooms)
                 {
                     ctx.RoomFeatures.Remove(f);
                 }

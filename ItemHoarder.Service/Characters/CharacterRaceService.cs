@@ -29,6 +29,7 @@ namespace ItemHoarder.Service.Characters
                     Speed = e.Speed,
                     Size = e.Size,
                     Languages = e.Languages,
+                    Proficiencies = e.Proficiencies,
                     Trait = e.Trait,
                     TraitDescription = e.TraitDescription,
                     Strength = e.Strength,
@@ -54,6 +55,7 @@ namespace ItemHoarder.Service.Characters
                     Speed = race.Speed,
                     Size = race.Size,
                     Languages = race.Languages,
+                    Proficiencies = race.Proficiencies,
                     Trait = race.Trait,
                     TraitDescription = race.TraitDescription,
                     Strength = race.Strength,
@@ -83,6 +85,7 @@ namespace ItemHoarder.Service.Characters
                         Speed = race.Speed,
                         Size = race.Size,
                         Languages = race.Languages,
+                        Proficiencies = race.Proficiencies,
                         Trait = race.Trait,
                         TraitDescription = race.TraitDescription,
                         Strength = race.Strength,
@@ -119,6 +122,7 @@ namespace ItemHoarder.Service.Characters
                             Speed = race.Speed,
                             Size = race.Size,
                             Languages = race.Languages,
+                            Proficiencies = race.Proficiencies,
                             Trait = race.Trait,
                             TraitDescription = race.TraitDescription,
                             Strength = race.Strength,
@@ -146,6 +150,7 @@ namespace ItemHoarder.Service.Characters
                     Speed = race.Speed,
                     Size = race.Size,
                     Languages = race.Languages,
+                    Proficiencies = race.Proficiencies,
                     Trait = race.Trait,
                     TraitDescription = race.TraitDescription,
                     Strength = race.Strength,
@@ -172,6 +177,7 @@ namespace ItemHoarder.Service.Characters
                 result.Speed = race.Speed;
                 result.Size = race.Size;
                 result.Languages = race.Languages;
+                result.Proficiencies = race.Proficiencies;
                 result.Trait = race.Trait;
                 result.TraitDescription = race.TraitDescription;
                 result.Strength = race.Strength;

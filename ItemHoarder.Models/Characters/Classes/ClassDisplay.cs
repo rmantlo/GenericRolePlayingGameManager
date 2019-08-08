@@ -13,7 +13,7 @@ namespace ItemHoarder.Models.Characters.Classes
         public string ClassDescription { get; set; }
         public string HitDie { get; set; }
         public string SavingThrows { get; set; }
-        public string ProficiencySkills { get; set; }
+        public string Proficiencies { get; set; }
         public double Strength { get; set; }
         public double Dexterity { get; set; }
         public double Constitution { get; set; }

@@ -10,6 +10,10 @@ namespace ItemHoarder.Models.Characters.ProficiencySkills
     {
         public string Name { get; set; }
         public string Description { get; set; }
+        public string ClassesApplied { get; set; }
+        public string RacesApplied { get; set; }
+        public string BackgroundsApplied { get; set; }
+        public string StatApplied { get; set; }
         public double Strength { get; set; }
         public double Dexterity { get; set; }
         public double Constitution { get; set; }

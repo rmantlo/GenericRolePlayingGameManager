@@ -26,6 +26,7 @@ namespace ItemHoarder.Service.Characters
                     BackgroundID = e.BackgroundID,
                     BackgroundName = e.BackgroundName,
                     BackgroundDescription = e.BackgroundDescription,
+                    Proficiencies = e.Proficiencies,
                     Strength = e.Strength,
                     Dexterity = e.Dexterity,
                     Constitution = e.Constitution,
@@ -51,6 +52,7 @@ namespace ItemHoarder.Service.Characters
                         BackgroundID = backgrounds.BackgroundID,
                         BackgroundName = backgrounds.BackgroundName,
                         BackgroundDescription = backgrounds.BackgroundDescription,
+                        Proficiencies = backgrounds.Proficiencies,
                         Strength = backgrounds.Strength,
                         Dexterity = backgrounds.Dexterity,
                         Constitution = backgrounds.Constitution,
@@ -74,6 +76,7 @@ namespace ItemHoarder.Service.Characters
                     BackgroundID = background.BackgroundID,
                     BackgroundName = background.BackgroundName,
                     BackgroundDescription = background.BackgroundDescription,
+                    Proficiencies = background.Proficiencies,
                     Strength = background.Strength,
                     Dexterity = background.Dexterity,
                     Constitution = background.Constitution,
@@ -102,6 +105,7 @@ namespace ItemHoarder.Service.Characters
                             BackgroundID = background.BackgroundID,
                             BackgroundName = background.BackgroundName,
                             BackgroundDescription = background.BackgroundDescription,
+                            Proficiencies = background.Proficiencies,
                             Strength = background.Strength,
                             Dexterity = background.Dexterity,
                             Constitution = background.Constitution,
@@ -127,6 +131,7 @@ namespace ItemHoarder.Service.Characters
                     DateOfCreation = DateTimeOffset.UtcNow,
                     BackgroundName = newBackground.BackgroundName,
                     BackgroundDescription = newBackground.BackgroundDescription,
+                    Proficiencies = newBackground.Proficiencies,
                     Strength = newBackground.Strength,
                     Dexterity = newBackground.Dexterity,
                     Constitution = newBackground.Constitution,
@@ -147,6 +152,7 @@ namespace ItemHoarder.Service.Characters
                 var oldBack = ctx.CharacterBackgrounds.Single(e => e.OwnerID == _userId && e.BackgroundID == id);
                 oldBack.BackgroundName = updates.BackgroundName;
                 oldBack.BackgroundDescription = updates.BackgroundDescription;
+                oldBack.Proficiencies = updates.Proficiencies;
                 oldBack.Strength = updates.Strength;
                 oldBack.Dexterity = updates.Dexterity;
                 oldBack.Constitution = updates.Constitution;

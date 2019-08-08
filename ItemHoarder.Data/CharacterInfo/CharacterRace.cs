@@ -16,6 +16,7 @@ namespace ItemHoarder.Data.CharacterInfo
         public Guid OwnerID { get; set; }
         public string ApiRaceID { get; set; }
         public string Name { get; set; }
+        public string Proficiencies { get; set; } //weapons, armors and language
         public double Speed { get; set; }
         public string Size { get; set; }
         public string Languages { get; set; }

@@ -10,6 +10,7 @@ namespace ItemHoarder.Data
 {
     public class CharacterClass
     {
+        //multi class
         [Key]
         public int ClassID { get; set; }
         [Required]
@@ -19,7 +20,7 @@ namespace ItemHoarder.Data
         public string ClassDescription { get; set; }
         public string HitDie { get; set; }
         public string SavingThrows { get; set; }
-        public string ProficiencySkills { get; set; }
+        public string Proficiencies { get; set; } //weapons, armors
         public double Strength { get; set; }
         public double Dexterity { get; set; }
         public double Constitution { get; set; }

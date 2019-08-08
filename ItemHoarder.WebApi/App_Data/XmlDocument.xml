@@ -841,6 +841,41 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:ItemHoarder.WebApi.Controllers.Characters.InstanceCharacterController.GetAll">
+            <summary>
+            Get all owned character instances
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ItemHoarder.WebApi.Controllers.Characters.InstanceCharacterController.Get(System.Int32)">
+            <summary>
+            Get instanced character information by id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ItemHoarder.WebApi.Controllers.Characters.InstanceCharacterController.Post(ItemHoarder.Models.Characters.Instanced.InstanceCreate)">
+            <summary>
+            Create new instanced character in room
+            </summary>
+            <param name="newCharacter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ItemHoarder.WebApi.Controllers.Characters.InstanceCharacterController.Put(System.Int32,ItemHoarder.Models.Characters.Instanced.InstanceUpdate)">
+            <summary>
+            Update existing character's details
+            </summary>
+            <param name="id"></param>
+            <param name="update"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ItemHoarder.WebApi.Controllers.Characters.InstanceCharacterController.Delete(System.Int32)">
+            <summary>
+            Delete instanced character
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
         <member name="M:ItemHoarder.WebApi.Controllers.Items.ItemController.GetAll">
             <summary>
             Receive all items created by user

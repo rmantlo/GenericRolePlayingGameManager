@@ -14,6 +14,7 @@ namespace ItemHoarder.Models.Characters.Races
         public string Languages { get; set; }
         public string Trait { get; set; }
         public string TraitDescription { get; set; }
+        public string Proficiencies { get; set; }
         public double Strength { get; set; }
         public double Dexterity { get; set; }
         public double Constitution { get; set; }

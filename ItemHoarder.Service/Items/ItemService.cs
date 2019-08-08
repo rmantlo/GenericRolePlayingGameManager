@@ -174,9 +174,9 @@ namespace ItemHoarder.Service.Items
                     Charisma = item.Charisma,
                     DateOfCreation = DateTimeOffset.UtcNow
                 };
-                var charInventory = ctx.Inventories.Single(e => e.CharInstanceID == charId);
+                var charInventory = ctx.CharacterInstances.Single(e => e.CharInstanceID == charId);
                 charInventory.InventoryItems.Add(itemCopy);
-                return ctx.SaveChanges() == 1;
+                return ctx.SaveChanges() == 2;
             }
         }
         //remove item from instanced char in my room
@@ -184,7 +184,7 @@ namespace ItemHoarder.Service.Items
         {
             using (var ctx = new ApplicationDbContext())
             {
-                var charInventory = ctx.Inventories.Single(e => e.CharInstanceID == charId);
+                var charInventory = ctx.CharacterInstances.Single(e => e.CharInstanceID == charId);
                 var item = charInventory.InventoryItems.Single(e => e.ItemID == itemId && e.CreatorID == _userId);
                 charInventory.InventoryItems.Remove(item);
                 return ctx.SaveChanges() == 1;

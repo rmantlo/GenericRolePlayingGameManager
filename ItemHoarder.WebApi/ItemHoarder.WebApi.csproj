@@ -222,6 +222,7 @@
     <Compile Include="Controllers\Characters\Characteristics\ProficiencySkillsController.cs" />
     <Compile Include="Controllers\Characters\Characteristics\RaceController.cs" />
     <Compile Include="Controllers\Characters\CharSkeleController.cs" />
+    <Compile Include="Controllers\Characters\InstanceCharacterController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Items\ItemController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />

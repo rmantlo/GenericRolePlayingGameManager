@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 
 namespace ItemHoarder.Service.Characters
 {
-    public class CharacterProficiencyService
+    public class CharacterSkillService
     {
         private readonly Guid _userId;
-        public CharacterProficiencyService(Guid userId)
+        public CharacterSkillService(Guid userId)
         {
             _userId = userId;
         }
@@ -26,6 +26,10 @@ namespace ItemHoarder.Service.Characters
                     ID = e.ID,
                     Name = e.Name,
                     Description = e.Description,
+                    ClassesApplied = e.ClassesApplied,
+                    RacesApplied = e.RacesApplied,
+                    BackgroundsApplied = e.BackgroundsApplied,
+                    StatApplied = e.StatApplied,
                     Strength = e.Strength,
                     Dexterity = e.Dexterity,
                     Constitution = e.Constitution,
@@ -46,6 +50,10 @@ namespace ItemHoarder.Service.Characters
                     ID = skill.ID,
                     Name = skill.Name,
                     Description = skill.Description,
+                    ClassesApplied = skill.ClassesApplied,
+                    RacesApplied = skill.RacesApplied,
+                    BackgroundsApplied = skill.BackgroundsApplied,
+                    StatApplied = skill.StatApplied,
                     Strength = skill.Strength,
                     Dexterity = skill.Dexterity,
                     Constitution = skill.Constitution,
@@ -70,6 +78,10 @@ namespace ItemHoarder.Service.Characters
                         ID = skill.ID,
                         Name = skill.Name,
                         Description = skill.Description,
+                        ClassesApplied = skill.ClassesApplied,
+                        RacesApplied = skill.RacesApplied,
+                        BackgroundsApplied = skill.BackgroundsApplied,
+                        StatApplied = skill.StatApplied,
                         Strength = skill.Strength,
                         Dexterity = skill.Dexterity,
                         Constitution = skill.Constitution,
@@ -100,6 +112,10 @@ namespace ItemHoarder.Service.Characters
                             ID = skill.ID,
                             Name = skill.Name,
                             Description = skill.Description,
+                            ClassesApplied = skill.ClassesApplied,
+                            RacesApplied = skill.RacesApplied,
+                            BackgroundsApplied = skill.BackgroundsApplied,
+                            StatApplied = skill.StatApplied,
                             Strength = skill.Strength,
                             Dexterity = skill.Dexterity,
                             Constitution = skill.Constitution,
@@ -125,6 +141,10 @@ namespace ItemHoarder.Service.Characters
                     DateOfCreation = DateTimeOffset.UtcNow,
                     Name = skill.Name,
                     Description = skill.Description,
+                    ClassesApplied = skill.ClassesApplied,
+                    RacesApplied = skill.RacesApplied,
+                    BackgroundsApplied = skill.BackgroundsApplied,
+                    StatApplied = skill.StatApplied,
                     Strength = skill.Strength,
                     Dexterity = skill.Dexterity,
                     Constitution = skill.Constitution,
@@ -144,6 +164,10 @@ namespace ItemHoarder.Service.Characters
                 var skill = ctx.ProficiencySkills.Single(e => e.OwnerID == _userId && e.ID == id);
                 skill.Name = update.Name;
                 skill.Description = update.Description;
+                skill.ClassesApplied = update.ClassesApplied;
+                skill.RacesApplied = update.RacesApplied;
+                skill.BackgroundsApplied = update.BackgroundsApplied;
+                skill.StatApplied = update.StatApplied;
                 skill.Strength = update.Strength;
                 skill.Dexterity = update.Dexterity;
                 skill.Constitution = update.Constitution;
@@ -186,7 +210,7 @@ namespace ItemHoarder.Service.Characters
             using (var ctx = new ApplicationDbContext())
             {
                 var rooms = ctx.RoomProficiencies.Where(e => e.OwnerID == _userId && e.ProficiencySkillID == id).ToList();
-                foreach(var r in rooms)
+                foreach (var r in rooms)
                 {
                     ctx.RoomProficiencies.Remove(r);
                 }

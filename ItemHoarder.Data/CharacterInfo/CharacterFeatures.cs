@@ -16,7 +16,9 @@ namespace ItemHoarder.Data.CharacterInfo
         public string FeatureName { get; set; }
         public string Description { get; set; }
         public int? RaceIdPrerequisite { get; set; }
-        public string SkillPrerequisite { get; set; }
+        public int? ClassIdPrerequisite { get; set; }
+        public string StatPrerequisite { get; set; }
+        public int? LvlPrerequisite { get; set; }
         public double Strength { get; set; }
         public double Dexterity { get; set; }
         public double Constitution { get; set; }

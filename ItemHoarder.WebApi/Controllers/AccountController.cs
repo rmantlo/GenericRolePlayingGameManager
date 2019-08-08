@@ -338,8 +338,8 @@ namespace ItemHoarder.WebApi.Controllers
             {
                 return GetErrorResult(result);
             }
-            var currentUser = UserManager.FindByName(user.UserName);
-            UserManager.AddToRole(currentUser.Id, "Player");
+            //var currentUser = UserManager.FindByName(user.UserName);
+            //UserManager.AddToRole(currentUser.Id, "Player");
             return Ok();
         }
 

@@ -28,7 +28,7 @@ namespace ItemHoarder.Service.Characters
                     ClassDescription = e.ClassDescription,
                     HitDie = e.HitDie,
                     SavingThrows = e.SavingThrows,
-                    ProficiencySkills = e.ProficiencySkills,
+                    Proficiencies = e.Proficiencies,
                     Strength = e.Strength,
                     Dexterity = e.Dexterity,
                     Constitution = e.Constitution,
@@ -56,7 +56,7 @@ namespace ItemHoarder.Service.Characters
                         ClassDescription = aClass.ClassDescription,
                         HitDie = aClass.HitDie,
                         SavingThrows = aClass.SavingThrows,
-                        ProficiencySkills = aClass.ProficiencySkills,
+                        Proficiencies = aClass.Proficiencies,
                         Strength = aClass.Strength,
                         Dexterity = aClass.Dexterity,
                         Constitution = aClass.Constitution,
@@ -82,7 +82,7 @@ namespace ItemHoarder.Service.Characters
                     ClassDescription = aClass.ClassDescription,
                     HitDie = aClass.HitDie,
                     SavingThrows = aClass.SavingThrows,
-                    ProficiencySkills = aClass.ProficiencySkills,
+                    Proficiencies = aClass.Proficiencies,
                     Strength = aClass.Strength,
                     Dexterity = aClass.Dexterity,
                     Constitution = aClass.Constitution,
@@ -113,7 +113,7 @@ namespace ItemHoarder.Service.Characters
                             ClassDescription = aClass.ClassDescription,
                             HitDie = aClass.HitDie,
                             SavingThrows = aClass.SavingThrows,
-                            ProficiencySkills = aClass.ProficiencySkills,
+                            Proficiencies = aClass.Proficiencies,
                             Strength = aClass.Strength,
                             Dexterity = aClass.Dexterity,
                             Constitution = aClass.Constitution,
@@ -140,7 +140,7 @@ namespace ItemHoarder.Service.Characters
                     ClassDescription = newClass.ClassDescription,
                     HitDie = newClass.HitDie,
                     SavingThrows = newClass.SavingThrows,
-                    ProficiencySkills = newClass.ProficiencySkills,
+                    Proficiencies = newClass.Proficiencies,
                     Strength = newClass.Strength,
                     Dexterity = newClass.Dexterity,
                     Constitution = newClass.Constitution,
@@ -164,7 +164,7 @@ namespace ItemHoarder.Service.Characters
                 result.ClassDescription = updates.ClassDescription;
                 result.HitDie = updates.HitDie;
                 result.SavingThrows = updates.SavingThrows;
-                result.ProficiencySkills = updates.ProficiencySkills;
+                result.Proficiencies = updates.Proficiencies;
                 result.Strength = updates.Strength;
                 result.Dexterity = updates.Dexterity;
                 result.Constitution = updates.Constitution;

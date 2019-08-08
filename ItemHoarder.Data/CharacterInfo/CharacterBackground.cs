@@ -16,6 +16,7 @@ namespace ItemHoarder.Data
         public Guid OwnerID { get; set; }
         public string BackgroundName { get; set; }
         public string BackgroundDescription { get; set; }
+        public string Proficiencies { get; set; } //weapons, armors and languages
         public double Strength { get; set; }
         public double Dexterity { get; set; }
         public double Constitution { get; set; }

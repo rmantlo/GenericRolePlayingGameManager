@@ -84,12 +84,18 @@
     <Compile Include="Characters\Classes\ClassDisplay.cs" />
     <Compile Include="Characters\Features\FeatureCreate.cs" />
     <Compile Include="Characters\Features\FeatureDisplay.cs" />
+    <Compile Include="Characters\Instanced\InstanceCreate.cs" />
+    <Compile Include="Characters\Instanced\InstanceDisplay.cs" />
+    <Compile Include="Characters\Instanced\InstanceGMDisplay.cs" />
+    <Compile Include="Characters\Instanced\InstanceGMUpdate.cs" />
+    <Compile Include="Characters\Instanced\InstanceUpdate.cs" />
     <Compile Include="Characters\ProficiencySkills\SkillCreate.cs" />
     <Compile Include="Characters\ProficiencySkills\SkillDisplay.cs" />
     <Compile Include="Characters\Races\RaceCreate.cs" />
     <Compile Include="Characters\Races\RaceDisplay.cs" />
     <Compile Include="Characters\Skeleton\CharSkeleDisplay.cs" />
     <Compile Include="Characters\Skeleton\CharSkeletonCreate.cs" />
+    <Compile Include="ItemInventory\InstanceItemDisplay.cs" />
     <Compile Include="ItemInventory\ItemCreate.cs" />
     <Compile Include="ItemInventory\ItemDisplay.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -105,9 +111,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Characters\Instanced\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\ItemHoarder.Data\ItemHoarder.Data.csproj">
       <Project>{43FE1CAC-41B3-4F4D-B220-8627B65F71BF}</Project>

@@ -50,7 +50,7 @@ namespace ItemHoarder.Data
         }
 
         public DbSet<UserProfile> Profiles { get; set; }
-        public DbSet<Inventory> Inventories { get; set; }
+        //public DbSet<Inventory> Inventories { get; set; }
         public DbSet<Item> Items { get; set; }
 
         public DbSet<Room> Rooms { get; set; }
