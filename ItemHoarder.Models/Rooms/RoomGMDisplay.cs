@@ -1,4 +1,10 @@
-﻿using System;
+﻿using ItemHoarder.Models.Characters.Backgrounds;
+using ItemHoarder.Models.Characters.Classes;
+using ItemHoarder.Models.Characters.Features;
+using ItemHoarder.Models.Characters.Instanced;
+using ItemHoarder.Models.Characters.ProficiencySkills;
+using ItemHoarder.Models.Characters.Races;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,15 +17,15 @@ namespace ItemHoarder.Models.Rooms
         public int RoomID { get; set; }
         public string RoomName { get; set; }
         public string GameType { get; set; }
-        public string PlayerOneNotes { get; set; }
-        public string PlayerTwoNotes { get; set; }
-        public string PlayerThreeNotes { get; set; }
-        public string PlayerFourNotes { get; set; }
-        public string PlayerFiveNotes { get; set; }
-        public string PlayerSixNotes { get; set; }
-        public string PlayerSevenNotes { get; set; }
-        public string GeneralNotes { get; set; }
         public List<string> PlayerUsernames { get; set; }
+        public RoomNoteDisplay RoomNotes { get; set; }
+        public List<ClassDisplay> RoomClasses { get; set; }
+        public List<RaceDisplay> RoomRaces { get; set; }
+        public List<BackgroundDisplay> RoomBackgrounds { get; set; }
+        public List<FeatureDisplay> RoomFeatures { get; set; }
+        public List<SkillDisplay> RoomSkills { get; set; }
+        public List<InstanceGMDisplay> Characters { get; set; }
         public DateTimeOffset DateOfCreation { get; set; }
+        public DateTimeOffset? DateOfModification { get; set; }
     }
 }

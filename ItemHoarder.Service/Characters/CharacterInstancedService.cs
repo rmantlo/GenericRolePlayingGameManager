@@ -34,7 +34,6 @@ namespace ItemHoarder.Service.Characters
                 List<InstanceDisplay> charList = new List<InstanceDisplay>();
                 foreach (var c in characters)
                 {
-                    //var inventory = ctx.Inventories.Single(e => e.CharInstanceID == c.CharInstanceID);
                     List<InstanceItemDisplay> itemList = new List<InstanceItemDisplay>();
                     foreach (var i in c.InventoryItems)
                     {
@@ -47,59 +46,60 @@ namespace ItemHoarder.Service.Characters
                             HitPoints = i.HitPoints,
                             ItemRarity = i.ItemRarity,
                             ItemClass = i.ItemClass,
+                            ClassType = i.ClassType,
                             Damage = i.Damage,
                             DamageResiliance = i.DamageResiliance,
                             IsEquiptable = i.IsEquiptable,
+                            IsEquipted = i.IsEquipted,
                             Strength = i.Strength,
                             Dexterity = i.Dexterity,
                             Constitution = i.Constitution,
                             Intelligence = i.Intelligence,
                             Wisdom = i.Wisdom,
-                            Charisma = i.Charisma
+                            Charisma = i.Charisma,
+                            DateOfCreation = i.DateOfCreation,
                         };
                         itemList.Add(item);
                     }
-                    var features = ctx.CharacterFeatList.Single(e => e.CharInstanceID == c.CharInstanceID);
                     List<FeatureDisplay> featList = new List<FeatureDisplay>();
-                    foreach (var f in features.Features)
+                    foreach (var f in c.Features)
                     {
                         var feature = new FeatureDisplay
                         {
                             FeatureID = f.FeatureID,
-                            FeatureName = f.FeatureName,
-                            Description = f.Description,
-                            RaceIdPrerequisite = f.RaceIdPrerequisite,
-                            ClassIdPrerequisite = f.ClassIdPrerequisite,
-                            StatPrerequisite = f.StatPrerequisite,
-                            LvlPrerequisite = f.LvlPrerequisite,
-                            Strength = f.Strength,
-                            Dexterity = f.Dexterity,
-                            Constitution = f.Constitution,
-                            Intelligence = f.Intelligence,
-                            Wisdom = f.Wisdom,
-                            Charisma = f.Charisma
+                            FeatureName = f.Feature.FeatureName,
+                            Description = f.Feature.Description,
+                            RaceIdPrerequisite = f.Feature.RaceIdPrerequisite,
+                            ClassIdPrerequisite = f.Feature.ClassIdPrerequisite,
+                            StatPrerequisite = f.Feature.StatPrerequisite,
+                            LvlPrerequisite = f.Feature.LvlPrerequisite,
+                            Strength = f.Feature.Strength,
+                            Dexterity = f.Feature.Dexterity,
+                            Constitution = f.Feature.Constitution,
+                            Intelligence = f.Feature.Intelligence,
+                            Wisdom = f.Feature.Wisdom,
+                            Charisma = f.Feature.Charisma
                         };
                         featList.Add(feature);
                     }
-                    var skills = ctx.CharProficiencySkills.Single(e => e.CharInstanceID == c.CharInstanceID);
                     List<SkillDisplay> skillList = new List<SkillDisplay>();
-                    foreach (var s in skills.Skills)
+                    foreach (var s in c.Skills)
                     {
                         var skill = new SkillDisplay
                         {
                             ID = s.ID,
-                            Name = s.Name,
-                            Description = s.Description,
-                            ClassesApplied = s.ClassesApplied,
-                            RacesApplied = s.RacesApplied,
-                            BackgroundsApplied = s.BackgroundsApplied,
-                            StatApplied = s.StatApplied,
-                            Strength = s.Strength,
-                            Dexterity = s.Dexterity,
-                            Constitution = s.Constitution,
-                            Intelligence = s.Intelligence,
-                            Wisdom = s.Wisdom,
-                            Charisma = s.Charisma
+                            Name = s.Skills.Name,
+                            Description = s.Skills.Description,
+                            ClassesApplied = s.Skills.ClassesApplied,
+                            RacesApplied = s.Skills.RacesApplied,
+                            BackgroundsApplied = s.Skills.BackgroundsApplied,
+                            StatApplied = s.Skills.StatApplied,
+                            Strength = s.Skills.Strength,
+                            Dexterity = s.Skills.Dexterity,
+                            Constitution = s.Skills.Constitution,
+                            Intelligence = s.Skills.Intelligence,
+                            Wisdom = s.Skills.Wisdom,
+                            Charisma = s.Skills.Charisma
                         };
                         skillList.Add(skill);
                     }
@@ -186,6 +186,7 @@ namespace ItemHoarder.Service.Characters
                         CurrentHitPoints = c.CurrentHitPoints,
                         ExperiencePoints = c.ExperiencePoints,
                         Level = c.Level,
+                        ProficiencyBonus = c.ProficiencyBonus,
                         Strength = c.Strength,
                         Dexterity = c.Dexterity,
                         Constitution = c.Constitution,
@@ -215,7 +216,6 @@ namespace ItemHoarder.Service.Characters
         {
             using (var ctx = new ApplicationDbContext())
             {
-                //var inventory = ctx.Inventories.Single(e => e.CharInstanceID == id);
                 var result = ctx.CharacterInstances.Single(e => e.OwnerID == _userId && e.CharInstanceID == id);
                 List<InstanceItemDisplay> itemList = new List<InstanceItemDisplay>();
                 foreach (var i in result.InventoryItems)
@@ -242,47 +242,45 @@ namespace ItemHoarder.Service.Characters
                     };
                     itemList.Add(item);
                 }
-                var features = ctx.CharacterFeatList.Single(e => e.CharInstanceID == id);
                 List<FeatureDisplay> featList = new List<FeatureDisplay>();
-                foreach (var f in features.Features)
+                foreach (var f in result.Features)
                 {
                     var feature = new FeatureDisplay
                     {
                         FeatureID = f.FeatureID,
-                        FeatureName = f.FeatureName,
-                        Description = f.Description,
-                        RaceIdPrerequisite = f.RaceIdPrerequisite,
-                        ClassIdPrerequisite = f.ClassIdPrerequisite,
-                        StatPrerequisite = f.StatPrerequisite,
-                        LvlPrerequisite = f.LvlPrerequisite,
-                        Strength = f.Strength,
-                        Dexterity = f.Dexterity,
-                        Constitution = f.Constitution,
-                        Intelligence = f.Intelligence,
-                        Wisdom = f.Wisdom,
-                        Charisma = f.Charisma
+                        FeatureName = f.Feature.FeatureName,
+                        Description = f.Feature.Description,
+                        RaceIdPrerequisite = f.Feature.RaceIdPrerequisite,
+                        ClassIdPrerequisite = f.Feature.ClassIdPrerequisite,
+                        StatPrerequisite = f.Feature.StatPrerequisite,
+                        LvlPrerequisite = f.Feature.LvlPrerequisite,
+                        Strength = f.Feature.Strength,
+                        Dexterity = f.Feature.Dexterity,
+                        Constitution = f.Feature.Constitution,
+                        Intelligence = f.Feature.Intelligence,
+                        Wisdom = f.Feature.Wisdom,
+                        Charisma = f.Feature.Charisma
                     };
                     featList.Add(feature);
                 }
-                var skills = ctx.CharProficiencySkills.Single(e => e.CharInstanceID == id);
                 List<SkillDisplay> skillList = new List<SkillDisplay>();
-                foreach (var s in skills.Skills)
+                foreach (var s in result.Skills)
                 {
                     var skill = new SkillDisplay
                     {
                         ID = s.ID,
-                        Name = s.Name,
-                        Description = s.Description,
-                        ClassesApplied = s.ClassesApplied,
-                        RacesApplied = s.RacesApplied,
-                        BackgroundsApplied = s.BackgroundsApplied,
-                        StatApplied = s.StatApplied,
-                        Strength = s.Strength,
-                        Dexterity = s.Dexterity,
-                        Constitution = s.Constitution,
-                        Intelligence = s.Intelligence,
-                        Wisdom = s.Wisdom,
-                        Charisma = s.Charisma
+                        Name = s.Skills.Name,
+                        Description = s.Skills.Description,
+                        ClassesApplied = s.Skills.ClassesApplied,
+                        RacesApplied = s.Skills.RacesApplied,
+                        BackgroundsApplied = s.Skills.BackgroundsApplied,
+                        StatApplied = s.Skills.StatApplied,
+                        Strength = s.Skills.Strength,
+                        Dexterity = s.Skills.Dexterity,
+                        Constitution = s.Skills.Constitution,
+                        Intelligence = s.Skills.Intelligence,
+                        Wisdom = s.Skills.Wisdom,
+                        Charisma = s.Skills.Charisma
                     };
                     skillList.Add(skill);
                 }
@@ -369,6 +367,7 @@ namespace ItemHoarder.Service.Characters
                     CurrentHitPoints = result.CurrentHitPoints,
                     ExperiencePoints = result.ExperiencePoints,
                     Level = result.Level,
+                    ProficiencyBonus = result.ProficiencyBonus,
                     Strength = result.Strength,
                     Dexterity = result.Dexterity,
                     Constitution = result.Constitution,
@@ -390,77 +389,16 @@ namespace ItemHoarder.Service.Characters
                 return character;
             }
         }
-        //create new character instance
-        public bool CreateInstancedCharacter(InstanceCreate character)
-        {
-            using (var ctx = new ApplicationDbContext())
-            {
-                var newChar = new CharacterInstanced
-                {
-                    OwnerID = _userId,
-                    RoomID = character.RoomID,
-                    CharSkeletonID = character.CharSkeletonID,
-                    ClassID = character.ClassID,
-                    RaceID = character.RaceID,
-                    BackgroundID = character.BackgroundID,
-                    Alignment = character.Alignment,
-                    OtherLanguages = character.OtherLanguages,
-                    HitPoints = character.HitPoints,
-                    CurrentHitPoints = character.HitPoints,
-                    ExperiencePoints = 0,
-                    Level = 1,
-                    ProficiencyBonus = 0,
-                    Strength = character.Strength,
-                    Dexterity = character.Dexterity,
-                    Constitution = character.Constitution,
-                    Intelligence = character.Intelligence,
-                    Wisdom = character.Wisdom,
-                    Charisma = character.Charisma,
-                    StrMod = StatModifier(character.Strength),
-                    DexMod = StatModifier(character.Dexterity),
-                    ConMod = StatModifier(character.Constitution),
-                    IntMod = StatModifier(character.Intelligence),
-                    WisMod = StatModifier(character.Wisdom),
-                    ChaMod = StatModifier(character.Charisma),
-                    CarryWeight = character.Strength*15,
-                    PlatinumPieces = character.PlatinumPieces,
-                    GoldPieces = character.GoldPieces,
-                    ElectrumPieces = character.ElectrumPieces,
-                    SilverPieces = character.SilverPieces,
-                    CopperPieces = character.CopperPieces,
-                    CharacterNotes = "",
-                    DateOfCreation = DateTimeOffset.UtcNow
-                };
-                ctx.CharacterInstances.Add(newChar);
-                bool save = ctx.SaveChanges() == 1;
-                //var inventory = new Inventory
-                //{
-                //    CharInstanceID = newChar.CharInstanceID,
-                //    DateOfCreation = DateTimeOffset.UtcNow
-                //};
-                //ctx.Inventories.Add(inventory);
-                var charFeats = new CharacterFeatList
-                {
-                    CharInstanceID = newChar.CharInstanceID,
-                    DateOfCreation = DateTimeOffset.UtcNow
-                };
-                ctx.CharacterFeatList.Add(charFeats);
-                var charSkills = new CharProficiencySkills
-                {
-                    CharInstanceID = newChar.CharInstanceID,
-                    DateOfCreation = DateTimeOffset.UtcNow
-                };
-                ctx.CharProficiencySkills.Add(charSkills);
-                return (ctx.SaveChanges() == 2 && save == true); //4 is number of editted table rows
-            }
-        }
+
+        //create is in room service
+
         //update character instance
         //Cant change class, race, or background
         //can change alignment, attacksAndSpells, characterNotes, money, strength etc, other languages
         //hit points, carry weight determined by system IF DND game, otherwise it is manual
         public bool UpdateInstancedCharacter(int id, InstanceUpdate update)
         {
-            using(var ctx = new ApplicationDbContext())
+            using (var ctx = new ApplicationDbContext())
             {
                 var character = ctx.CharacterInstances.Single(e => e.OwnerID == _userId && e.CharInstanceID == id);
                 character.Alignment = update.Alignment;
@@ -489,12 +427,17 @@ namespace ItemHoarder.Service.Characters
         //update/add feature
         public bool AddCharacterFeature(int charId, int featId)
         {
-            using(var ctx = new ApplicationDbContext())
+            using (var ctx = new ApplicationDbContext())
             {
-                var featList = ctx.CharacterFeatList.Single(e => e.CharInstanceID == charId);
-                var feature = ctx.CharacterFeatures.Single(e => e.FeatureID == featId);
-                featList.Features.Add(feature);
-                return ctx.SaveChanges() == 1;
+                var featList = ctx.CharacterInstances.Single(e => e.CharInstanceID == charId);
+                var feat = new CharacterFeatList
+                {
+                    CharInstanceID = charId,
+                    FeatureID = featId,
+                    DateOfCreation = DateTimeOffset.UtcNow
+                };
+                featList.Features.Add(feat);
+                return ctx.SaveChanges() == 1;// might be 2??
             }
         }
         //update/add skill
@@ -502,10 +445,15 @@ namespace ItemHoarder.Service.Characters
         {
             using (var ctx = new ApplicationDbContext())
             {
-                var skillList = ctx.CharProficiencySkills.Single(e => e.CharInstanceID == charId);
-                var skill = ctx.ProficiencySkills.Single(e => e.ID == skillId);
+                var skillList = ctx.CharacterInstances.Single(e => e.CharInstanceID == charId);
+                var skill = new CharProficiencySkills
+                {
+                    CharInstanceID = charId,
+                    SkillID = skillId,
+                    DateOfCreation = DateTimeOffset.UtcNow
+                };
                 skillList.Skills.Add(skill);
-                return ctx.SaveChanges() == 1;
+                return ctx.SaveChanges() == 1; // might be 2??
             }
         }
         //remove feature
@@ -513,9 +461,8 @@ namespace ItemHoarder.Service.Characters
         {
             using (var ctx = new ApplicationDbContext())
             {
-                var featureList = ctx.CharacterFeatList.Single(e => e.CharInstanceID == charId);
-                var feature = ctx.CharacterFeatures.Single(e => e.FeatureID == featId);
-                featureList.Features.Remove(feature);
+                var featureList = ctx.CharacterFeatList.Single(e => e.CharInstanceID == charId && e.FeatureID == featId);
+                ctx.CharacterFeatList.Remove(featureList);
                 return ctx.SaveChanges() == 1;
             }
         }
@@ -524,33 +471,35 @@ namespace ItemHoarder.Service.Characters
         {
             using (var ctx = new ApplicationDbContext())
             {
-                var skillList = ctx.CharProficiencySkills.Single(e => e.CharInstanceID == charId);
-                var skill = ctx.ProficiencySkills.Single(e => e.ID == skillId);
-                skillList.Skills.Remove(skill);
+                var skill = ctx.CharProficiencySkills.Single(e => e.CharInstanceID == charId && e.SkillID == skillId);
+                ctx.CharProficiencySkills.Remove(skill);
                 return ctx.SaveChanges() == 1;
             }
         }
         //Delete my character instance
         public bool DeleteInstancedCharacter(int id)
         {
-            using( var ctx = new ApplicationDbContext())
+            using (var ctx = new ApplicationDbContext())
             {
                 var character = ctx.CharacterInstances.Single(e => e.OwnerID == _userId && e.CharInstanceID == id);
-                //delete char, inventory and feature/skill lists
-                //var inventory = ctx.Inventories.Single(e => e.CharInstanceID == id);
-                foreach( var i in character.InventoryItems)
+                foreach (var i in character.InventoryItems)
                 {
                     var invenItem = ctx.InventoryItems.Single(e => e.ItemID == i.ItemID);
                     ctx.InventoryItems.Remove(invenItem);
                 }
-                //ctx.Inventories.Remove(inventory);
-                var features = ctx.CharacterFeatList.Single(e => e.CharInstanceID == id);
-                ctx.CharacterFeatList.Remove(features);
-                var skills = ctx.CharProficiencySkills.Single(e => e.CharInstanceID == id);
-                ctx.CharProficiencySkills.Remove(skills);
+                foreach (var i in character.Features)
+                {
+                    var features = ctx.CharacterFeatList.Single(e => e.ID == i.ID);
+                    ctx.CharacterFeatList.Remove(features);
+                }
+                foreach (var i in character.Skills)
+                {
+                    var skills = ctx.CharProficiencySkills.Single(e => e.ID == i.ID);
+                    ctx.CharProficiencySkills.Remove(skills);
+                }
                 ctx.CharacterInstances.Remove(character);
 
-                return ctx.SaveChanges() == 4 + character.InventoryItems.Count(); //might through wrong save number
+                return ctx.SaveChanges() == 1 + character.InventoryItems.Count() + character.Features.Count() + character.Skills.Count(); //might through wrong save number
             }
         }
         private int StatModifier(double stat)

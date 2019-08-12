@@ -84,32 +84,6 @@ namespace ItemHoarder.WebApi.Controllers.Characters.Characteristics
             else return BadRequest("Update not saved");
         }
         /// <summary>
-        /// Add existing feature to existing room
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="roomId"></param>
-        /// <returns></returns>
-        [Route("api/room/features")]
-        public IHttpActionResult Post(int id, int roomId)
-        {
-            var service = CreateFeatureService();
-            if (service.AddFeatureToRoom(id, roomId)) return Ok();
-            else return BadRequest("Feature not added to room");
-        }
-        /// <summary>
-        /// Remove existing feature from existing room
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="roomId"></param>
-        /// <returns></returns>
-        [Route("api/room/features/delete")]
-        public IHttpActionResult Delete(int id, int roomId)
-        {
-            var service = CreateFeatureService();
-            if (service.RemoveFeatureFromRoom(id, roomId)) return Ok();
-            else return BadRequest("Feature not removed from room");
-        }
-        /// <summary>
         /// Delete feature
         /// </summary>
         /// <param name="id"></param>

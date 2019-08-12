@@ -32,7 +32,9 @@ namespace ItemHoarder.Service.Characters
                     Constitution = e.Constitution,
                     Intelligence = e.Intelligence,
                     Wisdom = e.Wisdom,
-                    Charisma = e.Charisma
+                    Charisma = e.Charisma,
+                    DateOfCreation = e.DateOfCreation,
+                    DateOfModification = e.DateOfModification
                 });
                 return results;
             }
@@ -58,7 +60,9 @@ namespace ItemHoarder.Service.Characters
                         Constitution = backgrounds.Constitution,
                         Intelligence = backgrounds.Intelligence,
                         Wisdom = backgrounds.Wisdom,
-                        Charisma = backgrounds.Charisma
+                        Charisma = backgrounds.Charisma,
+                        DateOfCreation = backgrounds.DateOfCreation,
+                        DateOfModification = backgrounds.DateOfModification
                     };
                     roomBackgrounds.Add(backgroundDisplay);
                 }
@@ -82,7 +86,9 @@ namespace ItemHoarder.Service.Characters
                     Constitution = background.Constitution,
                     Intelligence = background.Intelligence,
                     Wisdom = background.Wisdom,
-                    Charisma = background.Charisma
+                    Charisma = background.Charisma,
+                    DateOfCreation = background.DateOfCreation,
+                    DateOfModification = background.DateOfModification
                 };
                 return backgroundDisplay;
             }
@@ -160,32 +166,6 @@ namespace ItemHoarder.Service.Characters
                 oldBack.Wisdom = updates.Wisdom;
                 oldBack.Charisma = updates.Charisma;
                 oldBack.DateOfModification = DateTimeOffset.UtcNow;
-                return ctx.SaveChanges() == 1;
-            }
-        }
-        //add class to a room
-        public bool AddBackgroundsToRoom(int backgroundId, int roomId)
-        {
-            using (var ctx = new ApplicationDbContext())
-            {
-                var roomBack = new RoomBackgrounds
-                {
-                    OwnerID = _userId,
-                    RoomID = roomId,
-                    BackgroundID = backgroundId,
-                    DateOfCreation = DateTimeOffset.UtcNow
-                };
-                ctx.RoomBackgrounds.Add(roomBack);
-                return ctx.SaveChanges() == 1;
-            }
-        }
-        //remove class from room
-        public bool RemoveBackgroundsToRoom(int backgroundId, int roomId)
-        {
-            using (var ctx = new ApplicationDbContext())
-            {
-                var roomBack = ctx.RoomBackgrounds.Single(e => e.OwnerID == _userId && e.BackgroundID == backgroundId && e.RoomID == roomId);
-                ctx.RoomBackgrounds.Remove(roomBack);
                 return ctx.SaveChanges() == 1;
             }
         }

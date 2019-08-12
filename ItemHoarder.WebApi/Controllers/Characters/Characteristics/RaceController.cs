@@ -84,32 +84,6 @@ namespace ItemHoarder.WebApi.Controllers.Characters.Characteristics
             else return BadRequest("Race not updated");
         }
         /// <summary>
-        /// Add existing race to a room
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="roomId"></param>
-        /// <returns></returns>
-        [Route("api/room/race")]
-        public IHttpActionResult Post(int id, int roomId)
-        {
-            var service = CreateRaceService();
-            if (service.AddRaceToRoom(id, roomId)) return Ok();
-            else return BadRequest("Race not added to room");
-        }
-        /// <summary>
-        /// Remove existing race from a room
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="roomId"></param>
-        /// <returns></returns>
-        [Route("api/room/race/delete")]
-        public IHttpActionResult Delete(int id, int roomId)
-        {
-            var service = CreateRaceService();
-            if (service.RemoveRaceFromRoom(id, roomId)) return Ok();
-            else return BadRequest("Race not removed from room");
-        }
-        /// <summary>
         /// Delete existing race
         /// </summary>
         /// <param name="id"></param>

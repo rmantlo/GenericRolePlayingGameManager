@@ -1,4 +1,5 @@
-﻿using ItemHoarder.Models.Rooms;
+﻿using ItemHoarder.Models.Characters.Instanced;
+using ItemHoarder.Models.Rooms;
 using ItemHoarder.Service;
 using Microsoft.AspNet.Identity;
 using System;
@@ -10,6 +11,7 @@ using System.Web.Http;
 
 namespace ItemHoarder.WebApi.Controllers
 {
+    //Player room endpoints
     [Authorize]
     [RoutePrefix("api")]
     public class RoomController : ApiController
@@ -20,7 +22,7 @@ namespace ItemHoarder.WebApi.Controllers
         public IHttpActionResult GetAllGMRooms()
         {
             var service = CreateRoomService();
-            var rooms = service.GetGMRooms();
+            var rooms = service.GetOwnedRooms();
             return Ok(rooms);
         }
         //get Rooms as Player
@@ -32,26 +34,13 @@ namespace ItemHoarder.WebApi.Controllers
             var rooms = service.GetPlayerRooms();
             return Ok(rooms);
         }
-        //Get room by Id as GM
-        [HttpGet]
-        [Route("room/owned/{roomId}")]
-        public IHttpActionResult GetGMRoom(int roomId)
-        {
-            var service = CreateRoomService();
-            var result = service.GetGMRoomById(roomId);
-            if (result != null)
-            {
-                return Ok(result);
-            }
-            else return Ok("No room found");
-        }
         //Get Room by ID as Player
         [HttpGet]
-        [Route("room/player/{roomId}")]
-        public IHttpActionResult GetPlayerRoom(int roomId)
+        [Route("room/details/{roomId}")]
+        public IHttpActionResult GetRoom(int roomId)
         {
             var service = CreateRoomService();
-            var result = service.GetPlayerRoomById(roomId);
+            var result = service.GetRoomById(roomId);
             if (result != null)
             {
                 return Ok(result);
@@ -66,19 +55,8 @@ namespace ItemHoarder.WebApi.Controllers
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
             var service = CreateRoomService();
-            if (!service.CreateGMRoom(newRoomData)) return BadRequest("Room not created");
+            if (!service.CreateRoom(newRoomData)) return BadRequest("Room not created");
             else return Ok();
-        }
-        //Add Players to room
-        [HttpPut]
-        [Route("room/addPlayer/{roomId}")]
-        public IHttpActionResult PutPlayerInRoom(int roomId, string Username)
-        {
-            if (Username == null) return BadRequest("Player Username not recieved");
-            var service = CreateRoomService();
-            string response = service.AddPlayerToRoom(roomId, Username);
-            if (response == "Player added to room") return Ok(response);
-            else return BadRequest(response);
         }
         //update Room info as GM
         [HttpPut]
@@ -87,7 +65,7 @@ namespace ItemHoarder.WebApi.Controllers
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
             var service = CreateRoomService();
-            if (!service.UpdateGMRoom(roomId, updates)) return BadRequest("Room not updated");
+            if (!service.UpdateRoom(roomId, updates)) return BadRequest("Room not updated");
             else return Ok();
         }
         //update RoomNotes as GM
@@ -99,6 +77,17 @@ namespace ItemHoarder.WebApi.Controllers
             var service = CreateRoomService();
             if (!service.UpdateRoomNotes(roomId, updates)) return BadRequest("Room notes not updated");
             else return Ok();
+        }
+
+        [HttpPut]
+        [Route("room/addPlayer/{roomId}")]
+        public IHttpActionResult PutPlayerInRoom(int roomId, string Username)
+        {
+            if (Username == null) return BadRequest("Player Username not recieved");
+            var service = CreateRoomService();
+            string response = service.AddPlayerToRoom(roomId, Username);
+            if (response == "Player added to room") return Ok(response);
+            else return BadRequest(response);
         }
         //Remove Player from room as GM
         [HttpDelete]
@@ -127,6 +116,153 @@ namespace ItemHoarder.WebApi.Controllers
             var service = CreateRoomService();
             if (!service.DeleteGMRoom(roomId)) return BadRequest("Room not deleted");
             else return Ok();
+        }
+
+        /// <summary>
+        /// Create new instanced character in room
+        /// </summary>
+        /// <param name="newCharacter"></param>
+        /// <returns></returns>
+        [Route("room/player/create")]
+        public IHttpActionResult PostCharacter(InstanceCreate newCharacter)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            var service = CreateRoomService();
+            if (service.CreateInstancedCharacter(newCharacter) == "Character created") return Ok();
+            else if (service.CreateInstancedCharacter(newCharacter) == "Character instance already in room") return BadRequest("Character instance already in room");
+            else if (service.CreateInstancedCharacter(newCharacter) == "Character not created, something went wrong") return BadRequest("Character not created, something went wrong");
+            else return BadRequest("Instance of character not created");
+        }
+
+        /// <summary>
+        /// Add existing class to a room
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="roomId"></param>
+        /// <returns></returns>
+        [Route("room/class")]
+        public IHttpActionResult PostClass(int id, int roomId)
+        {
+            var service = CreateRoomService();
+            if (service.AddClassToRoom(id, roomId)) return Ok();
+            else return BadRequest("Class not added to room");
+        }
+        /// <summary>
+        /// Remove existing class from a room
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="roomId"></param>
+        /// <returns></returns>
+        [Route("room/class/delete")]
+        public IHttpActionResult DeleteClass(int id, int roomId)
+        {
+            var service = CreateRoomService();
+            if (service.RemoveClassToRoom(id, roomId)) return Ok();
+            else return BadRequest("Class not removed from room");
+        }
+        /// <summary>
+        /// Add existing race to a room
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="roomId"></param>
+        /// <returns></returns>
+        [Route("room/race")]
+        public IHttpActionResult PostRace(int id, int roomId)
+        {
+            var service = CreateRoomService();
+            if (service.AddRaceToRoom(id, roomId)) return Ok();
+            else return BadRequest("Race not added to room");
+        }
+        /// <summary>
+        /// Remove existing race from a room
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="roomId"></param>
+        /// <returns></returns>
+        [Route("room/race/delete")]
+        public IHttpActionResult DeleteRace(int id, int roomId)
+        {
+            var service = CreateRoomService();
+            if (service.RemoveRaceFromRoom(id, roomId)) return Ok();
+            else return BadRequest("Race not removed from room");
+        }
+        /// <summary>
+        /// Add background to owned room
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="roomId"></param>
+        /// <returns></returns>
+        [Route("room/background")]
+        public IHttpActionResult PostBackground(int id, int roomId)
+        {
+            var service = CreateRoomService();
+            if (service.AddBackgroundsToRoom(id, roomId)) return Ok();
+            else return BadRequest("Background not added to room");
+        }
+        /// <summary>
+        /// remove background from owned room
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="roomId"></param>
+        /// <returns></returns>
+        [Route("room/background/delete")]
+        public IHttpActionResult DeleteBackground(int id, int roomId)
+        {
+            var service = CreateRoomService();
+            if (service.RemoveBackgroundsToRoom(id, roomId)) return Ok();
+            else return BadRequest("Background not removed from room");
+        }
+        /// <summary>
+        /// Add existing skill to room
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="roomId"></param>
+        /// <returns></returns>
+        [Route("room/skill")]
+        public IHttpActionResult PostSkill(int id, int roomId)
+        {
+            var service = CreateRoomService();
+            if (service.AddSkillToRoom(id, roomId)) return Ok();
+            else return BadRequest("Skill not added to room");
+        }
+        /// <summary>
+        /// Remove existing skills from room
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="roomId"></param>
+        /// <returns></returns>
+        [Route("room/skill/delete")]
+        public IHttpActionResult DeleteSkill(int id, int roomId)
+        {
+            var service = CreateRoomService();
+            if (service.RemoveSkillFromRoom(id, roomId)) return Ok();
+            else return BadRequest("Skill not removed from room");
+        }
+        /// <summary>
+        /// Add existing feature to existing room
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="roomId"></param>
+        /// <returns></returns>
+        [Route("room/feature")]
+        public IHttpActionResult PostFeature(int id, int roomId)
+        {
+            var service = CreateRoomService();
+            if (service.AddFeatureToRoom(id, roomId)) return Ok();
+            else return BadRequest("Feature not added to room");
+        }
+        /// <summary>
+        /// Remove existing feature from existing room
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="roomId"></param>
+        /// <returns></returns>
+        [Route("room/feature/delete")]
+        public IHttpActionResult DeleteFeature(int id, int roomId)
+        {
+            var service = CreateRoomService();
+            if (service.RemoveFeatureFromRoom(id, roomId)) return Ok();
+            else return BadRequest("Feature not removed from room");
         }
         private RoomService CreateRoomService()
         {

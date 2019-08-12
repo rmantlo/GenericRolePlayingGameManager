@@ -27,5 +27,7 @@ namespace ItemHoarder.Models.ItemInventory
         public double Intelligence { get; set; }
         public double Wisdom { get; set; }
         public double Charisma { get; set; }
+        public DateTimeOffset DateOfCreation { get; set; }
+        public DateTimeOffset? DateOfModification { get; set; }
     }
 }

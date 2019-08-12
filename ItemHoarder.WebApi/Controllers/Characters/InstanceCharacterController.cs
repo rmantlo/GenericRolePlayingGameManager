@@ -36,19 +36,6 @@ namespace ItemHoarder.WebApi.Controllers.Characters
             return Ok(service.GetInstancedCharacterById(id));
         }
         /// <summary>
-        /// Create new instanced character in room
-        /// </summary>
-        /// <param name="newCharacter"></param>
-        /// <returns></returns>
-        [Route("create")]
-        public IHttpActionResult Post(InstanceCreate newCharacter)
-        {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
-            var service = CreateInstanceService();
-            if (service.CreateInstancedCharacter(newCharacter)) return Ok();
-            else return BadRequest("Instance of character not created");
-        }
-        /// <summary>
         /// Update existing character's details
         /// </summary>
         /// <param name="id"></param>

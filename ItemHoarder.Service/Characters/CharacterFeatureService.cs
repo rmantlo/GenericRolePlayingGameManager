@@ -36,7 +36,9 @@ namespace ItemHoarder.Service.Characters
                     Constitution = e.Constitution,
                     Intelligence = e.Intelligence,
                     Wisdom = e.Wisdom,
-                    Charisma = e.Charisma
+                    Charisma = e.Charisma,
+                    DateOfCreation = e.DateOfCreation,
+                    DateOfModification = e.DateOfModification
                 }).ToArray();
             }
         }
@@ -60,7 +62,9 @@ namespace ItemHoarder.Service.Characters
                     Constitution = e.Constitution,
                     Intelligence = e.Intelligence,
                     Wisdom = e.Wisdom,
-                    Charisma = e.Charisma
+                    Charisma = e.Charisma,
+                    DateOfCreation = e.DateOfCreation,
+                    DateOfModification = e.DateOfModification
                 };
                 return feature;
             }
@@ -89,7 +93,9 @@ namespace ItemHoarder.Service.Characters
                         Constitution = features.Constitution,
                         Intelligence = features.Intelligence,
                         Wisdom = features.Wisdom,
-                        Charisma = features.Charisma
+                        Charisma = features.Charisma,
+                        DateOfCreation = features.DateOfCreation,
+                        DateOfModification = features.DateOfModification
                     };
                     roomFeatures.Add(featureDisplay);
                 }
@@ -178,32 +184,6 @@ namespace ItemHoarder.Service.Characters
                 oldFeat.Wisdom = feature.Wisdom;
                 oldFeat.Charisma = feature.Charisma;
                 oldFeat.DateOfModification = DateTimeOffset.UtcNow;
-                return ctx.SaveChanges() == 1;
-            }
-        }
-        //add feature to my room
-        public bool AddFeatureToRoom(int id, int roomId)
-        {
-            using (var ctx = new ApplicationDbContext())
-            {
-                var roomFeat = new RoomFeatures
-                {
-                    OwnerID = _userId,
-                    RoomID = roomId,
-                    FeatureID = id,
-                    DateOfCreation = DateTimeOffset.UtcNow
-                };
-                ctx.RoomFeatures.Add(roomFeat);
-                return ctx.SaveChanges() == 1;
-            }
-        }
-        //remove feature from my room
-        public bool RemoveFeatureFromRoom(int id, int roomId)
-        {
-            using (var ctx = new ApplicationDbContext())
-            {
-                var roomFeat = ctx.RoomFeatures.Single(e => e.OwnerID == _userId && e.RoomID == roomId && e.FeatureID == id);
-                ctx.RoomFeatures.Remove(roomFeat);
                 return ctx.SaveChanges() == 1;
             }
         }

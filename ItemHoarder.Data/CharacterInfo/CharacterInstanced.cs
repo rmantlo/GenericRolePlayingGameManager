@@ -37,13 +37,14 @@ namespace ItemHoarder.Data
         public int RaceID { get; set; }
         public virtual CharacterRace Race { get; set; }
 
-        [ForeignKey("Class")]
-        public int ClassID { get; set; }
-        public virtual CharacterClass Class { get; set; }
-
         [ForeignKey("Background")]
         public int BackgroundID { get; set; }
         public virtual CharacterBackground Background { get; set; }
+        [ForeignKey("Class")]
+        public int ClassID { get; set; }
+        public virtual CharacterClass Class { get; set; }
+        public virtual ICollection<CharProficiencySkills> Skills { get; set; }
+        public virtual ICollection<CharacterFeatList> Features { get; set; }
         public virtual ICollection<InventoryItem> InventoryItems { get; set; }
         public TypeOfAlignment Alignment { get; set; }
         public string OtherLanguages { get; set; }

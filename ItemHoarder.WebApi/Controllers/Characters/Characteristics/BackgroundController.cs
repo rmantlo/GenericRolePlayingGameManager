@@ -84,32 +84,6 @@ namespace ItemHoarder.WebApi.Controllers.Characters.Characteristics
             else return BadRequest("Background not updated");
         }
         /// <summary>
-        /// Add background to owned room
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="roomId"></param>
-        /// <returns></returns>
-        [Route("api/room/background")]
-        public IHttpActionResult Post(int id, int roomId)
-        {
-            var service = CreateBackgroundService();
-            if (service.AddBackgroundsToRoom(id, roomId)) return Ok();
-            else return BadRequest("Background not added to room");
-        }
-        /// <summary>
-        /// remove background from owned room
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="roomId"></param>
-        /// <returns></returns>
-        [Route("api/room/background/delete")]
-        public IHttpActionResult DeleteBackgroundFromRoom(int id, int roomId)
-        {
-            var service = CreateBackgroundService();
-            if (service.RemoveBackgroundsToRoom(id, roomId)) return Ok();
-            else return BadRequest("Background not removed from room");
-        }
-        /// <summary>
         /// delete background
         /// </summary>
         /// <param name="id"></param>

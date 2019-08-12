@@ -10,6 +10,8 @@ namespace ItemHoarder.Models.ItemInventory
     public class InstanceItemDisplay
     {
         public int ItemID { get; set; }
+        public int OriginalItemID { get; set; }
+        public Guid CreatorID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public float Weight { get; set; }
@@ -28,5 +30,7 @@ namespace ItemHoarder.Models.ItemInventory
         public double Intelligence { get; set; }
         public double Wisdom { get; set; }
         public double Charisma { get; set; }
+        public DateTimeOffset DateOfCreation { get; set; }
+        public DateTimeOffset? DateOfModification { get; set; }
     }
 }

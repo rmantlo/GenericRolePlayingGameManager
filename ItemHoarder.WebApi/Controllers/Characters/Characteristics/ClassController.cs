@@ -83,32 +83,6 @@ namespace ItemHoarder.WebApi.Controllers.Characters.Characteristics
             else return BadRequest("Class not updated");
         }
         /// <summary>
-        /// Add existing class to a room
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="roomId"></param>
-        /// <returns></returns>
-        [Route("api/room/class")]
-        public IHttpActionResult Post(int id, int roomId)
-        {
-            var service = CreateClassService();
-            if (service.AddClassToRoom(id, roomId)) return Ok();
-            else return BadRequest("Class not added to room");
-        }
-        /// <summary>
-        /// Remove existing class from a room
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="roomId"></param>
-        /// <returns></returns>
-        [Route("api/room/class/delete")]
-        public IHttpActionResult Delete(int id, int roomId)
-        {
-            var service = CreateClassService();
-            if (service.RemoveClassToRoom(id, roomId)) return Ok();
-            else return BadRequest("Class not removed from room");
-        }
-        /// <summary>
         /// Delete existing class
         /// </summary>
         /// <param name="id"></param>

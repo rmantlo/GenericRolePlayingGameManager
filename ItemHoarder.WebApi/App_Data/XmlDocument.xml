@@ -523,22 +523,6 @@
             <param name="background"></param>
             <returns></returns>
         </member>
-        <member name="M:ItemHoarder.WebApi.Controllers.Characters.Characteristics.BackgroundController.Post(System.Int32,System.Int32)">
-            <summary>
-            Add background to owned room
-            </summary>
-            <param name="id"></param>
-            <param name="roomId"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ItemHoarder.WebApi.Controllers.Characters.Characteristics.BackgroundController.DeleteBackgroundFromRoom(System.Int32,System.Int32)">
-            <summary>
-            remove background from owned room
-            </summary>
-            <param name="id"></param>
-            <param name="roomId"></param>
-            <returns></returns>
-        </member>
         <member name="M:ItemHoarder.WebApi.Controllers.Characters.Characteristics.BackgroundController.Delete(System.Int32)">
             <summary>
             delete background
@@ -586,22 +570,6 @@
             </summary>
             <param name="id"></param>
             <param name="update"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ItemHoarder.WebApi.Controllers.Characters.Characteristics.ClassController.Post(System.Int32,System.Int32)">
-            <summary>
-            Add existing class to a room
-            </summary>
-            <param name="id"></param>
-            <param name="roomId"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ItemHoarder.WebApi.Controllers.Characters.Characteristics.ClassController.Delete(System.Int32,System.Int32)">
-            <summary>
-            Remove existing class from a room
-            </summary>
-            <param name="id"></param>
-            <param name="roomId"></param>
             <returns></returns>
         </member>
         <member name="M:ItemHoarder.WebApi.Controllers.Characters.Characteristics.ClassController.Delete(System.Int32)">
@@ -653,22 +621,6 @@
             <param name="feature"></param>
             <returns></returns>
         </member>
-        <member name="M:ItemHoarder.WebApi.Controllers.Characters.Characteristics.FeaturesController.Post(System.Int32,System.Int32)">
-            <summary>
-            Add existing feature to existing room
-            </summary>
-            <param name="id"></param>
-            <param name="roomId"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ItemHoarder.WebApi.Controllers.Characters.Characteristics.FeaturesController.Delete(System.Int32,System.Int32)">
-            <summary>
-            Remove existing feature from existing room
-            </summary>
-            <param name="id"></param>
-            <param name="roomId"></param>
-            <returns></returns>
-        </member>
         <member name="M:ItemHoarder.WebApi.Controllers.Characters.Characteristics.FeaturesController.Delete(System.Int32)">
             <summary>
             Delete feature
@@ -718,22 +670,6 @@
             <param name="background"></param>
             <returns></returns>
         </member>
-        <member name="M:ItemHoarder.WebApi.Controllers.Characters.Characteristics.ProficiencySkillsController.AddSkillToRoom(System.Int32,System.Int32)">
-            <summary>
-            Add existing skill to room
-            </summary>
-            <param name="id"></param>
-            <param name="roomId"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ItemHoarder.WebApi.Controllers.Characters.Characteristics.ProficiencySkillsController.DeleteSkillFromRoom(System.Int32,System.Int32)">
-            <summary>
-            Remove existing skills from room
-            </summary>
-            <param name="id"></param>
-            <param name="roomId"></param>
-            <returns></returns>
-        </member>
         <member name="M:ItemHoarder.WebApi.Controllers.Characters.Characteristics.ProficiencySkillsController.Delete(System.Int32)">
             <summary>
             Delete existing proficiency skill
@@ -781,22 +717,6 @@
             </summary>
             <param name="id"></param>
             <param name="race"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ItemHoarder.WebApi.Controllers.Characters.Characteristics.RaceController.Post(System.Int32,System.Int32)">
-            <summary>
-            Add existing race to a room
-            </summary>
-            <param name="id"></param>
-            <param name="roomId"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ItemHoarder.WebApi.Controllers.Characters.Characteristics.RaceController.Delete(System.Int32,System.Int32)">
-            <summary>
-            Remove existing race from a room
-            </summary>
-            <param name="id"></param>
-            <param name="roomId"></param>
             <returns></returns>
         </member>
         <member name="M:ItemHoarder.WebApi.Controllers.Characters.Characteristics.RaceController.Delete(System.Int32)">
@@ -852,13 +772,6 @@
             Get instanced character information by id
             </summary>
             <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ItemHoarder.WebApi.Controllers.Characters.InstanceCharacterController.Post(ItemHoarder.Models.Characters.Instanced.InstanceCreate)">
-            <summary>
-            Create new instanced character in room
-            </summary>
-            <param name="newCharacter"></param>
             <returns></returns>
         </member>
         <member name="M:ItemHoarder.WebApi.Controllers.Characters.InstanceCharacterController.Put(System.Int32,ItemHoarder.Models.Characters.Instanced.InstanceUpdate)">
@@ -923,6 +836,93 @@
             </summary>
             <param name="itemId"></param>
             <param name="characterId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ItemHoarder.WebApi.Controllers.RoomController.PostCharacter(ItemHoarder.Models.Characters.Instanced.InstanceCreate)">
+            <summary>
+            Create new instanced character in room
+            </summary>
+            <param name="newCharacter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ItemHoarder.WebApi.Controllers.RoomController.PostClass(System.Int32,System.Int32)">
+            <summary>
+            Add existing class to a room
+            </summary>
+            <param name="id"></param>
+            <param name="roomId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ItemHoarder.WebApi.Controllers.RoomController.DeleteClass(System.Int32,System.Int32)">
+            <summary>
+            Remove existing class from a room
+            </summary>
+            <param name="id"></param>
+            <param name="roomId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ItemHoarder.WebApi.Controllers.RoomController.PostRace(System.Int32,System.Int32)">
+            <summary>
+            Add existing race to a room
+            </summary>
+            <param name="id"></param>
+            <param name="roomId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ItemHoarder.WebApi.Controllers.RoomController.DeleteRace(System.Int32,System.Int32)">
+            <summary>
+            Remove existing race from a room
+            </summary>
+            <param name="id"></param>
+            <param name="roomId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ItemHoarder.WebApi.Controllers.RoomController.PostBackground(System.Int32,System.Int32)">
+            <summary>
+            Add background to owned room
+            </summary>
+            <param name="id"></param>
+            <param name="roomId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ItemHoarder.WebApi.Controllers.RoomController.DeleteBackground(System.Int32,System.Int32)">
+            <summary>
+            remove background from owned room
+            </summary>
+            <param name="id"></param>
+            <param name="roomId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ItemHoarder.WebApi.Controllers.RoomController.PostSkill(System.Int32,System.Int32)">
+            <summary>
+            Add existing skill to room
+            </summary>
+            <param name="id"></param>
+            <param name="roomId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ItemHoarder.WebApi.Controllers.RoomController.DeleteSkill(System.Int32,System.Int32)">
+            <summary>
+            Remove existing skills from room
+            </summary>
+            <param name="id"></param>
+            <param name="roomId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ItemHoarder.WebApi.Controllers.RoomController.PostFeature(System.Int32,System.Int32)">
+            <summary>
+            Add existing feature to existing room
+            </summary>
+            <param name="id"></param>
+            <param name="roomId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ItemHoarder.WebApi.Controllers.RoomController.DeleteFeature(System.Int32,System.Int32)">
+            <summary>
+            Remove existing feature from existing room
+            </summary>
+            <param name="id"></param>
+            <param name="roomId"></param>
             <returns></returns>
         </member>
     </members>

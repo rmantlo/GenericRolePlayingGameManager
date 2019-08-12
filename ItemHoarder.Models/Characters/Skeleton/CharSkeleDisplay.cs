@@ -10,6 +10,7 @@ namespace ItemHoarder.Models.Characters.Skeleton
     public class CharSkeleDisplay
     {
         public int ID { get; set; }
+        public Guid OwnerID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public TypeOfGender Gender { get; set; }
@@ -22,5 +23,7 @@ namespace ItemHoarder.Models.Characters.Skeleton
         public string Ideals { get; set; }
         public string Bonds { get; set; }
         public string Flaws { get; set; }
+        public DateTimeOffset DateOfCreation { get; set; }
+        public DateTimeOffset? DateOfModification { get; set; }
     }
 }

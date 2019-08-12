@@ -35,7 +35,9 @@ namespace ItemHoarder.Service.Characters
                     Constitution = e.Constitution,
                     Intelligence = e.Intelligence,
                     Wisdom = e.Wisdom,
-                    Charisma = e.Charisma
+                    Charisma = e.Charisma,
+                    DateOfCreation = e.DateOfCreation,
+                    DateOfModification = e.DateOfModification
                 }).ToArray();
             }
         }
@@ -59,7 +61,9 @@ namespace ItemHoarder.Service.Characters
                     Constitution = skill.Constitution,
                     Intelligence = skill.Intelligence,
                     Wisdom = skill.Wisdom,
-                    Charisma = skill.Charisma
+                    Charisma = skill.Charisma,
+                    DateOfCreation = skill.DateOfCreation,
+                    DateOfModification = skill.DateOfModification
                 };
             }
         }
@@ -87,7 +91,9 @@ namespace ItemHoarder.Service.Characters
                         Constitution = skill.Constitution,
                         Intelligence = skill.Intelligence,
                         Wisdom = skill.Wisdom,
-                        Charisma = skill.Charisma
+                        Charisma = skill.Charisma,
+                        DateOfCreation = skill.DateOfCreation,
+                        DateOfModification = skill.DateOfModification
                     };
                     skills.Add(skillDisplay);
                 }
@@ -175,32 +181,6 @@ namespace ItemHoarder.Service.Characters
                 skill.Wisdom = update.Wisdom;
                 skill.Charisma = update.Charisma;
                 skill.DateOfModification = DateTimeOffset.UtcNow;
-                return ctx.SaveChanges() == 1;
-            }
-        }
-        //add feature to my room
-        public bool AddSkillToRoom(int id, int roomId)
-        {
-            using (var ctx = new ApplicationDbContext())
-            {
-                var roomSkill = new RoomProficiencies
-                {
-                    OwnerID = _userId,
-                    RoomID = roomId,
-                    ProficiencySkillID = id,
-                    DateOfCreation = DateTimeOffset.UtcNow
-                };
-                ctx.RoomProficiencies.Add(roomSkill);
-                return ctx.SaveChanges() == 1;
-            }
-        }
-        //remove feature from my room
-        public bool RemoveSkillFromRoom(int id, int roomId)
-        {
-            using (var ctx = new ApplicationDbContext())
-            {
-                var room = ctx.RoomProficiencies.Single(e => e.OwnerID == _userId && e.RoomID == roomId && e.ProficiencySkillID == id);
-                ctx.RoomProficiencies.Remove(room);
                 return ctx.SaveChanges() == 1;
             }
         }

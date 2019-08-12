@@ -34,7 +34,9 @@ namespace ItemHoarder.Service.Characters
                     Constitution = e.Constitution,
                     Intelligence = e.Intelligence,
                     Wisdom = e.Wisdom,
-                    Charisma = e.Charisma
+                    Charisma = e.Charisma,
+                    DateOfCreation = e.DateOfCreation,
+                    DateOfModification = e.DateOfModification
                 }).ToArray();
                 return results;
             }
@@ -62,7 +64,9 @@ namespace ItemHoarder.Service.Characters
                         Constitution = aClass.Constitution,
                         Intelligence = aClass.Intelligence,
                         Wisdom = aClass.Wisdom,
-                        Charisma = aClass.Charisma
+                        Charisma = aClass.Charisma,
+                        DateOfCreation = aClass.DateOfCreation,
+                        DateOfModification = aClass.DateOfModification
                     };
                     roomClasses.Add(classDisplay);
                 }
@@ -88,7 +92,9 @@ namespace ItemHoarder.Service.Characters
                     Constitution = aClass.Constitution,
                     Intelligence = aClass.Intelligence,
                     Wisdom = aClass.Wisdom,
-                    Charisma = aClass.Charisma
+                    Charisma = aClass.Charisma,
+                    DateOfCreation = aClass.DateOfCreation,
+                    DateOfModification = aClass.DateOfModification
                 };
                 return classDisplay;
             }
@@ -172,32 +178,6 @@ namespace ItemHoarder.Service.Characters
                 result.Wisdom = updates.Wisdom;
                 result.Charisma = updates.Charisma;
                 result.DateOfModification = DateTimeOffset.UtcNow;
-                return ctx.SaveChanges() == 1;
-            }
-        }
-        //add class to a room
-        public bool AddClassToRoom(int classId, int roomId)
-        {
-            using (var ctx = new ApplicationDbContext())
-            {
-                var roomClass = new RoomClasses
-                {
-                    OwnerID = _userId,
-                    ClassID = classId,
-                    RoomID = roomId,
-                    DateOfCreation = DateTimeOffset.UtcNow
-                };
-                ctx.RoomClasses.Add(roomClass);
-                return ctx.SaveChanges() == 1;
-            }
-        }
-        //remove class from room
-        public bool RemoveClassToRoom(int classId, int roomId)
-        {
-            using (var ctx = new ApplicationDbContext())
-            {
-                var result = ctx.RoomClasses.Single(e => e.OwnerID == _userId && e.RoomID == roomId && e.ClassID == classId);
-                ctx.RoomClasses.Remove(result);
                 return ctx.SaveChanges() == 1;
             }
         }

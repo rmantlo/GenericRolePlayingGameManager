@@ -37,7 +37,9 @@ namespace ItemHoarder.Service.Characters
                     Constitution = e.Constitution,
                     Intelligence = e.Intelligence,
                     Wisdom = e.Wisdom,
-                    Charisma = e.Charisma
+                    Charisma = e.Charisma,
+                    DateOfCreation = e.DateOfCreation,
+                    DateOfModification = e.DateOfModification
                 }).ToArray();
                 return results;
             }
@@ -63,7 +65,9 @@ namespace ItemHoarder.Service.Characters
                     Constitution = race.Constitution,
                     Intelligence = race.Intelligence,
                     Wisdom = race.Wisdom,
-                    Charisma = race.Charisma
+                    Charisma = race.Charisma,
+                    DateOfCreation = race.DateOfCreation,
+                    DateOfModification = race.DateOfModification
                 };
                 return raceDisplay;
             }
@@ -93,7 +97,9 @@ namespace ItemHoarder.Service.Characters
                         Constitution = race.Constitution,
                         Intelligence = race.Intelligence,
                         Wisdom = race.Wisdom,
-                        Charisma = race.Charisma
+                        Charisma = race.Charisma,
+                        DateOfCreation = race.DateOfCreation,
+                        DateOfModification = race.DateOfModification
                     };
                     roomRaces.Add(raceDisplay);
                 }
@@ -186,32 +192,7 @@ namespace ItemHoarder.Service.Characters
                 result.Intelligence = race.Intelligence;
                 result.Wisdom = race.Wisdom;
                 result.Charisma = race.Charisma;
-                return ctx.SaveChanges() == 1;
-            }
-        }
-        //add race to a room
-        public bool AddRaceToRoom(int raceId, int roomId)
-        {
-            using (var ctx = new ApplicationDbContext())
-            {
-                var result = new RoomRaces
-                {
-                    OwnerID = _userId,
-                    RaceID = raceId,
-                    RoomID = roomId,
-                    DateOfCreation = DateTimeOffset.UtcNow
-                };
-                ctx.RoomRaces.Add(result);
-                return ctx.SaveChanges() == 1;
-            }
-        }
-        //remove race from room
-        public bool RemoveRaceFromRoom(int id, int roomId)
-        {
-            using (var ctx = new ApplicationDbContext())
-            {
-                var result = ctx.RoomRaces.Single(e => e.OwnerID == _userId && e.RoomID == roomId && e.RaceID == id);
-                ctx.RoomRaces.Remove(result);
+                result.DateOfModification = DateTimeOffset.UtcNow;
                 return ctx.SaveChanges() == 1;
             }
         }

@@ -84,32 +84,6 @@ namespace ItemHoarder.WebApi.Controllers.Characters.Characteristics
             else return BadRequest("Skill not deleted");
         }
         /// <summary>
-        /// Add existing skill to room
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="roomId"></param>
-        /// <returns></returns>
-        [Route("api/room/proficiency-skills/{id}")]
-        public IHttpActionResult AddSkillToRoom(int id, int roomId)
-        {
-            var service = CreateProService();
-            if (service.AddSkillToRoom(id, roomId)) return Ok();
-            else return BadRequest("Skill not added to room");
-        }
-        /// <summary>
-        /// Remove existing skills from room
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="roomId"></param>
-        /// <returns></returns>
-        [Route("api/room/proficiency-skills/delete")]
-        public IHttpActionResult DeleteSkillFromRoom(int id, int roomId)
-        {
-            var service = CreateProService();
-            if (service.RemoveSkillFromRoom(id, roomId)) return Ok();
-            else return BadRequest("Skill not removed from room");
-        }
-        /// <summary>
         /// Delete existing proficiency skill
         /// </summary>
         /// <param name="id"></param>

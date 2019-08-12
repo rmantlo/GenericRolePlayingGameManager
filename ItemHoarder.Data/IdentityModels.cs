@@ -50,8 +50,8 @@ namespace ItemHoarder.Data
         }
 
         public DbSet<UserProfile> Profiles { get; set; }
-        //public DbSet<Inventory> Inventories { get; set; }
         public DbSet<Item> Items { get; set; }
+        public DbSet<InventoryItem> InventoryItems { get; set; }
 
         public DbSet<Room> Rooms { get; set; }
         public DbSet<RoomNotes> RoomNotes { get; set; }
@@ -62,7 +62,6 @@ namespace ItemHoarder.Data
         public DbSet<RoomBackgrounds> RoomBackgrounds { get; set; }
         public DbSet<RoomProficiencies> RoomProficiencies { get; set; }
 
-        public DbSet<InventoryItem> InventoryItems { get; set; }
         public DbSet<CharacterSkeleton> CharacterSkeletons { get; set; }
         public DbSet<CharacterBackground> CharacterBackgrounds { get; set; }
         public DbSet<CharacterClass> CharacterClasses { get; set; }

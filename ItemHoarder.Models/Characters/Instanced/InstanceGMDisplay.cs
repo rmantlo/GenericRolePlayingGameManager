@@ -17,6 +17,7 @@ namespace ItemHoarder.Models.Characters.Instanced
     public class InstanceGMDisplay
     {
         public int CharInstanceID { get; set; }
+        public Guid OwnerID { get; set; }
         public int? RoomID { get; set; }
         public string RoomName { get; set; }
         public CharSkeleDisplay CharSkeleton { get; set; }
@@ -52,5 +53,7 @@ namespace ItemHoarder.Models.Characters.Instanced
         public int ElectrumPieces { get; set; } //2ep - 1Gp
         public int SilverPieces { get; set; } //5sp - 1 ep
         public int CopperPieces { get; set; } //10cp - 1 sp
+        public DateTimeOffset DateOfCreation { get; set; }
+        public DateTimeOffset? DateOfModification { get; set; }
     }
 }
