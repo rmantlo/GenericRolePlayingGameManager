@@ -33,6 +33,7 @@ namespace ItemHoarder.Service.Items
                     ItemRarity = e.ItemRarity,
                     ItemClass = e.ItemClass,
                     ClassType = e.ClassType,
+                    ArmorClass = e.ArmorClass,
                     Damage = e.Damage,
                     DamageResiliance = e.DamageResiliance,
                     IsEquiptable = e.IsEquiptable,
@@ -41,7 +42,9 @@ namespace ItemHoarder.Service.Items
                     Constitution = e.Constitution,
                     Intelligence = e.Intelligence,
                     Wisdom = e.Wisdom,
-                    Charisma = e.Charisma
+                    Charisma = e.Charisma,
+                    DateOfCreation = e.DateOfCreation,
+                    DateOfModification = e.DateOfModification
                 }).OrderBy(e => e.Name).ToArray();
                 return results;
             }
@@ -62,6 +65,7 @@ namespace ItemHoarder.Service.Items
                     ItemRarity = item.ItemRarity,
                     ItemClass = item.ItemClass,
                     ClassType = item.ClassType,
+                    ArmorClass = item.ArmorClass,
                     Damage = item.Damage,
                     DamageResiliance = item.DamageResiliance,
                     IsEquiptable = item.IsEquiptable,
@@ -70,7 +74,9 @@ namespace ItemHoarder.Service.Items
                     Constitution = item.Constitution,
                     Intelligence = item.Intelligence,
                     Wisdom = item.Wisdom,
-                    Charisma = item.Charisma
+                    Charisma = item.Charisma,
+                    DateOfCreation = item.DateOfCreation,
+                    DateOfModification = item.DateOfModification
                 };
                 return itemDisplay;
             }
@@ -86,10 +92,11 @@ namespace ItemHoarder.Service.Items
                     Name = item.Name,
                     Description = item.Description,
                     Weight = item.Weight,
-                    HitPoints = item.HitPoints,
+                    HitPoints = $"{item.FragileHitPoint}|{item.ResilientHitPoint}",
                     ItemRarity = item.ItemRarity,
                     ItemClass = item.ItemClass,
                     ClassType = item.ClassType,
+                    ArmorClass = item.ArmorClass,
                     Damage = item.Damage,
                     DamageResiliance = item.DamageResiliance,
                     IsEquiptable = item.IsEquiptable,
@@ -114,10 +121,11 @@ namespace ItemHoarder.Service.Items
                 result.Name = item.Name;
                 result.Description = item.Description;
                 result.Weight = item.Weight;
-                result.HitPoints = item.HitPoints;
+                result.HitPoints = $"{item.FragileHitPoint}|{item.ResilientHitPoint}";
                 result.ItemRarity = item.ItemRarity;
                 result.ItemClass = item.ItemClass;
                 result.ClassType = item.ClassType;
+                result.ArmorClass = item.ArmorClass;
                 result.Damage = item.Damage;
                 result.DamageResiliance = item.DamageResiliance;
                 result.IsEquiptable = item.IsEquiptable;
@@ -162,6 +170,7 @@ namespace ItemHoarder.Service.Items
                     ItemRarity = item.ItemRarity,
                     ItemClass = item.ItemClass,
                     ClassType = item.ClassType,
+                    ArmorClass = item.ArmorClass,
                     Damage = item.Damage,
                     DamageResiliance = item.DamageResiliance,
                     IsEquiptable = item.IsEquiptable,

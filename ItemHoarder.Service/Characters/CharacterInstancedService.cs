@@ -203,7 +203,9 @@ namespace ItemHoarder.Service.Characters
                         GoldPieces = c.GoldPieces,
                         SilverPieces = c.SilverPieces,
                         CopperPieces = c.CopperPieces,
-                        CharacterNotes = c.CharacterNotes
+                        CharacterNotes = c.CharacterNotes,
+                        DateOfCreation = c.DateOfCreation,
+                        DateOfModification = c.DateOfModification
                     };
                     charList.Add(charItem);
                 }
@@ -299,6 +301,7 @@ namespace ItemHoarder.Service.Characters
                     CharSkeleton = new CharSkeleDisplay
                     {
                         ID = result.CharSkeletonID,
+                        OwnerID = result.CharSkeleton.OwnerID,
                         FirstName = result.CharSkeleton.FirstName,
                         LastName = result.CharSkeleton.LastName,
                         Gender = result.CharSkeleton.Gender,
@@ -310,7 +313,9 @@ namespace ItemHoarder.Service.Characters
                         PersonalityTraits = result.CharSkeleton.PersonalityTraits,
                         Ideals = result.CharSkeleton.Ideals,
                         Bonds = result.CharSkeleton.Bonds,
-                        Flaws = result.CharSkeleton.Flaws
+                        Flaws = result.CharSkeleton.Flaws,
+                        DateOfCreation = result.CharSkeleton.DateOfCreation,
+                        DateOfModification = result.CharSkeleton.DateOfModification
                     },
                     Race = new RaceDisplay
                     {

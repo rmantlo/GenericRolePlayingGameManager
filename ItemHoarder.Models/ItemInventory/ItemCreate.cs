@@ -13,10 +13,12 @@ namespace ItemHoarder.Models
         public string Description { get; set; }
         public float Weight { get; set; }
         //sending in array as string [fragile value, resilient value]
-        public string HitPoints { get; set; }
+        public int FragileHitPoint { get; set; }
+        public int ResilientHitPoint { get; set; }
         public RarityOfItem ItemRarity { get; set; }
         public ItemClass ItemClass { get; set; }
         public string ClassType { get; set; }
+        public int ArmorClass { get; set; }
         public double Damage { get; set; }
         public double DamageResiliance { get; set; }
         public bool IsEquiptable { get; set; }

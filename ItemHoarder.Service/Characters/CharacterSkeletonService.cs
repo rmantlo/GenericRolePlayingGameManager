@@ -11,7 +11,7 @@ namespace ItemHoarder.Service.Characters
     public class CharacterSkeletonService
     {
         private readonly Guid _userId;
-        public CharacterSkeletonService(Guid userId)
+        public CharacterSkeletonService(Guid userId) 
         {
             _userId = userId;
         }
@@ -23,6 +23,7 @@ namespace ItemHoarder.Service.Characters
                 return ctx.CharacterSkeletons.Where(e => e.OwnerID == _userId).Select(e => new CharSkeleDisplay
                 {
                     ID = e.CharacterID,
+                    OwnerID = e.OwnerID,
                     FirstName = e.FirstName,
                     LastName = e.LastName,
                     Gender = e.Gender,
@@ -34,7 +35,9 @@ namespace ItemHoarder.Service.Characters
                     PersonalityTraits = e.PersonalityTraits,
                     Ideals = e.Ideals,
                     Bonds = e.Bonds,
-                    Flaws = e.Flaws
+                    Flaws = e.Flaws,
+                    DateOfCreation = e.DateOfCreation,
+                    DateOfModification = e.DateOfModification
                 }).ToList();
             }
         }
@@ -47,6 +50,7 @@ namespace ItemHoarder.Service.Characters
                 return new CharSkeleDisplay
                 {
                     ID = result.CharacterID,
+                    OwnerID = result.OwnerID,
                     FirstName = result.FirstName,
                     LastName = result.LastName,
                     Gender = result.Gender,
@@ -58,7 +62,9 @@ namespace ItemHoarder.Service.Characters
                     PersonalityTraits = result.PersonalityTraits,
                     Ideals = result.Ideals,
                     Bonds = result.Bonds,
-                    Flaws = result.Flaws
+                    Flaws = result.Flaws,
+                    DateOfCreation = result.DateOfCreation,
+                    DateOfModification = result.DateOfModification
                 };
             }
         }

@@ -78,6 +78,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BattleFolder\BattleInstance.cs" />
+    <Compile Include="BattleFolder\BattleItem.cs" />
+    <Compile Include="BattleFolder\BattleMonsters.cs" />
+    <Compile Include="BattleFolder\BattleRandomItem.cs" />
     <Compile Include="CharacterInfo\CharacterBackground.cs" />
     <Compile Include="CharacterInfo\CharacterFeatList.cs" />
     <Compile Include="CharacterInfo\CharacterFeatures.cs" />
@@ -90,6 +94,8 @@
     <Compile Include="IdentityModels.cs" />
     <Compile Include="ItemStuff\InventoryItem.cs" />
     <Compile Include="ItemStuff\Item.cs" />
+    <Compile Include="MonsterStuff\Monster.cs" />
+    <Compile Include="MonsterStuff\MonsterSkills.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RoomFolder\Room.cs" />
     <Compile Include="RoomFolder\RoomBackgrounds.cs" />

@@ -78,6 +78,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BattleService.cs" />
     <Compile Include="Characters\CharacterClassService.cs" />
     <Compile Include="Characters\CharacterFeatureService.cs" />
     <Compile Include="Characters\CharacterInstancedService.cs" />
@@ -87,6 +88,7 @@
     <Compile Include="Characters\CharacterBackgroundService.cs" />
     <Compile Include="ItemService.cs" />
     <Compile Include="Items\ItemService.cs" />
+    <Compile Include="MonsterService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RoomService.cs" />
     <Compile Include="UserService.cs" />

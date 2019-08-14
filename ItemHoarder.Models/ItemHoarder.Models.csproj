@@ -78,6 +78,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BattleInstances\BattleGMDisplay.cs" />
     <Compile Include="Characters\Backgrounds\BackgroundCreate.cs" />
     <Compile Include="Characters\Backgrounds\BackgroundDisplay.cs" />
     <Compile Include="Characters\Classes\ClassCreate.cs" />
@@ -99,6 +100,9 @@
     <Compile Include="ItemInventory\InstanceItemDisplay.cs" />
     <Compile Include="ItemInventory\ItemCreate.cs" />
     <Compile Include="ItemInventory\ItemDisplay.cs" />
+    <Compile Include="Monsters\MonsterCreate.cs" />
+    <Compile Include="Monsters\MonsterDisplay.cs" />
+    <Compile Include="Monsters\MonsterSkillDisplay.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rooms\RoomGMCreate.cs" />
     <Compile Include="Rooms\RoomGMDisplay.cs" />

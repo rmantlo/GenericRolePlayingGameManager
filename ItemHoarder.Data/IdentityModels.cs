@@ -6,9 +6,11 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using ItemHoarder.Data.CharacterInfo;
 using ItemHoarder.Data.ItemStuff;
+using ItemHoarder.Data;
 using ItemHoarder.Data.RoomFolder;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using ItemHoarder.Data.BattleFolder;
 
 namespace ItemHoarder.Data
 {
@@ -71,6 +73,14 @@ namespace ItemHoarder.Data
         public DbSet<CharProficiencySkills> CharProficiencySkills { get; set; }
         public DbSet<ProficiencySkill> ProficiencySkills { get; set; }
         public DbSet<CharacterInstanced> CharacterInstances { get; set; }
+
+        public DbSet<Monster> Monsters { get; set; }
+        public DbSet<MonsterSkills> MonsterSkills { get; set; }
+
+        public DbSet<BattleInstance> BattleInstances { get; set; }
+        public DbSet<BattleMonsters> BattleMonsterList { get; set; }
+        public DbSet<BattleItem> BattleItemList { get; set; }
+        public DbSet<BattleRandomItem> BattleRandomItemList { get; set; }
 
         public static ApplicationDbContext Create()
         {

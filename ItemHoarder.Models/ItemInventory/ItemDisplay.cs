@@ -18,6 +18,7 @@ namespace ItemHoarder.Models.ItemInventory
         public RarityOfItem ItemRarity { get; set; }
         public ItemClass ItemClass { get; set; }
         public string ClassType { get; set; }
+        public int ArmorClass { get; set; }
         public double Damage { get; set; }
         public double DamageResiliance { get; set; }
         public bool IsEquiptable { get; set; }
