@@ -24,6 +24,8 @@ namespace ItemHoarder.Service
         {
             using (var ctx = new ApplicationDbContext())
             {
+                if (!IsRoomMine(id, ctx)) return null;
+
                 var results = ctx.BattleInstances.Where(e => e.RoomID == id).ToList();
                 List<BattleGMDisplay> battles = new List<BattleGMDisplay>();
                 foreach (var b in results)
@@ -162,6 +164,7 @@ namespace ItemHoarder.Service
                     battles.Add(battle);
                 }
                 return battles;
+
             }
         }
         //get battle by id
@@ -170,7 +173,7 @@ namespace ItemHoarder.Service
             using (var ctx = new ApplicationDbContext())
             {
                 var b = ctx.BattleInstances.Single(e => e.BattleID == id);
-
+                if (!IsRoomMine(b.RoomID, ctx)) return null;
                 List<MonsterDisplay> bMonsters = new List<MonsterDisplay>();
                 foreach (var m in b.Monsters)
                 {
@@ -290,7 +293,6 @@ namespace ItemHoarder.Service
                         DateOfModification = m.Item.DateOfModification
                     });
                 }
-
                 var battle = new BattleGMDisplay
                 {
                     BattleID = b.BattleID,
@@ -302,14 +304,19 @@ namespace ItemHoarder.Service
                     DateOfCreation = b.DateOfCreation,
                     DateOfModification = b.DateOfModification
                 };
-                return battle
+                return battle;
             }
         }
+
+        //get current battle instance as player
+
+
         //create battle
         public bool CreateBattleInstance(int roomId)
         {
             using (var ctx = new ApplicationDbContext())
             {
+                if (!IsRoomMine(roomId, ctx)) return false;
                 ctx.BattleInstances.Add(new BattleInstance
                 {
                     RoomID = roomId
@@ -323,6 +330,7 @@ namespace ItemHoarder.Service
             using (var ctx = new ApplicationDbContext())
             {
                 var battle = ctx.BattleInstances.Single(e => e.BattleID == id);
+                if (!IsRoomMine(battle.RoomID, ctx)) return false;
                 battle.IsCurrent = true;
                 var oldBattle = ctx.BattleInstances.SingleOrDefault(e => e.RoomID == battle.RoomID && e.IsCurrent == true);
                 if (oldBattle != null)
@@ -342,6 +350,7 @@ namespace ItemHoarder.Service
             using (var ctx = new ApplicationDbContext())
             {
                 var battle = ctx.BattleInstances.Single(e => e.BattleID == id);
+                if (!IsRoomMine(battle.RoomID, ctx)) return false;
                 foreach (var i in monsterIds)
                 {
                     if (ctx.Monsters.SingleOrDefault(e => e.MonsterID == i) == null)
@@ -368,6 +377,7 @@ namespace ItemHoarder.Service
             using (var ctx = new ApplicationDbContext())
             {
                 var battle = ctx.BattleInstances.Single(e => e.BattleID == id);
+                if (!IsRoomMine(battle.RoomID, ctx)) return false;
                 var monster = ctx.BattleMonsterList.First(e => e.MonsterID == monsterId);
                 if (battle.Monsters.Contains(monster))
                 {
@@ -383,6 +393,7 @@ namespace ItemHoarder.Service
             using (var ctx = new ApplicationDbContext())
             {
                 var battle = ctx.BattleInstances.Single(e => e.BattleID == id);
+                if (!IsRoomMine(battle.RoomID, ctx)) return false;
                 foreach (var i in itemIds)
                 {
                     if (ctx.Items.SingleOrDefault(e => e.ItemID == i) == null)
@@ -409,6 +420,7 @@ namespace ItemHoarder.Service
             using (var ctx = new ApplicationDbContext())
             {
                 var battle = ctx.BattleInstances.Single(e => e.BattleID == id);
+                if (!IsRoomMine(battle.RoomID, ctx)) return false;
                 var item = ctx.BattleItemList.First(e => e.ItemID == itemId);
                 if (battle.ItemDrops.Contains(item))
                 {
@@ -423,6 +435,7 @@ namespace ItemHoarder.Service
             using (var ctx = new ApplicationDbContext())
             {
                 var battle = ctx.BattleInstances.Single(e => e.BattleID == id);
+                if (!IsRoomMine(battle.RoomID, ctx)) return false;
                 foreach (var i in itemIds)
                 {
                     if (ctx.Items.SingleOrDefault(e => e.ItemID == i) == null)
@@ -449,6 +462,7 @@ namespace ItemHoarder.Service
             using (var ctx = new ApplicationDbContext())
             {
                 var battle = ctx.BattleInstances.Single(e => e.BattleID == id);
+                if (!IsRoomMine(battle.RoomID, ctx)) return false;
                 var item = ctx.BattleRandomItemList.First(e => e.ItemID == itemId);
                 if (battle.ItemRandomDrops.Contains(item))
                 {
@@ -463,6 +477,7 @@ namespace ItemHoarder.Service
             using (var ctx = new ApplicationDbContext())
             {
                 var battle = ctx.BattleInstances.Single(e => e.BattleID == id);
+                if (!IsRoomMine(battle.RoomID, ctx)) return false;
                 var bMonsters = ctx.BattleMonsterList.Where(e => e.BattleID == id).ToList();
                 foreach (var b in bMonsters)
                 {
@@ -480,6 +495,11 @@ namespace ItemHoarder.Service
                 }
                 return ctx.SaveChanges() == (1 + bMonsters.Count + bItems.Count + bRandomItems.Count);
             }
+        }
+
+        private bool IsRoomMine(int id, ApplicationDbContext ctx)
+        {
+            return (ctx.Rooms.SingleOrDefault(e => e.RoomID == id && e.OwnerID == _userId) != null);
         }
     }
 }
