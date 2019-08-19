@@ -141,7 +141,7 @@ namespace ItemHoarder.Service.Characters
         {
             using (var ctx = new ApplicationDbContext())
             {
-                var proSkill = new ProficiencySkill
+                var proSkill = new CharacterSkill
                 {
                     OwnerID = _userId,
                     DateOfCreation = DateTimeOffset.UtcNow,

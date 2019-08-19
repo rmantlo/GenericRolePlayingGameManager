@@ -26,6 +26,7 @@ namespace ItemHoarder.Data
         public Guid OwnerID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public ICollection<Photo> SkeletonPhoto { get; set; }
         public TypeOfGender Gender { get; set; }
         public string VisualDescription { get; set; }
         public string BackgroundDescription { get; set; }

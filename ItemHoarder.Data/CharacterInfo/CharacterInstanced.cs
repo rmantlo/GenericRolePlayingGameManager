@@ -32,17 +32,16 @@ namespace ItemHoarder.Data
         [ForeignKey("CharSkeleton")]
         public int CharSkeletonID { get; set; }
         public virtual CharacterSkeleton CharSkeleton { get; set; }
-
         [ForeignKey("Race")]
         public int RaceID { get; set; }
         public virtual CharacterRace Race { get; set; }
-
         [ForeignKey("Background")]
         public int BackgroundID { get; set; }
         public virtual CharacterBackground Background { get; set; }
-        [ForeignKey("Class")]
-        public int ClassID { get; set; }
-        public virtual CharacterClass Class { get; set; }
+        public virtual ICollection<CharacterClassList> Class { get; set; }
+        [ForeignKey("SubClass")]
+        public int SubClassID { get; set; }
+        public virtual CharacterSubClass SubClass { get; set; }
         public virtual ICollection<CharProficiencySkills> Skills { get; set; }
         public virtual ICollection<CharacterFeatList> Features { get; set; }
         public virtual ICollection<InventoryItem> InventoryItems { get; set; }

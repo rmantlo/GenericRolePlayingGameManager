@@ -51,6 +51,7 @@ namespace ItemHoarder.Data
         {
         }
 
+        public DbSet<Photo> Photos { get; set; }
         public DbSet<UserProfile> Profiles { get; set; }
         public DbSet<Item> Items { get; set; }
         public DbSet<InventoryItem> InventoryItems { get; set; }
@@ -62,16 +63,19 @@ namespace ItemHoarder.Data
         public DbSet<RoomRaces> RoomRaces { get; set; }
         public DbSet<RoomFeatures> RoomFeatures { get; set; }
         public DbSet<RoomBackgrounds> RoomBackgrounds { get; set; }
-        public DbSet<RoomProficiencies> RoomProficiencies { get; set; }
+        public DbSet<RoomSkills> RoomProficiencies { get; set; }
 
         public DbSet<CharacterSkeleton> CharacterSkeletons { get; set; }
         public DbSet<CharacterBackground> CharacterBackgrounds { get; set; }
         public DbSet<CharacterClass> CharacterClasses { get; set; }
+        public DbSet<CharacterClassList> CharacterClassList { get; set; }
+        public DbSet<CharacterSubClass> SubClasses { get; set; }
+        public DbSet<CharClassSubConnection> ClassSubConnection { get; set; }
         public DbSet<CharacterRace> CharacterRaces { get; set; }
         public DbSet<CharacterFeatures> CharacterFeatures { get; set; }
         public DbSet<CharacterFeatList> CharacterFeatList { get; set; }
         public DbSet<CharProficiencySkills> CharProficiencySkills { get; set; }
-        public DbSet<ProficiencySkill> ProficiencySkills { get; set; }
+        public DbSet<CharacterSkill> ProficiencySkills { get; set; }
         public DbSet<CharacterInstanced> CharacterInstances { get; set; }
 
         public DbSet<Monster> Monsters { get; set; }
@@ -81,6 +85,8 @@ namespace ItemHoarder.Data
         public DbSet<BattleMonsters> BattleMonsterList { get; set; }
         public DbSet<BattleItem> BattleItemList { get; set; }
         public DbSet<BattleRandomItem> BattleRandomItemList { get; set; }
+
+        public DbSet<Spells> Spells { get; set; }
 
         public static ApplicationDbContext Create()
         {

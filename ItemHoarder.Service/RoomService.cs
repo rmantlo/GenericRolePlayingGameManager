@@ -1668,7 +1668,7 @@ namespace ItemHoarder.Service
         {
             using (var ctx = new ApplicationDbContext())
             {
-                var roomSkill = new RoomProficiencies
+                var roomSkill = new RoomSkills
                 {
                     OwnerID = _userID,
                     RoomID = roomId,

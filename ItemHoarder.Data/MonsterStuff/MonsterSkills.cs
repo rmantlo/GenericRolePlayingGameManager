@@ -16,7 +16,7 @@ namespace ItemHoarder.Data
         public int MonsterID { get; set; }
         [ForeignKey("Skills")]
         public int SkillID { get; set; }
-        public virtual ProficiencySkill Skills { get; set; }
+        public virtual CharacterSkill Skills { get; set; }
         //proficiency bonus + saving throw # with same stat as skill's applied stat
         public int ModStat { get; set; }
         public DateTimeOffset DateOfCreation { get; set; }

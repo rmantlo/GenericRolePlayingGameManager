@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ItemHoarder.Data.CharacterInfo
 {
-    public class ProficiencySkill
+    public class CharacterSkill
     {
         [Key]
         public int ID { get; set; }

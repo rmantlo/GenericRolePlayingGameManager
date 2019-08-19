@@ -15,6 +15,7 @@ namespace ItemHoarder.Data.RoomFolder
         [Required]
         public Guid OwnerID { get; set; }
         public string RoomName { get; set; }
+        public ICollection<Photo> RoomPhoto { get; set; }
         public string GameType { get; set; }
         [ForeignKey("RoomNotes")]
         public int RoomNotesID { get; set; }
@@ -23,7 +24,7 @@ namespace ItemHoarder.Data.RoomFolder
         public virtual ICollection<RoomClasses> RoomClasses { get; set; }
         public virtual ICollection<RoomBackgrounds> RoomBackgrounds { get; set; }
         public virtual ICollection<RoomRaces> RoomRaces { get; set; }
-        public virtual ICollection<RoomProficiencies> RoomProficiencies { get; set; }
+        public virtual ICollection<RoomSkills> RoomSkills { get; set; }
         public virtual ICollection<RoomFeatures> RoomFeatures { get; set; }
         public DateTimeOffset DateOfCreation { get; set; }
         public DateTimeOffset? DateOfModification { get; set; }

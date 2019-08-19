@@ -8,15 +8,14 @@ using System.Threading.Tasks;
 
 namespace ItemHoarder.Data.CharacterInfo
 {
-    public class CharacterFeatList
+    public class CharacterClassList
     {
         [Key]
         public int ID { get; set; }
-        public int? CharInstanceID { get; set; }
-        public int? SubClassID { get; set; }
-        [ForeignKey("Feature")]
-        public int FeatureID { get; set; }
-        public virtual CharacterFeatures Feature { get; set; }
+        public int CharInstanceID { get; set; }
+        [ForeignKey("Class")]
+        public int ClassID { get; set; }
+        public virtual CharacterClass Class { get; set; }
         public DateTimeOffset DateOfCreation { get; set; }
     }
 }

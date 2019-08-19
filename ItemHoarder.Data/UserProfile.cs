@@ -12,8 +12,8 @@ namespace ItemHoarder.Data
         [Key]
         public Guid UserID { get; set; }
         public string Username { get; set; }
-        public string ProfileImage { get; set; }
         public string About { get; set; }
+        public ICollection<Photo> Photo { get; set; }
         public DateTimeOffset DateOfCreation { get; set; }
         public DateTimeOffset? DateOfModification { get; set; }
     }

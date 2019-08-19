@@ -83,28 +83,34 @@
     <Compile Include="BattleFolder\BattleMonsters.cs" />
     <Compile Include="BattleFolder\BattleRandomItem.cs" />
     <Compile Include="CharacterInfo\CharacterBackground.cs" />
+    <Compile Include="CharacterInfo\CharacterClassList.cs" />
     <Compile Include="CharacterInfo\CharacterFeatList.cs" />
     <Compile Include="CharacterInfo\CharacterFeatures.cs" />
     <Compile Include="CharacterInfo\CharacterInstanced.cs" />
     <Compile Include="CharacterInfo\CharacterRace.cs" />
     <Compile Include="CharacterInfo\CharacterSkeleton.cs" />
     <Compile Include="CharacterInfo\CharacterClass.cs" />
+    <Compile Include="CharacterInfo\CharacterSubClass.cs" />
+    <Compile Include="CharacterInfo\CharClassSubConnection.cs" />
     <Compile Include="CharacterInfo\CharProficiencySkills.cs" />
-    <Compile Include="CharacterInfo\ProficiencySkill.cs" />
+    <Compile Include="CharacterInfo\CharacterSkill.cs" />
     <Compile Include="IdentityModels.cs" />
     <Compile Include="ItemStuff\InventoryItem.cs" />
     <Compile Include="ItemStuff\Item.cs" />
     <Compile Include="MonsterStuff\Monster.cs" />
     <Compile Include="MonsterStuff\MonsterSkills.cs" />
+    <Compile Include="Photo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RoomFolder\Room.cs" />
     <Compile Include="RoomFolder\RoomBackgrounds.cs" />
     <Compile Include="RoomFolder\RoomClasses.cs" />
     <Compile Include="RoomFolder\RoomFeatures.cs" />
     <Compile Include="RoomFolder\RoomNotes.cs" />
-    <Compile Include="RoomFolder\RoomProficiencies.cs" />
+    <Compile Include="RoomFolder\RoomSkills.cs" />
     <Compile Include="RoomFolder\RoomRaces.cs" />
     <Compile Include="RoomFolder\RoomUsers.cs" />
+    <Compile Include="SpellsAndOther\Spells.cs" />
+    <Compile Include="SpellsAndOther\SubClassSpells.cs" />
     <Compile Include="UserProfile.cs" />
   </ItemGroup>
   <ItemGroup>
