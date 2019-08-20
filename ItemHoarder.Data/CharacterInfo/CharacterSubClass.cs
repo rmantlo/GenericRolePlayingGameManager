@@ -21,10 +21,6 @@ namespace ItemHoarder.Data.CharacterInfo
         //string separated by |, player chooses one?
         public string PerksList { get; set; }
         public string ListOfSpellIDs { get; set; } // maybe list of spellIDs?
-        //ToDo:
-        //Write out list of each type of thing in DnD so I can do this right once!
-        //Look into conditions!!
-        //finish photo uploading stuff
         public DateTimeOffset DateOfCreation { get; set; }
         public DateTimeOffset? DateOfModification { get; set; }
     }

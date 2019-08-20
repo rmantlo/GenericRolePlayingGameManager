@@ -97,6 +97,7 @@
     <Compile Include="Characters\Races\RaceDisplay.cs" />
     <Compile Include="Characters\Skeleton\CharSkeleDisplay.cs" />
     <Compile Include="Characters\Skeleton\CharSkeletonCreate.cs" />
+    <Compile Include="Chests\ChestDetails.cs" />
     <Compile Include="ItemInventory\InstanceItemDisplay.cs" />
     <Compile Include="ItemInventory\ItemCreate.cs" />
     <Compile Include="ItemInventory\ItemDisplay.cs" />
@@ -108,6 +109,7 @@
     <Compile Include="Rooms\RoomGMDisplay.cs" />
     <Compile Include="Rooms\RoomGMUpdateNotes.cs" />
     <Compile Include="Rooms\RoomGMUpdateSettings.cs" />
+    <Compile Include="Rooms\RoomIndex.cs" />
     <Compile Include="Rooms\RoomNoteDisplay.cs" />
     <Compile Include="Rooms\RoomPlayerDisplay.cs" />
     <Compile Include="User\ProfileCreate.cs" />

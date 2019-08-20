@@ -94,6 +94,11 @@
     <Compile Include="CharacterInfo\CharClassSubConnection.cs" />
     <Compile Include="CharacterInfo\CharProficiencySkills.cs" />
     <Compile Include="CharacterInfo\CharacterSkill.cs" />
+    <Compile Include="ChestFolder\Chest.cs" />
+    <Compile Include="ChestFolder\ChestItem.cs" />
+    <Compile Include="ChestFolder\ChestRandomItem.cs" />
+    <Compile Include="Condition.cs" />
+    <Compile Include="DiceSetting.cs" />
     <Compile Include="IdentityModels.cs" />
     <Compile Include="ItemStuff\InventoryItem.cs" />
     <Compile Include="ItemStuff\Item.cs" />
@@ -109,8 +114,8 @@
     <Compile Include="RoomFolder\RoomSkills.cs" />
     <Compile Include="RoomFolder\RoomRaces.cs" />
     <Compile Include="RoomFolder\RoomUsers.cs" />
+    <Compile Include="SpellsAndOther\CharacterSpells.cs" />
     <Compile Include="SpellsAndOther\Spells.cs" />
-    <Compile Include="SpellsAndOther\SubClassSpells.cs" />
     <Compile Include="UserProfile.cs" />
   </ItemGroup>
   <ItemGroup>

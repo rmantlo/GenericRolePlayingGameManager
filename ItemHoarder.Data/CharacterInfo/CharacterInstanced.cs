@@ -30,6 +30,7 @@ namespace ItemHoarder.Data
         [Required]
         public Guid OwnerID { get; set; }
         public int? RoomID { get; set; }
+        public ICollection<Photo> CharacterPhoto { get; set; }
         [ForeignKey("CharSkeleton")]
         public int CharSkeletonID { get; set; }
         public virtual CharacterSkeleton CharSkeleton { get; set; }
@@ -61,6 +62,9 @@ namespace ItemHoarder.Data
         public int? FortitudeSavingThrow { get; set; }
         public int? ReflexSavingThrow { get; set; }
         public int? WillSavingThrow { get; set; }//maybe make this front end??
+        public ICollection<CharacterSpells> Spells { get; set; }
+        //list of condition IDs?
+        public string Conditions { get; set; }
         public double Strength { get; set; }
         public double Dexterity { get; set; }
         public double Constitution { get; set; }
@@ -77,9 +81,6 @@ namespace ItemHoarder.Data
         //pathfinder goes to 6th slot, dnd to 9th?
         //make this a new table?
         //or just ICollection of spells, and front end orders them?
-        public ICollection<CharacterSpells> Spells { get; set; }
-        //list of condition IDs?
-        public string Conditions { get; set; }
         public double CarryWeight { get; set; }
         public int PlatinumPieces { get; set; }
         public int GoldPieces { get; set; } //10Gp -1pp
