@@ -1,4 +1,5 @@
 ﻿using ItemHoarder.Data.CharacterInfo;
+using ItemHoarder.Data.RoomFolder;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,14 +18,14 @@ namespace ItemHoarder.Data
         [Required]
         public Guid OwnerID { get; set; }
         public string ApiClassID { get; set; }
+        public GameType GameTag { get; set; }
         public string ClassName { get; set; }
         public string ClassDescription { get; set; }
         public string HitDie { get; set; }
         public string SavingThrows { get; set; }
-        public int FortitudeSavingThrow { get; set; }
-        public int ReflexSavingThrow { get; set; }
-        public int WillSavingThrow { get; set; }//maybe make this front end??
-        public string Proficiencies { get; set; } //weapons, armors
+        public string WeaponProficiencies { get; set; } //weapons, armors?
+        public string ArmorProficiencies { get; set; }
+        public string ToolProficiencies { get; set; }
         public double Strength { get; set; }
         public double Dexterity { get; set; }
         public double Constitution { get; set; }

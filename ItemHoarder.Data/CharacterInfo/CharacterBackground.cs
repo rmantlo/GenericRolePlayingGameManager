@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ItemHoarder.Data.RoomFolder;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -14,6 +15,7 @@ namespace ItemHoarder.Data
         public int BackgroundID { get; set; }
         [Required]
         public Guid OwnerID { get; set; }
+        public GameType GameTag { get; set; }
         public string BackgroundName { get; set; }
         public string BackgroundDescription { get; set; }
         public string Proficiencies { get; set; } //weapons, armors and languages

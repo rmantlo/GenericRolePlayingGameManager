@@ -8,15 +8,22 @@ using System.Threading.Tasks;
 
 namespace ItemHoarder.Data.RoomFolder
 {
+    public enum GameType
+    {
+        DungeonsAndDragons,
+        Pathfinder,
+        Other
+    }
     public class Room
     {
+        //set classes, races, backgrounds, feats, and skills to a game type, then on room create, automatically add the characteristics of same same game type? make this front end?
         [Key]
         public int RoomID { get; set; }
         [Required]
         public Guid OwnerID { get; set; }
         public string RoomName { get; set; }
+        public GameType GameType { get; set; }
         public ICollection<Photo> RoomPhoto { get; set; }
-        public string GameType { get; set; }
         [ForeignKey("RoomNotes")]
         public int RoomNotesID { get; set; }
         public virtual RoomNotes RoomNotes { get; set; }

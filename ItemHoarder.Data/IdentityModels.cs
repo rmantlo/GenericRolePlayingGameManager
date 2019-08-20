@@ -11,6 +11,7 @@ using ItemHoarder.Data.RoomFolder;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using ItemHoarder.Data.BattleFolder;
+using ItemHoarder.Data.SpellsAndOther;
 
 namespace ItemHoarder.Data
 {
@@ -53,6 +54,7 @@ namespace ItemHoarder.Data
 
         public DbSet<Photo> Photos { get; set; }
         public DbSet<UserProfile> Profiles { get; set; }
+        public DbSet<DiceSetting> Dice { get; set; }
         public DbSet<Item> Items { get; set; }
         public DbSet<InventoryItem> InventoryItems { get; set; }
 
@@ -86,7 +88,14 @@ namespace ItemHoarder.Data
         public DbSet<BattleItem> BattleItemList { get; set; }
         public DbSet<BattleRandomItem> BattleRandomItemList { get; set; }
 
+        public DbSet<Chest> Chests { get; set; }
+        public DbSet<ChestItem> ChestItems { get; set; }
+        public DbSet<ChestRandomItem> ChestRandomItems { get; set; }
+
         public DbSet<Spells> Spells { get; set; }
+        public DbSet<CharacterSpells> CharacterSpells { get; set; }
+
+        public DbSet<Condition> Conditions { get; set; }
 
         public static ApplicationDbContext Create()
         {

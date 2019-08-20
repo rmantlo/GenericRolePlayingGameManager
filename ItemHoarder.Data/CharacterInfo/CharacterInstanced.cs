@@ -1,5 +1,6 @@
 ﻿using ItemHoarder.Data.CharacterInfo;
 using ItemHoarder.Data.ItemStuff;
+using ItemHoarder.Data.SpellsAndOther;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -48,23 +49,37 @@ namespace ItemHoarder.Data
         public TypeOfAlignment Alignment { get; set; }
         public string OtherLanguages { get; set; }
         public string AttacksAndSpells { get; set; }
+        public int? BaseAttackBonus { get; set; } //attack bonus is from pathfinder, different dependant on class/race
+        public int? BaseAttackBonusTwo { get; set; }
+        public int? BaseAttackBonusThree { get; set; }
+        public int? BaseAttackBonusFour { get; set; }
         public double HitPoints { get; set; }
         public double CurrentHitPoints { get; set; }
         public int ExperiencePoints { get; set; }
         public int Level { get; set; }
-        public int ProficiencyBonus { get; set; } //dependent on lvl, reset on update method
+        public int? ProficiencyBonus { get; set; } //dependent on lvl, reset on update method
+        public int? FortitudeSavingThrow { get; set; }
+        public int? ReflexSavingThrow { get; set; }
+        public int? WillSavingThrow { get; set; }//maybe make this front end??
         public double Strength { get; set; }
         public double Dexterity { get; set; }
         public double Constitution { get; set; }
         public double Intelligence { get; set; }
         public double Wisdom { get; set; }
         public double Charisma { get; set; }
-        public int StrMod { get; set; }
-        public int DexMod { get; set; }
-        public int ConMod { get; set; }
-        public int IntMod { get; set; }
-        public int WisMod { get; set; }
-        public int ChaMod { get; set; }
+        //public int StrMod { get; set; }
+        //public int DexMod { get; set; }
+        //public int ConMod { get; set; }
+        //public int IntMod { get; set; }
+        //public int WisMod { get; set; }
+        //public int ChaMod { get; set; }
+        //spell slots, dependant on lvl and class, and race?
+        //pathfinder goes to 6th slot, dnd to 9th?
+        //make this a new table?
+        //or just ICollection of spells, and front end orders them?
+        public ICollection<CharacterSpells> Spells { get; set; }
+        //list of condition IDs?
+        public string Conditions { get; set; }
         public double CarryWeight { get; set; }
         public int PlatinumPieces { get; set; }
         public int GoldPieces { get; set; } //10Gp -1pp

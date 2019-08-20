@@ -20,13 +20,9 @@ namespace ItemHoarder.Data.CharacterInfo
         public virtual ICollection<CharacterFeatList> Features { get; set; }
         //string separated by |, player chooses one?
         public string PerksList { get; set; }
-        public ICollection<SubClassSpells> ListOfSpells { get; set; } // ??
+        public string ListOfSpellIDs { get; set; } // maybe list of spellIDs?
         //ToDo:
         //Write out list of each type of thing in DnD so I can do this right once!
-        //spell db, cantrips are cast at will spells, no slot or prep needed
-        //give spells to instanced characters? ICollection?
-        //Dice settings db
-        //treasure chests for rooms? can get will drop items and random drop items
         //Look into conditions!!
         //finish photo uploading stuff
         public DateTimeOffset DateOfCreation { get; set; }

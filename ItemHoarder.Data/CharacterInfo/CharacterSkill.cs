@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ItemHoarder.Data.RoomFolder;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -13,8 +14,13 @@ namespace ItemHoarder.Data.CharacterInfo
         [Key]
         public int ID { get; set; }
         public Guid OwnerID { get; set; }
+        public GameType GameTag { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        public string SpecialInfo { get; set; }
+        public string ActionType { get; set; }//?? maybe just include this in description?
+        public bool? TrainedOnly { get; set; }
+        public bool? ArmorCheckPenalty { get; set; }
         public string ClassesApplied { get; set; }
         public string RacesApplied { get; set; }
         public string BackgroundsApplied { get; set; }

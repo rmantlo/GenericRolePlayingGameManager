@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ItemHoarder.Data.RoomFolder;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -15,6 +16,7 @@ namespace ItemHoarder.Data.CharacterInfo
         [Required]
         public Guid OwnerID { get; set; }
         public string ApiRaceID { get; set; }
+        public GameType GameTag { get; set; }
         public string Name { get; set; }
         public string Proficiencies { get; set; } //weapons, armors and language
         public double Speed { get; set; }

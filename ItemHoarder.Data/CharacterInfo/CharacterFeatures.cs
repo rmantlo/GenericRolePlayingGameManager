@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ItemHoarder.Data.RoomFolder;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -13,6 +14,7 @@ namespace ItemHoarder.Data.CharacterInfo
         [Key]
         public int FeatureID { get; set; }
         public Guid OwnerID { get; set; }
+        public GameType GameTag { get; set; }
         public string FeatureName { get; set; }
         public string Description { get; set; }
         public int? RaceIdPrerequisite { get; set; }

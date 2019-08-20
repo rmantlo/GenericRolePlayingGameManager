@@ -19,6 +19,7 @@ namespace ItemHoarder.Data
         Cylinder,
         Line,
         Sphere,
+        Other,
         None
     }
     public enum SchoolsOfMagic
@@ -31,7 +32,8 @@ namespace ItemHoarder.Data
         Illusion,
         Necromancy,
         Transmutation,
-        Other
+        Other,
+        None
     }
     public class Spells
     {
@@ -42,9 +44,10 @@ namespace ItemHoarder.Data
         public string Description { get; set; }
         public string AtHigherLevelsDescription { get; set; }
         public int? LevelRequired { get; set; }
-        public int? ClassRequiredID { get; set; }
-        public int? SubClassRequiredID { get; set; }
-        public int? RaceRequiredID { get; set; }
+        //multiple classes/subs/races can use, string of IDs?
+        public string ClassRequiredID { get; set; }
+        public string SubClassRequiredID { get; set; }
+        public string RaceRequiredID { get; set; }
         public SchoolsOfMagic SchoolOfMagic { get; set; }
         public int SpellLevel { get; set; }
         public string DiceRollType { get; set; }
