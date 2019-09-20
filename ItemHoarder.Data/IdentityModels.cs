@@ -12,6 +12,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using ItemHoarder.Data.BattleFolder;
 using ItemHoarder.Data.SpellsAndOther;
+using ItemHoarder.Data.FamilarsFolder;
 
 namespace ItemHoarder.Data
 {
@@ -96,7 +97,9 @@ namespace ItemHoarder.Data
         public DbSet<CharacterSpells> CharacterSpells { get; set; }
 
         public DbSet<Condition> Conditions { get; set; }
-
+        public DbSet<Familar> Familars { get; set; }
+        public DbSet<CharFamilars> CharFamilars { get; set; }
+        public DbSet<FamilarFeature> FamilarFeatures { get; set; }
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();

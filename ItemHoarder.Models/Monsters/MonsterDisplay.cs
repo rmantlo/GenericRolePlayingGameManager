@@ -12,6 +12,7 @@ namespace ItemHoarder.Models.Monsters
         public int MonsterID { get; set; }
         public Guid OwnerID { get; set; }
         public string MonsterName { get; set; }
+        public Photo MonsterPhoto { get; set; }
         public string MonsterDescription { get; set; }
         public TypeOfMonster MonsterType { get; set; }
         public string Environment { get; set; }

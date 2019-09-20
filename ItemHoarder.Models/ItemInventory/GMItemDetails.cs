@@ -1,4 +1,5 @@
-﻿using ItemHoarder.Data.ItemStuff;
+﻿using ItemHoarder.Data;
+using ItemHoarder.Data.ItemStuff;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,14 +8,15 @@ using System.Threading.Tasks;
 
 namespace ItemHoarder.Models.ItemInventory
 {
-    public class ItemDisplay
+    public class GMItemDetails
     {
         public int ItemID { get; set; }
         public string Name { get; set; }
+        public Photo ItemPhoto { get; set; }
         public string Description { get; set; }
         public float Weight { get; set; }
-        //sending in array as string [fragile value, resilient value]
-        public string HitPoints { get; set; }
+        //[fragile value, resilient value]
+        public List<int> HitPoints { get; set; }
         public RarityOfItem ItemRarity { get; set; }
         public ItemClass ItemClass { get; set; }
         public string ClassType { get; set; }

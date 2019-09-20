@@ -14,7 +14,7 @@ namespace ItemHoarder.WebApi.Controllers.Characters.Characteristics
     public class RaceController : ApiController
     {
         /// <summary>
-        /// Get all of my races
+        /// Get index of all my races
         /// </summary>
         /// <returns></returns>
         [Route("api/race")]
@@ -24,18 +24,7 @@ namespace ItemHoarder.WebApi.Controllers.Characters.Characteristics
             return Ok(service.GetAllMyRaces());
         }
         /// <summary>
-        /// Get race by ID
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        [Route("api/race/{id}")]
-        public IHttpActionResult Get(int id)
-        {
-            var service = CreateRaceService();
-            return Ok(service.GetMyRaceById(id));
-        }
-        /// <summary>
-        /// Get races by room ID
+        /// Get races index by room ID
         /// </summary>
         /// <param name="roomId"></param>
         /// <returns></returns>
@@ -43,18 +32,18 @@ namespace ItemHoarder.WebApi.Controllers.Characters.Characteristics
         public IHttpActionResult GetByRoom(int roomId)
         {
             var service = CreateRaceService();
-            return Ok(service.GetMyRacesByRoomId(roomId));
+            return Ok(service.GetAllByRoom(roomId));
         }
         /// <summary>
-        /// Get races of room im a player in
+        /// Get race details by ID as GM or Player
         /// </summary>
-        /// <param name="roomId"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
-        [Route("api/room/race/{roomId}")]
-        public IHttpActionResult GetByRoomAsPlayer(int roomId)
+        [Route("api/race/{id}")]
+        public IHttpActionResult Get(int id)
         {
             var service = CreateRaceService();
-            return Ok(service.GetRacesOfRoomAsPlayer(roomId));
+            return Ok(service.GetRaceById(id));
         }
         /// <summary>
         /// Create new race
@@ -95,10 +84,10 @@ namespace ItemHoarder.WebApi.Controllers.Characters.Characteristics
             if (service.DeleteRace(id)) return Ok();
             else return BadRequest("Race not deleted");
         }
-        private CharacterRaceService CreateRaceService()
+        private RaceService CreateRaceService()
         {
             var userId = Guid.Parse(User.Identity.GetUserId());
-            return new CharacterRaceService(userId);
+            return new RaceService(userId);
         }
     }
 }

@@ -220,9 +220,10 @@
     <Compile Include="Controllers\Characters\Characteristics\BackgroundController.cs" />
     <Compile Include="Controllers\Characters\Characteristics\ClassController.cs" />
     <Compile Include="Controllers\Characters\Characteristics\FeaturesController.cs" />
-    <Compile Include="Controllers\Characters\Characteristics\ProficiencySkillsController.cs" />
+    <Compile Include="Controllers\Characters\Characteristics\SkillController.cs" />
     <Compile Include="Controllers\Characters\Characteristics\RaceController.cs" />
-    <Compile Include="Controllers\Characters\CharSkeleController.cs" />
+    <Compile Include="Controllers\Characters\Characteristics\SubClassController.cs" />
+    <Compile Include="Controllers\Characters\SkeletonController.cs" />
     <Compile Include="Controllers\Characters\InstanceCharacterController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Items\ItemController.cs" />

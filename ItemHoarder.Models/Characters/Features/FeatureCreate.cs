@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ItemHoarder.Data.RoomFolder;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,11 +9,13 @@ namespace ItemHoarder.Models.Characters.Features
 {
     public class FeatureCreate
     {
+        public GameType GameTag { get; set; }
         public string FeatureName { get; set; }
         public string Description { get; set; }
-        public int? RaceIdPrerequisite { get; set; }
-        public int? ClassIdPrerequisite { get; set; }
-        public string StatPrerequisite { get; set; }
+        public List<int> RaceIdPrerequisite { get; set; }
+        public List<int> ClassIdPrerequisite { get; set; }
+        public List<int> FeatureIdPrerequisite { get; set; }
+        public Dictionary<string, int> StatPrerequisite { get; set; }
         public int? LvlPrerequisite { get; set; }
         public double Strength { get; set; }
         public double Dexterity { get; set; }

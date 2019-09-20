@@ -61,6 +61,7 @@
     <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Cors, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.7\lib\net45\System.Web.Cors.dll</HintPath>
     </Reference>
@@ -79,15 +80,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BattleService.cs" />
-    <Compile Include="Characters\CharacterClassService.cs" />
-    <Compile Include="Characters\CharacterFeatureService.cs" />
+    <Compile Include="Characters\ClassService.cs" />
+    <Compile Include="Characters\FeatureService.cs" />
     <Compile Include="Characters\CharacterInstancedService.cs" />
-    <Compile Include="Characters\CharacterSkillService.cs" />
-    <Compile Include="Characters\CharacterRaceService.cs" />
-    <Compile Include="Characters\CharacterSkeletonService.cs" />
-    <Compile Include="Characters\CharacterBackgroundService.cs" />
+    <Compile Include="Characters\SkillService.cs" />
+    <Compile Include="Characters\RaceService.cs" />
+    <Compile Include="Characters\SkeletonService.cs" />
+    <Compile Include="Characters\BackgroundService.cs" />
+    <Compile Include="Characters\SubClassService.cs" />
     <Compile Include="ItemService.cs" />
-    <Compile Include="Items\ItemService.cs" />
     <Compile Include="MonsterService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RoomService.cs" />

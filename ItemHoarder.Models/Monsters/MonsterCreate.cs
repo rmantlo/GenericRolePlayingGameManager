@@ -4,12 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace ItemHoarder.Models.Monsters
 {
     public class MonsterCreate
     {
         public string MonsterName { get; set; }
+        public HttpPostedFileBase PhotoUpload { get; set; }
         public string MonsterDescription { get; set; }
         public TypeOfMonster MonsterType { get; set; }
         public string Environment { get; set; }

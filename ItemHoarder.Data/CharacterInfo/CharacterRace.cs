@@ -17,13 +17,18 @@ namespace ItemHoarder.Data.CharacterInfo
         public Guid OwnerID { get; set; }
         public string ApiRaceID { get; set; }
         public GameType GameTag { get; set; }
-        public string Name { get; set; }
-        public string Proficiencies { get; set; } //weapons, armors and language
+        public string RaceName { get; set; }
+        public string VisualDescription { get; set; }
+        public string WeaponProficiencies { get; set; } //in PF this is offensive racial traits
+        public string ArmorProficiencies { get; set; }
+        public string ToolProficiencies { get; set; }
+        public string DefensiveRacialTrait { get; set; }//PF
+        public string FeatRacialTrait { get; set; }//PF ex: elves get +2 racial bonus on perception checks
+        public string MagicalRacialTrait { get; set; }//PF ex: elves get +2 racial bonus on caster lvl and spellcraft skill checks
+        public string SensesRacialTrait { get; set; }//PF ex: elves see farther in dark than humans
         public double Speed { get; set; }
         public string Size { get; set; }
         public string Languages { get; set; }
-        public string Trait { get; set; }
-        public string TraitDescription { get; set; }
         public double Strength { get; set; }
         public double Dexterity { get; set; }
         public double Constitution { get; set; }

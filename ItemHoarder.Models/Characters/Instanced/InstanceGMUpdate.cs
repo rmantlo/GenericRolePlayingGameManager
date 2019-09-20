@@ -8,7 +8,6 @@ namespace ItemHoarder.Models.Characters.Instanced
 {
     public class InstanceGMUpdate
     {
-        public string AttacksAndSpells { get; set; }
         public double HitPoints { get; set; }
         public double CurrentHitPoints { get; set; }
         public int ExperiencePoints { get; set; }

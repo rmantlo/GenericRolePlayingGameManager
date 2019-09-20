@@ -17,8 +17,12 @@ namespace ItemHoarder.Data
         public Guid OwnerID { get; set; }
         public GameType GameTag { get; set; }
         public string BackgroundName { get; set; }
-        public string BackgroundDescription { get; set; }
-        public string Proficiencies { get; set; } //weapons, armors and languages
+        public string BackgroundDescription { get; set; }//put languages, and equiptment in here
+        public string WeaponProficiencies { get; set; }
+        public string ArmorProficiencies { get; set; }
+        public string ToolProficiencies { get; set; }
+        public string SkillIDs { get; set; } //list of skillIDs that apply to this background
+        public string FeatureIDs { get; set; }//list of feat IDs that apply to this background
         public double Strength { get; set; }
         public double Dexterity { get; set; }
         public double Constitution { get; set; }

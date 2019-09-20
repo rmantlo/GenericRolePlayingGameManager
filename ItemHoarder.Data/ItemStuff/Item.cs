@@ -25,25 +25,8 @@ namespace ItemHoarder.Data.ItemStuff
         WonderousItem,
         Accessories,
         Equipment,
+        ArtisanTools,
         Etc
-    }
-    public enum ArmorType
-    {
-        Light,
-        Padded,
-        Leather,
-        StuddedLeather,
-        ChainShirt,
-        Medium,
-        Hide,
-        ScaleMail,
-        ChainMail,
-        Breastplate,
-        Heavy,
-        SplintMail,
-        BandedMail,
-        HalfPlate,
-        FullPlate,
     }
     public class Item
     {
@@ -60,7 +43,7 @@ namespace ItemHoarder.Data.ItemStuff
         public string HitPoints { get; set; }
         public RarityOfItem ItemRarity { get; set; }
         public ItemClass ItemClass { get; set; }
-        public ArmorType ArmorType { get; set; } //lgiht medium heavey, etc?
+        public string ClassType { get; set; } //litht medium heavey, etc?
         public int ArmorClass { get; set; }
         public double Damage { get; set; }
         public double DamageResiliance { get; set; }

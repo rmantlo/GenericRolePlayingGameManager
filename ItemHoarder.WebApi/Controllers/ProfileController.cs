@@ -14,30 +14,41 @@ namespace ItemHoarder.WebApi.Controllers
     [Authorize]
     public class ProfileController : ApiController
     {
-        //get profile info
+        /// <summary>
+        /// Get your own profile information
+        /// </summary>
+        /// <returns></returns>
         public IHttpActionResult Get()
         {
             var service = CreateUserService();
-            var user = service.GetProfileInfo();
-            var profile = new ProfileInfo
-            {
-                Username = user.Username,
-                ProfileImage = user.ProfileImage,
-                About = user.About,
-                DateOfCreation = user.DateOfCreation,
-                DateOfModification = user.DateOfModification
-            };
-            return Ok(profile);
+            return Ok(service.GetProfileInfo());
         }
-        //create profile info
-        public IHttpActionResult Post(ProfileCreate profile)
+        /// <summary>
+        /// Get profile information of player by their username
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
+        public IHttpActionResult Get(string username)
         {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
             var service = CreateUserService();
-            if (service.CreateProfileInfo(profile)) return Ok();
+            return Ok(service.GetProfileInfoByUsername(username));
+        }
+        /// <summary>
+        /// Create new profile, on register, if user already has profile, this returns Badrequest
+        /// </summary>
+        /// <returns></returns>
+        public IHttpActionResult Post()
+        {
+            //if (!ModelState.IsValid) return BadRequest(ModelState);
+            var service = CreateUserService();
+            if (service.CreateProfileInfo()) return Ok();
             else return BadRequest("Not Created");
         }
-        //update profile info
+        /// <summary>
+        /// Update your existing profile
+        /// </summary>
+        /// <param name="profileUpdate"></param>
+        /// <returns></returns>
         public IHttpActionResult Put(ProfileCreate profileUpdate)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
@@ -45,13 +56,7 @@ namespace ItemHoarder.WebApi.Controllers
             if (service.UpdateProfileInfo(profileUpdate)) return Ok();
             else return BadRequest("Not Updated");
         }
-        //delete profile info
-        public IHttpActionResult Delete()
-        {
-            var service = CreateUserService();
-            if (service.DeleteProfileInfo()) return Ok();
-            else return BadRequest("Not Deleted");
-        }
+        //no endpoint for user profile delete, profile delete is done on user account delete
         private UserService CreateUserService()
         {
             var userId = Guid.Parse(User.Identity.GetUserId());

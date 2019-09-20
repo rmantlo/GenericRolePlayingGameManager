@@ -5,7 +5,9 @@ using ItemHoarder.Models.Characters.Features;
 using ItemHoarder.Models.Characters.ProficiencySkills;
 using ItemHoarder.Models.Characters.Races;
 using ItemHoarder.Models.Characters.Skeleton;
+using ItemHoarder.Models.Familars;
 using ItemHoarder.Models.ItemInventory;
+using ItemHoarder.Models.Spells;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,39 +22,22 @@ namespace ItemHoarder.Models.Characters.Instanced
         public Guid OwnerID { get; set; }
         public int? RoomID { get; set; }
         public string RoomName { get; set; }
-        public CharSkeleDisplay CharSkeleton { get; set; }
-        public RaceDisplay Race { get; set; }
-        public ClassDisplay Class { get; set; }
-        public BackgroundDisplay Background { get; set; }
-        public List<FeatureDisplay> Features { get; set; }
-        public List<SkillDisplay> ProficiencySkills { get; set; }
-        public List<InstanceItemDisplay> InventoryItems { get; set; }
-        public TypeOfAlignment Alignment { get; set; }
-        public string OtherLanguages { get; set; }
-        public string AttacksAndSpells { get; set; }
-        public double HitPoints { get; set; }
-        public double CurrentHitPoints { get; set; }
-        public int ExperiencePoints { get; set; }
-        public int Level { get; set; }
-        public int ProficiencyBonus { get; set; } //dependent on lvl, reset on update method
-        public double Strength { get; set; }
-        public double Dexterity { get; set; }
-        public double Constitution { get; set; }
-        public double Intelligence { get; set; }
-        public double Wisdom { get; set; }
-        public double Charisma { get; set; }
-        public int StrMod { get; set; }
-        public int DexMod { get; set; }
-        public int ConMod { get; set; }
-        public int IntMod { get; set; }
-        public int WisMod { get; set; }
-        public int ChaMod { get; set; }
-        public double CarryWeight { get; set; }
-        public int PlatinumPieces { get; set; }
-        public int GoldPieces { get; set; } //10Gp -1pp
-        public int ElectrumPieces { get; set; } //2ep - 1Gp
-        public int SilverPieces { get; set; } //5sp - 1 ep
-        public int CopperPieces { get; set; } //10cp - 1 sp
+        public List<Photo> CharacterPhoto { get; set; }
+        public InstanceCharDetails CharSkeleton { get; set; }
+        public RaceDetails Race { get; set; }
+        public BackgroundDetails Background { get; set; }
+        public List<ClassDetails> Class { get; set; }
+        public SubClassDetails SubClass { get; set; }
+        public List<FeatureDetails> Features { get; set; }
+        public List<SkillDetails> Skills { get; set; }
+        public List<PlayerItemDetails> InventoryItems { get; set; }
+        public bool IsOverWeight { get; set; }
+        //familars
+        public List<FamilarDisplay> Familars { get; set; }
+        public List<string> Conditions { get; set; }
+        public List<SpellCantripDisplay> Spells { get; set; }
+        //cantrips
+        public List<SpellCantripDisplay> Cantrips { get; set; }
         public DateTimeOffset DateOfCreation { get; set; }
         public DateTimeOffset? DateOfModification { get; set; }
     }

@@ -1,4 +1,5 @@
 ﻿using ItemHoarder.Data.CharacterInfo;
+using ItemHoarder.Data.FamilarsFolder;
 using ItemHoarder.Data.ItemStuff;
 using ItemHoarder.Data.SpellsAndOther;
 using System;
@@ -21,7 +22,8 @@ namespace ItemHoarder.Data
         ChaoticNeutral,
         LawfulEvil,
         NeutralEvil,
-        ChaoticEvil
+        ChaoticEvil,
+        None
     }
     public class CharacterInstanced
     {
@@ -44,13 +46,21 @@ namespace ItemHoarder.Data
         [ForeignKey("SubClass")]
         public int SubClassID { get; set; }
         public virtual CharacterSubClass SubClass { get; set; }
-        public virtual ICollection<CharProficiencySkills> Skills { get; set; }
+        public virtual ICollection<CharProficiencySkills> Skills { get; set; }//determined by class and race
         public virtual ICollection<CharacterFeatList> Features { get; set; }
         public virtual ICollection<InventoryItem> InventoryItems { get; set; }
-        public TypeOfAlignment Alignment { get; set; }
+        public virtual ICollection<CharFamilars> Familars { get; set; }
         public string OtherLanguages { get; set; }
-        public string AttacksAndSpells { get; set; }
-        public int? BaseAttackBonus { get; set; } //attack bonus is from pathfinder, different dependant on class/race
+        public string WeaponProficiencies { get; set; } //no limit
+        public string ArmorProficiencies { get; set; } //no limit
+        public string ToolProficiencies { get; set; } //no limit
+        public string PersonalityTraits { get; set; }//DND two
+        public string Ideals { get; set; }//DND only one
+        public string Bonds { get; set; }//DND only one
+        public string Flaws { get; set; }//DND only one
+        public TypeOfAlignment Alignment { get; set; }
+        public string AllLanguages { get; set; }//list
+        public int? BaseAttackBonus { get; set; } //attack bonus is from pathfinder, different dependent on class/race
         public int? BaseAttackBonusTwo { get; set; }
         public int? BaseAttackBonusThree { get; set; }
         public int? BaseAttackBonusFour { get; set; }
@@ -58,35 +68,21 @@ namespace ItemHoarder.Data
         public double CurrentHitPoints { get; set; }
         public int ExperiencePoints { get; set; }
         public int Level { get; set; }
-        public int? ProficiencyBonus { get; set; } //dependent on lvl, reset on update method
-        public int? FortitudeSavingThrow { get; set; }
-        public int? ReflexSavingThrow { get; set; }
-        public int? WillSavingThrow { get; set; }//maybe make this front end??
         public ICollection<CharacterSpells> Spells { get; set; }
         //list of condition IDs?
-        public string Conditions { get; set; }
+        public string Conditions { get; set; }//list of names
         public double Strength { get; set; }
         public double Dexterity { get; set; }
         public double Constitution { get; set; }
         public double Intelligence { get; set; }
         public double Wisdom { get; set; }
         public double Charisma { get; set; }
-        //public int StrMod { get; set; }
-        //public int DexMod { get; set; }
-        //public int ConMod { get; set; }
-        //public int IntMod { get; set; }
-        //public int WisMod { get; set; }
-        //public int ChaMod { get; set; }
-        //spell slots, dependant on lvl and class, and race?
-        //pathfinder goes to 6th slot, dnd to 9th?
-        //make this a new table?
-        //or just ICollection of spells, and front end orders them?
         public double CarryWeight { get; set; }
         public int PlatinumPieces { get; set; }
-        public int GoldPieces { get; set; } //10Gp -1pp
+        public int GoldPieces { get; set; } //10Gp - 1pp
         public int ElectrumPieces { get; set; } //2ep - 1Gp
-        public int SilverPieces { get; set; } //5sp - 1 ep
-        public int CopperPieces { get; set; } //10cp - 1 sp
+        public int SilverPieces { get; set; } //5sp - 1ep
+        public int CopperPieces { get; set; } //10cp - 1sp
         public string CharacterNotes { get; set; }
         public DateTimeOffset DateOfCreation { get; set; }
         public DateTimeOffset? DateOfModification { get; set; }

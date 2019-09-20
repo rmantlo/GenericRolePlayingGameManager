@@ -16,7 +16,7 @@ namespace ItemHoarder.Data.CharacterInfo
         [ForeignKey("Skills")]
         public int SkillID { get; set; }
         public virtual CharacterSkill Skills { get; set; }
-        public int? SkillRank { get; set; }
+        public int? SkillRank { get; set; }//PF
         public DateTimeOffset DateOfCreation { get; set; }
     }
 }

@@ -8,68 +8,53 @@ using System.Threading.Tasks;
 
 namespace ItemHoarder.Service.Characters
 {
-    public class CharacterSkeletonService
+    public class SkeletonService
     {
         private readonly Guid _userId;
-        public CharacterSkeletonService(Guid userId) 
+        public SkeletonService(Guid userId)
         {
             _userId = userId;
         }
-
-        public IEnumerable<CharSkeleDisplay> GetAllMyCharacterSkele()
+        //get index of all my skeletons
+        public IEnumerable<SkeletonOtherIndex> GetAllMyCharacterSkele()
         {
             using (var ctx = new ApplicationDbContext())
             {
-                return ctx.CharacterSkeletons.Where(e => e.OwnerID == _userId).Select(e => new CharSkeleDisplay
+                return ctx.CharacterSkeletons.Where(e => e.OwnerID == _userId).Select(e => new SkeletonOtherIndex
                 {
-                    ID = e.CharacterID,
+                    CharacterID = e.CharacterID,
                     OwnerID = e.OwnerID,
-                    FirstName = e.FirstName,
-                    LastName = e.LastName,
+                    FullName = $"{e.FirstName} {e.LastName}",
                     Gender = e.Gender,
                     VisualDescription = e.VisualDescription,
-                    BackgroundDescription = e.BackgroundDescription,
-                    CharacterNotes = e.CharacterNotes,
-                    HeightInInches = e.HeightInInches,
-                    WeightInPounds = e.WeightInPounds,
-                    PersonalityTraits = e.PersonalityTraits,
-                    Ideals = e.Ideals,
-                    Bonds = e.Bonds,
-                    Flaws = e.Flaws,
-                    DateOfCreation = e.DateOfCreation,
-                    DateOfModification = e.DateOfModification
                 }).ToList();
             }
         }
-        //get single char skele by id
-        public CharSkeleDisplay GetCharSkeletonById(int id)
+        //get single char skele by id (diff results if owner or not)
+        public SkeletonDetails GetCharSkeletonById(int id)
         {
             using (var ctx = new ApplicationDbContext())
             {
-                var result = ctx.CharacterSkeletons.Where(a => a.OwnerID == _userId).Single(e => e.CharacterID == id);
-                return new CharSkeleDisplay
+                var result = ctx.CharacterSkeletons.Single(e => e.CharacterID == id);
+                return new SkeletonDetails
                 {
-                    ID = result.CharacterID,
+                    CharacterID = result.CharacterID,
                     OwnerID = result.OwnerID,
                     FirstName = result.FirstName,
                     LastName = result.LastName,
                     Gender = result.Gender,
                     VisualDescription = result.VisualDescription,
                     BackgroundDescription = result.BackgroundDescription,
-                    CharacterNotes = result.CharacterNotes,
+                    CharacterNotes = (result.OwnerID == _userId) ? result.CharacterNotes : "NA",
                     HeightInInches = result.HeightInInches,
                     WeightInPounds = result.WeightInPounds,
-                    PersonalityTraits = result.PersonalityTraits,
-                    Ideals = result.Ideals,
-                    Bonds = result.Bonds,
-                    Flaws = result.Flaws,
                     DateOfCreation = result.DateOfCreation,
                     DateOfModification = result.DateOfModification
                 };
             }
         }
         //create char skele
-        public bool CreateNewCharSkeleton(CharSkeletonCreate skeleton)
+        public bool CreateNewCharSkeleton(SkeletonCreate skeleton)
         {
             using (var ctx = new ApplicationDbContext())
             {
@@ -84,32 +69,23 @@ namespace ItemHoarder.Service.Characters
                     BackgroundDescription = skeleton.BackgroundDescription,
                     CharacterNotes = skeleton.CharacterNotes,
                     HeightInInches = skeleton.HeightInInches,
-                    WeightInPounds = skeleton.WeightInPounds,
-                    PersonalityTraits = skeleton.PersonalityTraits,
-                    Ideals = skeleton.Ideals,
-                    Bonds = skeleton.Bonds,
-                    Flaws = skeleton.Flaws,
+                    WeightInPounds = skeleton.WeightInPounds
                 };
                 ctx.CharacterSkeletons.Add(created);
                 return ctx.SaveChanges() == 1;
             }
         }
         //update char skele
-        public bool UpdateCharSkeleton(int id, CharSkeletonCreate update)
+        public bool UpdateCharSkeleton(int id, SkeletonCreate update)
         {
             using (var ctx = new ApplicationDbContext())
             {
                 var result = ctx.CharacterSkeletons.Where(e => e.OwnerID == _userId).Single(e => e.CharacterID == id);
-                if (update.FirstName != null && update.FirstName != "") { result.FirstName = update.FirstName; };
-                if (update.LastName != null && update.LastName != "") { result.LastName = update.LastName; };
-                if (update.VisualDescription != null && update.VisualDescription != "") { result.VisualDescription = update.VisualDescription; };
-                if (update.BackgroundDescription != null && update.BackgroundDescription != "") { result.BackgroundDescription = update.BackgroundDescription; };
-                if (update.CharacterNotes != null && update.CharacterNotes != "") { result.CharacterNotes = update.CharacterNotes; };
-                if (update.PersonalityTraits != null && update.PersonalityTraits != "") { result.PersonalityTraits = update.PersonalityTraits; };
-                if (update.Ideals != null && update.Ideals != "") { result.Ideals = update.Ideals; };
-                if (update.Bonds != null && update.Bonds != "") { result.Bonds = update.Bonds; };
-                if (update.Flaws != null && update.Flaws != "") { result.Flaws = update.Flaws; };
-
+                result.FirstName = update.FirstName;
+                result.LastName = update.LastName;
+                result.VisualDescription = update.VisualDescription;
+                result.BackgroundDescription = update.BackgroundDescription;
+                result.CharacterNotes = update.CharacterNotes;
                 result.WeightInPounds = update.WeightInPounds;
                 result.HeightInInches = update.HeightInInches;
                 result.Gender = update.Gender;
@@ -119,17 +95,12 @@ namespace ItemHoarder.Service.Characters
         }
         //delete char skele (keep instanced or not?) because of foreign key need to remove instance
         //if instanced: cannot delete skeleton, alert to delete instance first
-        /// <summary>
-        /// abc de f g h i j
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
         public string DeleteCharSkeleton(int id)
         {
-            using(var ctx = new ApplicationDbContext())
+            using (var ctx = new ApplicationDbContext())
             {
                 var instances = ctx.CharacterInstances.Where(e => e.OwnerID == _userId && e.CharSkeletonID == id).ToList();
-                if (instances != null) return "Instance exists using skeleton";
+                if (instances != null || instances.Count > 0) return "Instance exists using skeleton";
                 else
                 {
                     var skeleton = ctx.CharacterSkeletons.Single(e => e.OwnerID == _userId && e.CharacterID == id);

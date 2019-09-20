@@ -14,7 +14,7 @@ namespace ItemHoarder.WebApi.Controllers.Characters.Characteristics
     public class BackgroundController : ApiController
     {
         /// <summary>
-        /// Get all backgrounds by user
+        /// Get all index backgrounds you own
         /// </summary>
         /// <returns></returns>
         [Route("api/background")]
@@ -24,7 +24,17 @@ namespace ItemHoarder.WebApi.Controllers.Characters.Characteristics
             return Ok(service.GetAllMyBackgrounds());
         }
         /// <summary>
-        /// get background by id by user
+        /// get all index backgrounds in room, as either GM or Player
+        /// </summary>
+        /// <param name="roomId"></param>
+        /// <returns></returns>
+        public IHttpActionResult GetAllByRoom(int roomId)
+        {
+            var service = CreateBackgroundService();
+            return Ok(service.GetBackgroundsByRoom(roomId));
+        }
+        /// <summary>
+        /// get background details by id as GM or Player
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -35,33 +45,10 @@ namespace ItemHoarder.WebApi.Controllers.Characters.Characteristics
             return Ok(service.GetBackgroundsById(id));
         }
         /// <summary>
-        /// get all backgrounds per room by user
-        /// </summary>
-        /// <param name="roomId"></param>
-        /// <returns></returns>
-        [Route("api/background/room/{roomId}")]
-        public IHttpActionResult GetByRoom(int roomId)
-        {
-            var service = CreateBackgroundService();
-            return Ok(service.GetBackgroundsByRoom(roomId));
-        }
-        /// <summary>
-        /// get all backgrounds in a room as player
-        /// </summary>
-        /// <param name="roomId"></param>
-        /// <returns></returns>
-        [Route("api/room/background/{roomId}")]
-        public IHttpActionResult GetByRoomAsPlayer(int roomId)
-        {
-            var service = CreateBackgroundService();
-            return Ok(service.GetBackgroundsInRoomAsPlayer(roomId));
-        }
-        /// <summary>
         /// Create new Background
         /// </summary>
         /// <param name="background"></param>
         /// <returns></returns>
-        [Route("api/background/create")]
         public IHttpActionResult Post(BackgroundCreate background)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
@@ -97,10 +84,10 @@ namespace ItemHoarder.WebApi.Controllers.Characters.Characteristics
         }
 
 
-        private CharacterBackgroundService CreateBackgroundService()
+        private BackgroundService CreateBackgroundService()
         {
             var userId = Guid.Parse(User.Identity.GetUserId());
-            return new CharacterBackgroundService(userId);
+            return new BackgroundService(userId);
         }
     }
 }

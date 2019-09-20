@@ -9,62 +9,45 @@ using System.Threading.Tasks;
 
 namespace ItemHoarder.Service.Characters
 {
-    public class CharacterClassService
+    public class ClassService
     {
         private readonly Guid _userId;
-        public CharacterClassService(Guid userId)
+        public ClassService(Guid userId)
         {
             _userId = userId;
         }
-        //get all my classes
-        public IEnumerable<ClassDisplay> GetAllMyClasses()
+        //get all my classes, only GM can see
+        public IEnumerable<ClassIndex> GetAllMyClasses()
         {
             using (var ctx = new ApplicationDbContext())
             {
-                var results = ctx.CharacterClasses.Where(e => e.OwnerID == _userId && e.IsDeactivated == false).Select(e => new ClassDisplay
+                return ctx.CharacterClasses.Where(e => e.OwnerID == _userId && e.IsDeactivated == false).Select(e => new ClassIndex
                 {
                     ClassID = e.ClassID,
+                    GameType = e.GameTag,
                     ClassName = e.ClassName,
                     ClassDescription = e.ClassDescription,
-                    HitDie = e.HitDie,
-                    SavingThrows = e.SavingThrows,
-                    Proficiencies = e.Proficiencies,
-                    Strength = e.Strength,
-                    Dexterity = e.Dexterity,
-                    Constitution = e.Constitution,
-                    Intelligence = e.Intelligence,
-                    Wisdom = e.Wisdom,
-                    Charisma = e.Charisma,
                     DateOfCreation = e.DateOfCreation,
                     DateOfModification = e.DateOfModification
-                }).ToArray();
-                return results;
+                }).ToList();
             }
         }
-        //get classes by room?
-        public IEnumerable<ClassDisplay> GetClassesByRoom(int roomId)
+        //get class index list by room both gm and player can see
+        public IEnumerable<ClassIndex> GetClassesByRoom(int roomId)
         {
             using (var ctx = new ApplicationDbContext())
             {
-                var rooms = ctx.RoomClasses.Where(e => e.OwnerID == _userId && e.RoomID == roomId).ToList();
-                List<ClassDisplay> roomClasses = new List<ClassDisplay>();
+                var rooms = ctx.RoomClasses.Where(e => e.RoomID == roomId).ToList();
+                List<ClassIndex> roomClasses = new List<ClassIndex>();
                 foreach (var c in rooms)
                 {
-                    var aClass = ctx.CharacterClasses.Single(e => e.OwnerID == _userId && e.ClassID == c.ClassID);
-                    var classDisplay = new ClassDisplay
+                    var aClass = ctx.CharacterClasses.Single(e => e.ClassID == c.ClassID);
+                    var classDisplay = new ClassIndex
                     {
                         ClassID = aClass.ClassID,
+                        GameType = aClass.GameTag,
                         ClassName = aClass.ClassName,
                         ClassDescription = aClass.ClassDescription,
-                        HitDie = aClass.HitDie,
-                        SavingThrows = aClass.SavingThrows,
-                        Proficiencies = aClass.Proficiencies,
-                        Strength = aClass.Strength,
-                        Dexterity = aClass.Dexterity,
-                        Constitution = aClass.Constitution,
-                        Intelligence = aClass.Intelligence,
-                        Wisdom = aClass.Wisdom,
-                        Charisma = aClass.Charisma,
                         DateOfCreation = aClass.DateOfCreation,
                         DateOfModification = aClass.DateOfModification
                     };
@@ -73,20 +56,29 @@ namespace ItemHoarder.Service.Characters
                 return roomClasses;
             }
         }
-        //get class by id
-        public ClassDisplay GetClassById(int id)
+        //get class details by id, GM and players can see
+        public ClassDetails GetClassById(int id)
         {
             using (var ctx = new ApplicationDbContext())
             {
-                var aClass = ctx.CharacterClasses.Single(e => e.OwnerID == _userId && e.ClassID == id);
-                var classDisplay = new ClassDisplay
+                var aClass = ctx.CharacterClasses.Single(e => e.ClassID == id);
+                Dictionary<int, string> subClassList = new Dictionary<int, string>();
+                foreach (var s in aClass.SubClasses)
+                {
+                    subClassList.Add(s.SubClassID, s.SubClass.SubClassName);
+                }
+                var classDisplay = new ClassDetails
                 {
                     ClassID = aClass.ClassID,
+                    GameType = aClass.GameTag,
                     ClassName = aClass.ClassName,
                     ClassDescription = aClass.ClassDescription,
                     HitDie = aClass.HitDie,
-                    SavingThrows = aClass.SavingThrows,
-                    Proficiencies = aClass.Proficiencies,
+                    SavingThrows = aClass.SavingThrows.Split('|').ToList(),
+                    WeaponProficiencies = aClass.WeaponProficiencies.Split('|').ToList(),
+                    ArmorProficiencies = aClass.ArmorProficiencies.Split('|').ToList(),
+                    ToolProficiencies = aClass.ToolProficiencies.Split('|').ToList(),
+                    SubClasses = subClassList,
                     Strength = aClass.Strength,
                     Dexterity = aClass.Dexterity,
                     Constitution = aClass.Constitution,
@@ -99,41 +91,6 @@ namespace ItemHoarder.Service.Characters
                 return classDisplay;
             }
         }
-        //get classes in room as player
-        public IEnumerable<ClassDisplay> GetClassesInRoomAsPlayer(int roomId)
-        {
-            using (var ctx = new ApplicationDbContext())
-            {
-                bool AmInRoom = Convert.ToBoolean(ctx.RoomUsers.Select(e => e.RoomID == roomId && e.PlayerID == _userId));
-                List<ClassDisplay> roomClasses = new List<ClassDisplay>();
-                if (AmInRoom)
-                {
-                    var rooms = ctx.RoomClasses.Where(e => e.RoomID == roomId).ToList();
-                    foreach (var c in rooms)
-                    {
-                        var aClass = ctx.CharacterClasses.Single(e => e.OwnerID == c.OwnerID && e.ClassID == c.ClassID);
-                        var classDisplay = new ClassDisplay
-                        {
-                            ClassID = aClass.ClassID,
-                            ClassName = aClass.ClassName,
-                            ClassDescription = aClass.ClassDescription,
-                            HitDie = aClass.HitDie,
-                            SavingThrows = aClass.SavingThrows,
-                            Proficiencies = aClass.Proficiencies,
-                            Strength = aClass.Strength,
-                            Dexterity = aClass.Dexterity,
-                            Constitution = aClass.Constitution,
-                            Intelligence = aClass.Intelligence,
-                            Wisdom = aClass.Wisdom,
-                            Charisma = aClass.Charisma
-                        };
-                        roomClasses.Add(classDisplay);
-                    }
-                    return roomClasses;
-                }
-                else return null;
-            }
-        }
         //create class
         public bool CreateClass(ClassCreate newClass)
         {
@@ -142,11 +99,14 @@ namespace ItemHoarder.Service.Characters
                 var aClass = new CharacterClass
                 {
                     OwnerID = _userId,
+                    GameTag = newClass.GameType,
                     ClassName = newClass.ClassName,
                     ClassDescription = newClass.ClassDescription,
                     HitDie = newClass.HitDie,
-                    SavingThrows = newClass.SavingThrows,
-                    Proficiencies = newClass.Proficiencies,
+                    SavingThrows = String.Join("|", newClass.SavingThrows),
+                    WeaponProficiencies = String.Join("|", newClass.WeaponProficiencies),
+                    ArmorProficiencies = String.Join("|", newClass.ArmorProficiencies),
+                    ToolProficiencies = String.Join("|", newClass.ToolProficiencies),
                     Strength = newClass.Strength,
                     Dexterity = newClass.Dexterity,
                     Constitution = newClass.Constitution,
@@ -166,11 +126,14 @@ namespace ItemHoarder.Service.Characters
             using (var ctx = new ApplicationDbContext())
             {
                 var result = ctx.CharacterClasses.Single(e => e.OwnerID == _userId && e.ClassID == id);
+                result.GameTag = updates.GameType;
                 result.ClassName = updates.ClassName;
                 result.ClassDescription = updates.ClassDescription;
                 result.HitDie = updates.HitDie;
-                result.SavingThrows = updates.SavingThrows;
-                result.Proficiencies = updates.Proficiencies;
+                result.SavingThrows = String.Join("|", updates.SavingThrows);
+                result.WeaponProficiencies = String.Join("|", updates.WeaponProficiencies);
+                result.ArmorProficiencies = String.Join("|", updates.ArmorProficiencies);
+                result.ToolProficiencies = String.Join("|", updates.ToolProficiencies);
                 result.Strength = updates.Strength;
                 result.Dexterity = updates.Dexterity;
                 result.Constitution = updates.Constitution;
@@ -181,7 +144,7 @@ namespace ItemHoarder.Service.Characters
                 return ctx.SaveChanges() == 1;
             }
         }
-        //delete class
+        //delete class, changes to is deactivated, so instance chars still have information.
         public bool DeleteClass(int id)
         {
             using (var ctx = new ApplicationDbContext())

@@ -42,7 +42,7 @@ namespace ItemHoarder.Data
         public AttackType AttackType { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public string AtHigherLevelsDescription { get; set; }
+        public string HigherLevelDesc { get; set; }
         public int? LevelRequired { get; set; }
         //multiple classes/subs/races can use, string of IDs?
         public string ClassRequiredID { get; set; }
@@ -52,6 +52,10 @@ namespace ItemHoarder.Data
         public int SpellLevel { get; set; }
         public string DiceRollType { get; set; }
         public int Range { get; set; } //in feet (like speed)
+        public string Components { get; set; } //V,S,M (only 3)
+        public string Material { get; set; }//list of materials used for spell
+        public bool Ritual { get; set; }
+        public bool Concentration { get; set; }
         public string CastingTime { get; set; }
         public string Duration { get; set; }
         public AreaOfEffectType AreaOfEffect { get; set; }

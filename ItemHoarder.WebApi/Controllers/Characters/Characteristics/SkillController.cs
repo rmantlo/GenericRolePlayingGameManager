@@ -11,10 +11,10 @@ using System.Web.Http;
 namespace ItemHoarder.WebApi.Controllers.Characters.Characteristics
 {
     [Authorize]
-    public class ProficiencySkillsController : ApiController
+    public class SkillController : ApiController
     {
         /// <summary>
-        /// Get all proficiency skills I own
+        /// Get index of all skills I own
         /// </summary>
         /// <returns></returns>
         [Route("api/proficiency-skills")]
@@ -24,7 +24,18 @@ namespace ItemHoarder.WebApi.Controllers.Characters.Characteristics
             return Ok(service.GetAllMySkills());
         }
         /// <summary>
-        /// get pro skill details by ID
+        /// Get index of skills in a room as GM or Player
+        /// </summary>
+        /// <param name="roomId"></param>
+        /// <returns></returns>
+        [Route("api/proficiency-skills/room/{roomId}")]
+        public IHttpActionResult GetByRoom(int roomId)
+        {
+            var service = CreateProService();
+            return Ok(service.GetAllByRoom(roomId));
+        }
+        /// <summary>
+        /// get skill details by ID
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -35,56 +46,34 @@ namespace ItemHoarder.WebApi.Controllers.Characters.Characteristics
             return Ok(service.GetSkillById(id));
         }
         /// <summary>
-        /// Get all pro skills in a room as owner
+        /// Create new skill
         /// </summary>
-        /// <param name="roomId"></param>
-        /// <returns></returns>
-        [Route("api/proficiency-skills/room/{roomId}")]
-        public IHttpActionResult GetByRoom(int roomId)
-        {
-            var service = CreateProService();
-            return Ok(service.GetSkillsByMyRoom(roomId));
-        }
-        /// <summary>
-        /// Get all pro skills in a room as player
-        /// </summary>
-        /// <param name="roomId"></param>
-        /// <returns></returns>
-        [Route("api/room/proficiency-skills/{roomId}")]
-        public IHttpActionResult GetByRoomAsPlayer(int roomId)
-        {
-            var service = CreateProService();
-            return Ok(service.GetSkillsByRoomAsPlayer(roomId));
-        }
-        /// <summary>
-        /// Create new proficiency skill
-        /// </summary>
-        /// <param name="background"></param>
+        /// <param name="skill"></param>
         /// <returns></returns>
         [Route("api/proficiency-skills/create")]
-        public IHttpActionResult Post(SkillCreate background)
+        public IHttpActionResult Post(SkillCreate skill)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
             var service = CreateProService();
-            if (service.CreateSkill(background)) return Ok();
+            if (service.CreateSkill(skill)) return Ok();
             else return BadRequest("Skill not created");
         }
         /// <summary>
-        /// Update existing proficiency skill
+        /// Update existing skill
         /// </summary>
         /// <param name="id"></param>
-        /// <param name="background"></param>
+        /// <param name="skill"></param>
         /// <returns></returns>
         [Route("api/proficiency-skills/update/{id}")]
-        public IHttpActionResult Put(int id, SkillCreate background)
+        public IHttpActionResult Put(int id, SkillCreate skill)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
             var service = CreateProService();
-            if (service.UpdateSkill(id, background)) return Ok();
+            if (service.UpdateSkill(id, skill)) return Ok();
             else return BadRequest("Skill not deleted");
         }
         /// <summary>
-        /// Delete existing proficiency skill
+        /// Delete existing skill
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -95,10 +84,10 @@ namespace ItemHoarder.WebApi.Controllers.Characters.Characteristics
             if (service.DeleteSkill(id)) return Ok();
             else return BadRequest("Skill not deleted");
         }
-        private CharacterSkillService CreateProService()
+        private SkillService CreateProService()
         {
             var userId = Guid.Parse(User.Identity.GetUserId());
-            return new CharacterSkillService(userId);
+            return new SkillService(userId);
         }
     }
 }

@@ -27,14 +27,9 @@ namespace ItemHoarder.Models.Rooms
         public Photo RoomPhoto { get; set; }
         public List<string> PlayerUsernames { get; set; }
         public RoomNoteDisplay RoomNotes { get; set; }
-        public List<ClassDisplay> RoomClasses { get; set; }
-        public List<RaceDisplay> RoomRaces { get; set; }
-        public List<BackgroundDisplay> RoomBackgrounds { get; set; }
-        public List<FeatureDisplay> RoomFeatures { get; set; }
-        public List<SkillDisplay> RoomSkills { get; set; }
         public List<InstanceGMDisplay> Characters { get; set; }
-        public List<BattleGMDisplay> BattleInstances { get; set; }
-        public List<ChestDetails> Chests { get; set; }
+        public List<BattleGMDisplay> BattleInstances { get; set; }//most recent 5 including current battle
+        public List<ChestDetails> Chests { get; set; } //limit to 3 per room?
         public DateTimeOffset DateOfCreation { get; set; }
         public DateTimeOffset? DateOfModification { get; set; }
     }

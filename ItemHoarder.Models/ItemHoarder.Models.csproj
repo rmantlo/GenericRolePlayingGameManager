@@ -61,6 +61,7 @@
     <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Cors, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.7\lib\net45\System.Web.Cors.dll</HintPath>
     </Reference>
@@ -80,11 +81,19 @@
   <ItemGroup>
     <Compile Include="BattleInstances\BattleGMDisplay.cs" />
     <Compile Include="Characters\Backgrounds\BackgroundCreate.cs" />
-    <Compile Include="Characters\Backgrounds\BackgroundDisplay.cs" />
+    <Compile Include="Characters\Backgrounds\BackgroundDetails.cs" />
+    <Compile Include="Characters\Backgrounds\BackgroundIndex.cs" />
     <Compile Include="Characters\Classes\ClassCreate.cs" />
-    <Compile Include="Characters\Classes\ClassDisplay.cs" />
+    <Compile Include="Characters\Classes\ClassDetails.cs" />
+    <Compile Include="Characters\Classes\ClassIndex.cs" />
+    <Compile Include="Characters\Classes\SubClassCreate.cs" />
+    <Compile Include="Characters\Classes\SubClassDetails.cs" />
+    <Compile Include="Characters\Classes\SubClassEdit.cs" />
+    <Compile Include="Characters\Classes\SubClassIndex.cs" />
     <Compile Include="Characters\Features\FeatureCreate.cs" />
-    <Compile Include="Characters\Features\FeatureDisplay.cs" />
+    <Compile Include="Characters\Features\FeatureDetails.cs" />
+    <Compile Include="Characters\Features\FeatureIndex.cs" />
+    <Compile Include="Characters\Instanced\InstanceCharDetails.cs" />
     <Compile Include="Characters\Instanced\InstanceCreate.cs" />
     <Compile Include="Characters\Instanced\InstanceDisplay.cs" />
     <Compile Include="Characters\Instanced\InstanceGMDisplay.cs" />
@@ -92,15 +101,30 @@
     <Compile Include="Characters\Instanced\InstanceOthersDisplay.cs" />
     <Compile Include="Characters\Instanced\InstanceUpdate.cs" />
     <Compile Include="Characters\ProficiencySkills\SkillCreate.cs" />
-    <Compile Include="Characters\ProficiencySkills\SkillDisplay.cs" />
+    <Compile Include="Characters\ProficiencySkills\SkillDetails.cs" />
+    <Compile Include="Characters\ProficiencySkills\SkillIndex.cs" />
     <Compile Include="Characters\Races\RaceCreate.cs" />
-    <Compile Include="Characters\Races\RaceDisplay.cs" />
-    <Compile Include="Characters\Skeleton\CharSkeleDisplay.cs" />
-    <Compile Include="Characters\Skeleton\CharSkeletonCreate.cs" />
+    <Compile Include="Characters\Races\RaceDetails.cs" />
+    <Compile Include="Characters\Races\RaceIndex.cs" />
+    <Compile Include="Characters\Skeleton\SkeletonDetails.cs" />
+    <Compile Include="Characters\Skeleton\SkeletonCreate.cs" />
+    <Compile Include="Characters\Skeleton\SkeletonGMDetails.cs" />
+    <Compile Include="Characters\Skeleton\SkeletonOtherIndex.cs" />
+    <Compile Include="Chests\ChestCreate.cs" />
     <Compile Include="Chests\ChestDetails.cs" />
-    <Compile Include="ItemInventory\InstanceItemDisplay.cs" />
-    <Compile Include="ItemInventory\ItemCreate.cs" />
-    <Compile Include="ItemInventory\ItemDisplay.cs" />
+    <Compile Include="Chests\ChestIndex.cs" />
+    <Compile Include="Chests\ChestUpdate.cs" />
+    <Compile Include="Familars\FamilarCreate.cs" />
+    <Compile Include="Familars\FamilarDisplay.cs" />
+    <Compile Include="Familars\FamilarFeaturesCreate.cs" />
+    <Compile Include="Familars\FamilarMinimalDisplay.cs" />
+    <Compile Include="Familars\FamilarUpdate.cs" />
+    <Compile Include="ItemInventory\GMItemCreate.cs" />
+    <Compile Include="ItemInventory\GMItemDetails.cs" />
+    <Compile Include="ItemInventory\GMItemEdit.cs" />
+    <Compile Include="ItemInventory\ItemIndex.cs" />
+    <Compile Include="ItemInventory\PlayerItemDetails.cs" />
+    <Compile Include="ItemInventory\PlayerItemEdit.cs" />
     <Compile Include="Monsters\MonsterCreate.cs" />
     <Compile Include="Monsters\MonsterDisplay.cs" />
     <Compile Include="Monsters\MonsterSkillDisplay.cs" />
@@ -112,6 +136,7 @@
     <Compile Include="Rooms\RoomIndex.cs" />
     <Compile Include="Rooms\RoomNoteDisplay.cs" />
     <Compile Include="Rooms\RoomPlayerDisplay.cs" />
+    <Compile Include="Spells\SpellCantripDisplay.cs" />
     <Compile Include="User\ProfileCreate.cs" />
     <Compile Include="User\ProfileInfo.cs" />
   </ItemGroup>

@@ -14,8 +14,8 @@ namespace ItemHoarder.Models.BattleInstances
         public int RoomID { get; set; }
         public bool IsCurrent { get; set; }
         public List<MonsterDisplay> MonsterList { get; set; }
-        public List<ItemDisplay> ItemDropList { get; set; }
-        public List<ItemDisplay> RandomItemDropList { get; set; }
+        public List<GMItemDetails> ItemDropList { get; set; }
+        public List<GMItemDetails> RandomItemDropList { get; set; }
         public DateTimeOffset DateOfCreation { get; set; }
         public DateTimeOffset? DateOfModification { get; set; }
     }

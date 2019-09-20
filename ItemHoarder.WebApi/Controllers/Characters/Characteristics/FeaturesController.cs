@@ -14,7 +14,7 @@ namespace ItemHoarder.WebApi.Controllers.Characters.Characteristics
     public class FeaturesController : ApiController
     {
         /// <summary>
-        /// Get all features by user
+        /// Get all features you own
         /// </summary>
         /// <returns></returns>
         [Route("api/features")]
@@ -24,7 +24,18 @@ namespace ItemHoarder.WebApi.Controllers.Characters.Characteristics
             return Ok(service.GetAllMyFeatures());
         }
         /// <summary>
-        /// Get feature by Id by user
+        /// get all features in a room as GM or Player
+        /// </summary>
+        /// <param name="roomId"></param>
+        /// <returns></returns>
+        [Route("api/features/room/{roomId}")]
+        public IHttpActionResult GetByRoom(int roomId)
+        {
+            var service = CreateFeatureService();
+            return Ok(service.GetAllByRoom(roomId));
+        }
+        /// <summary>
+        /// Get feature details by Id as GM or Player
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -33,28 +44,6 @@ namespace ItemHoarder.WebApi.Controllers.Characters.Characteristics
         {
             var service = CreateFeatureService();
             return Ok(service.GetFeatureById(id));
-        }
-        /// <summary>
-        /// get all features by rooms of user
-        /// </summary>
-        /// <param name="roomId"></param>
-        /// <returns></returns>
-        [Route("api/features/room/{roomId}")]
-        public IHttpActionResult GetByRoom(int roomId)
-        {
-            var service = CreateFeatureService();
-            return Ok(service.GetFeaturesByMyRoom(roomId));
-        }
-        /// <summary>
-        /// Get all features in room as player
-        /// </summary>
-        /// <param name="roomId"></param>
-        /// <returns></returns>
-        [Route("api/room/features/{roomId}")]
-        public IHttpActionResult GetByRoomAsPlayer(int roomId)
-        {
-            var service = CreateFeatureService();
-            return Ok(service.GetFeaturesByRoomAsPlayer(roomId));
         }
         /// <summary>
         /// Create new feature
@@ -95,10 +84,10 @@ namespace ItemHoarder.WebApi.Controllers.Characters.Characteristics
             if (service.DeleteFeature(id)) return Ok();
             else return BadRequest("Feature not deleted");
         }
-        private CharacterFeatureService CreateFeatureService()
+        private FeatureService CreateFeatureService()
         {
             var userId = Guid.Parse(User.Identity.GetUserId());
-            return new CharacterFeatureService(userId);
+            return new FeatureService(userId);
         }
     }
 }

@@ -99,6 +99,9 @@
     <Compile Include="ChestFolder\ChestRandomItem.cs" />
     <Compile Include="Condition.cs" />
     <Compile Include="DiceSetting.cs" />
+    <Compile Include="FamilarsFolder\CharFamilars.cs" />
+    <Compile Include="FamilarsFolder\Familar.cs" />
+    <Compile Include="FamilarsFolder\FamilarFeature.cs" />
     <Compile Include="IdentityModels.cs" />
     <Compile Include="ItemStuff\InventoryItem.cs" />
     <Compile Include="ItemStuff\Item.cs" />

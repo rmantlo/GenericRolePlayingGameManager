@@ -24,11 +24,11 @@ namespace ItemHoarder.Models.Rooms
         public int PhotoID { get; set; }
         public Photo RoomPhoto { get; set; }
         public List<string> PlayerUsernames { get; set; }
-        public List<ClassDisplay> RoomClasses { get; set; }
-        public List<RaceDisplay> RoomRaces { get; set; }
-        public List<BackgroundDisplay> RoomBackgrounds { get; set; }
-        public List<FeatureDisplay> RoomFeatures { get; set; }
-        public List<SkillDisplay> RoomSkills { get; set; }
+        public List<ClassDetails> RoomClasses { get; set; }
+        public List<RaceDetails> RoomRaces { get; set; }
+        public List<BackgroundDetails> RoomBackgrounds { get; set; }
+        public List<FeatureDetails> RoomFeatures { get; set; }
+        public List<SkillDetails> RoomSkills { get; set; }
         public InstanceDisplay MyCharacter { get; set; }
         public List<InstanceOthersDisplay> OtherCharacters { get; set; }
         public DateTimeOffset DateOfCreation { get; set; }

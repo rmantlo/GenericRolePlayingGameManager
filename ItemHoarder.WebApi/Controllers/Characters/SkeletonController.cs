@@ -12,7 +12,7 @@ namespace ItemHoarder.WebApi.Controllers.Characters
 {
     [Authorize]
     [RoutePrefix("api/character-skeleton")]
-    public class CharSkeleController : ApiController
+    public class SkeletonController : ApiController
     {
         /// <summary>
         /// Get all character skeletons created by user
@@ -26,7 +26,7 @@ namespace ItemHoarder.WebApi.Controllers.Characters
             return Ok(results);
         }
         /// <summary>
-        /// Get character skeleton by id of user
+        /// Get character skeleton by id, character note's removed if user is not skeleton owner.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -43,7 +43,7 @@ namespace ItemHoarder.WebApi.Controllers.Characters
         /// <param name="skeleton"></param>
         /// <returns></returns>
         [Route("create")]
-        public IHttpActionResult Post(CharSkeletonCreate skeleton)
+        public IHttpActionResult Post(SkeletonCreate skeleton)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
             var service = CreateCharSkeleService();
@@ -57,7 +57,7 @@ namespace ItemHoarder.WebApi.Controllers.Characters
         /// <param name="skeleton"></param>
         /// <returns></returns>
         [Route("update/{id}")]
-        public IHttpActionResult Put(int id, CharSkeletonCreate skeleton)
+        public IHttpActionResult Put(int id, SkeletonCreate skeleton)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
             var service = CreateCharSkeleService();
@@ -79,10 +79,10 @@ namespace ItemHoarder.WebApi.Controllers.Characters
             else return BadRequest("Character skeleton could not be deleted");
         }
 
-        private CharacterSkeletonService CreateCharSkeleService()
+        private SkeletonService CreateCharSkeleService()
         {
             var userId = Guid.Parse(User.Identity.GetUserId());
-            return new CharacterSkeletonService(userId);
+            return new SkeletonService(userId);
         }
     }
 }

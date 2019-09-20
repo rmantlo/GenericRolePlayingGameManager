@@ -12,13 +12,15 @@ namespace ItemHoarder.Data.ItemStuff
     {
         [Key]
         public int ItemID { get; set; }
+        public Guid OwnerID { get; set; }
         [ForeignKey("OriginalItem")]
         public int OriginalItemID { get; set; }
         public virtual Item OriginalItem { get; set; }
-        public Guid CreatorID { get; set; }
         //pick random num between array nums [fragile value, resilient value]
-        public double ActualHitPoints { get; set; }
+        public int ActualHitPoints { get; set; }
+        public int CurrentHitPoints { get; set; }
         public bool IsEquipted { get; set; }
         public DateTimeOffset DateOfCreation { get; set; }
+        public DateTimeOffset? DateOfModification { get; set; }
     }
 }

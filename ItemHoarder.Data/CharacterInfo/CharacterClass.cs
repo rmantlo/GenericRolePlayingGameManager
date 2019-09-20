@@ -23,7 +23,7 @@ namespace ItemHoarder.Data
         public string ClassDescription { get; set; }
         public string HitDie { get; set; }
         public string SavingThrows { get; set; }
-        public string WeaponProficiencies { get; set; } //weapons, armors?
+        public string WeaponProficiencies { get; set; } //list of items in string separated by | 
         public string ArmorProficiencies { get; set; }
         public string ToolProficiencies { get; set; }
         public double Strength { get; set; }
@@ -32,9 +32,9 @@ namespace ItemHoarder.Data
         public double Intelligence { get; set; }
         public double Wisdom { get; set; }
         public double Charisma { get; set; }
+        public virtual ICollection<CharClassSubConnection> SubClasses { get; set; }
         [DefaultValue(false)]
         public bool IsDeactivated { get; set; }
-        public virtual ICollection<CharClassSubConnection> SubClasses { get; set; }
         public DateTimeOffset DateOfCreation { get; set; }
         public DateTimeOffset? DateOfModification { get; set; }
     }

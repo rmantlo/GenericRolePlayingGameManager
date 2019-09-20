@@ -9,58 +9,46 @@ using System.Threading.Tasks;
 
 namespace ItemHoarder.Service.Characters
 {
-    public class CharacterBackgroundService
+    public class BackgroundService
     {
         private readonly Guid _userId;
-        public CharacterBackgroundService(Guid userId)
+        public BackgroundService(Guid userId)
         {
             _userId = userId;
         }
-        //get all my classes
-        public IEnumerable<BackgroundDisplay> GetAllMyBackgrounds()
+        //get all my backgrounds
+        public IEnumerable<BackgroundIndex> GetAllMyBackgrounds()
         {
             using (var ctx = new ApplicationDbContext())
             {
-                var results = ctx.CharacterBackgrounds.Where(e => e.OwnerID == _userId && e.IsDeactivated == false).Select(e => new BackgroundDisplay
+                var results = ctx.CharacterBackgrounds.Where(e => e.OwnerID == _userId && e.IsDeactivated == false).Select(e => new BackgroundIndex
                 {
                     BackgroundID = e.BackgroundID,
+                    GameTag = e.GameTag,
                     BackgroundName = e.BackgroundName,
                     BackgroundDescription = e.BackgroundDescription,
-                    Proficiencies = e.Proficiencies,
-                    Strength = e.Strength,
-                    Dexterity = e.Dexterity,
-                    Constitution = e.Constitution,
-                    Intelligence = e.Intelligence,
-                    Wisdom = e.Wisdom,
-                    Charisma = e.Charisma,
                     DateOfCreation = e.DateOfCreation,
                     DateOfModification = e.DateOfModification
                 });
                 return results;
             }
         }
-        //get classes by room?
-        public IEnumerable<BackgroundDisplay> GetBackgroundsByRoom(int roomId)
+        //get backgrounds by room for either GM or player
+        public IEnumerable<BackgroundIndex> GetBackgroundsByRoom(int roomId)
         {
             using (var ctx = new ApplicationDbContext())
             {
-                var rooms = ctx.RoomBackgrounds.Where(e => e.OwnerID == _userId && e.RoomID == roomId).ToList();
-                List<BackgroundDisplay> roomBackgrounds = new List<BackgroundDisplay>();
+                var rooms = ctx.RoomBackgrounds.Where(e => e.RoomID == roomId).ToList();
+                List<BackgroundIndex> roomBackgrounds = new List<BackgroundIndex>();
                 foreach (var b in rooms)
                 {
-                    var backgrounds = ctx.CharacterBackgrounds.Single(e => e.OwnerID == _userId && e.BackgroundID == b.BackgroundID);
-                    var backgroundDisplay = new BackgroundDisplay
+                    var backgrounds = ctx.CharacterBackgrounds.Single(e => e.BackgroundID == b.BackgroundID);
+                    var backgroundDisplay = new BackgroundIndex
                     {
                         BackgroundID = backgrounds.BackgroundID,
+                        GameTag = backgrounds.GameTag,
                         BackgroundName = backgrounds.BackgroundName,
                         BackgroundDescription = backgrounds.BackgroundDescription,
-                        Proficiencies = backgrounds.Proficiencies,
-                        Strength = backgrounds.Strength,
-                        Dexterity = backgrounds.Dexterity,
-                        Constitution = backgrounds.Constitution,
-                        Intelligence = backgrounds.Intelligence,
-                        Wisdom = backgrounds.Wisdom,
-                        Charisma = backgrounds.Charisma,
                         DateOfCreation = backgrounds.DateOfCreation,
                         DateOfModification = backgrounds.DateOfModification
                     };
@@ -69,18 +57,41 @@ namespace ItemHoarder.Service.Characters
                 return roomBackgrounds;
             }
         }
-        //get class by id
-        public BackgroundDisplay GetBackgroundsById(int id)
+        //get background by id
+        public BackgroundDetails GetBackgroundsById(int id)
         {
             using (var ctx = new ApplicationDbContext())
             {
                 var background = ctx.CharacterBackgrounds.Single(e => e.OwnerID == _userId && e.BackgroundID == id);
-                var backgroundDisplay = new BackgroundDisplay
+                Dictionary<int, string> features = new Dictionary<int, string>();
+                Dictionary<int, string> skills = new Dictionary<int, string>();
+                foreach (var f in background.FeatureIDs.Split('|').Select(int.Parse).ToList())
+                {
+                    var feat = ctx.CharacterFeatures.SingleOrDefault(e => e.FeatureID == f);
+                    if (feat != null)
+                    {
+                        features.Add(feat.FeatureID, feat.FeatureName);
+                    }
+                }
+                foreach (var s in background.SkillIDs.Split('|').Select(int.Parse).ToList())
+                {
+                    var skill = ctx.ProficiencySkills.SingleOrDefault(e => e.SkillID == s);
+                    if (skill != null)
+                    {
+                        skills.Add(skill.SkillID, skill.SkillName);
+                    }
+                }
+                return new BackgroundDetails
                 {
                     BackgroundID = background.BackgroundID,
+                    GameTag = background.GameTag,
                     BackgroundName = background.BackgroundName,
                     BackgroundDescription = background.BackgroundDescription,
-                    Proficiencies = background.Proficiencies,
+                    WeaponProficiencies = background.WeaponProficiencies.Split('|').ToList(),
+                    ArmorProficiencies = background.ArmorProficiencies.Split('|').ToList(),
+                    ToolProficiencies = background.ToolProficiencies.Split('|').ToList(),
+                    FeatureIDs = features,
+                    SkillIDs = skills,
                     Strength = background.Strength,
                     Dexterity = background.Dexterity,
                     Constitution = background.Constitution,
@@ -90,43 +101,9 @@ namespace ItemHoarder.Service.Characters
                     DateOfCreation = background.DateOfCreation,
                     DateOfModification = background.DateOfModification
                 };
-                return backgroundDisplay;
             }
         }
-        //get classes in room as player
-        public IEnumerable<BackgroundDisplay> GetBackgroundsInRoomAsPlayer(int roomId)
-        {
-            using (var ctx = new ApplicationDbContext())
-            {
-                bool AmInRoom = Convert.ToBoolean(ctx.RoomUsers.Select(e => e.RoomID == roomId && e.PlayerID == _userId));
-                List<BackgroundDisplay> roomBackgrounds = new List<BackgroundDisplay>();
-                if (AmInRoom)
-                {
-                    var rooms = ctx.RoomBackgrounds.Where(e => e.RoomID == roomId).ToList();
-                    foreach (var r in rooms)
-                    {
-                        var background = ctx.CharacterBackgrounds.Single(e => e.OwnerID == r.OwnerID && e.BackgroundID == r.BackgroundID);
-                        var backgroundDisplay = new BackgroundDisplay
-                        {
-                            BackgroundID = background.BackgroundID,
-                            BackgroundName = background.BackgroundName,
-                            BackgroundDescription = background.BackgroundDescription,
-                            Proficiencies = background.Proficiencies,
-                            Strength = background.Strength,
-                            Dexterity = background.Dexterity,
-                            Constitution = background.Constitution,
-                            Intelligence = background.Intelligence,
-                            Wisdom = background.Wisdom,
-                            Charisma = background.Charisma
-                        };
-                        roomBackgrounds.Add(backgroundDisplay);
-                    }
-                    return roomBackgrounds;
-                }
-                else return null;
-            }
-        }
-        //create class
+        //create background
         public bool CreateBackgrounds(BackgroundCreate newBackground)
         {
             using (var ctx = new ApplicationDbContext())
@@ -135,9 +112,14 @@ namespace ItemHoarder.Service.Characters
                 {
                     OwnerID = _userId,
                     DateOfCreation = DateTimeOffset.UtcNow,
+                    GameTag = newBackground.GameTag,
                     BackgroundName = newBackground.BackgroundName,
                     BackgroundDescription = newBackground.BackgroundDescription,
-                    Proficiencies = newBackground.Proficiencies,
+                    WeaponProficiencies = String.Join("|", newBackground.WeaponProficiencies),
+                    ArmorProficiencies = String.Join("|", newBackground.ArmorProficiencies),
+                    ToolProficiencies = String.Join("|", newBackground.ToolProficiencies),
+                    SkillIDs = String.Join("|", newBackground.SkillIDs),
+                    FeatureIDs = String.Join("|", newBackground.FeatureIDs),
                     Strength = newBackground.Strength,
                     Dexterity = newBackground.Dexterity,
                     Constitution = newBackground.Constitution,
@@ -150,7 +132,7 @@ namespace ItemHoarder.Service.Characters
                 return ctx.SaveChanges() == 1;
             }
         }
-        //update class
+        //update background
         public bool UpdateBackgrounds(int id, BackgroundCreate updates)
         {
             using (var ctx = new ApplicationDbContext())
@@ -158,7 +140,11 @@ namespace ItemHoarder.Service.Characters
                 var oldBack = ctx.CharacterBackgrounds.Single(e => e.OwnerID == _userId && e.BackgroundID == id);
                 oldBack.BackgroundName = updates.BackgroundName;
                 oldBack.BackgroundDescription = updates.BackgroundDescription;
-                oldBack.Proficiencies = updates.Proficiencies;
+                oldBack.WeaponProficiencies = String.Join("|", updates.WeaponProficiencies);
+                oldBack.ArmorProficiencies = String.Join("|", updates.ArmorProficiencies);
+                oldBack.ToolProficiencies = String.Join("|", updates.ToolProficiencies);
+                oldBack.SkillIDs = String.Join("|", updates.SkillIDs);
+                oldBack.FeatureIDs = String.Join("|", updates.FeatureIDs);
                 oldBack.Strength = updates.Strength;
                 oldBack.Dexterity = updates.Dexterity;
                 oldBack.Constitution = updates.Constitution;
@@ -169,7 +155,7 @@ namespace ItemHoarder.Service.Characters
                 return ctx.SaveChanges() == 1;
             }
         }
-        //delete class
+        //delete background
         public bool DeleteBackgrounds(int id)
         {
             using (var ctx = new ApplicationDbContext())

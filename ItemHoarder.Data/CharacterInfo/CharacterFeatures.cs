@@ -17,8 +17,9 @@ namespace ItemHoarder.Data.CharacterInfo
         public GameType GameTag { get; set; }
         public string FeatureName { get; set; }
         public string Description { get; set; }
-        public int? RaceIdPrerequisite { get; set; }
-        public int? ClassIdPrerequisite { get; set; }
+        public string RaceIdPrerequisites { get; set; }
+        public string ClassIdPrerequisites { get; set; }
+        public string FeatureIdPrerequisites { get; set; }
         public string StatPrerequisite { get; set; }
         public int? LvlPrerequisite { get; set; }
         public double Strength { get; set; }

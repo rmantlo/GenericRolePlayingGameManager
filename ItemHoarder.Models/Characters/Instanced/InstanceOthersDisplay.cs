@@ -2,6 +2,8 @@
 using ItemHoarder.Models.Characters.Backgrounds;
 using ItemHoarder.Models.Characters.Classes;
 using ItemHoarder.Models.Characters.Races;
+using ItemHoarder.Models.Characters.Skeleton;
+using ItemHoarder.Models.Familars;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,12 +18,15 @@ namespace ItemHoarder.Models.Characters.Instanced
         public Guid OwnerID { get; set; }
         public int? RoomID { get; set; }
         public string RoomName { get; set; }
-        public string CharacterName { get; set; }
-        public TypeOfGender Gender { get; set; }
-        public string VisualDescription { get; set; }
-        public RaceDisplay Race { get; set; }
-        public ClassDisplay Class { get; set; }
-        public BackgroundDisplay Background { get; set; }
+        public SkeletonOtherIndex Skeleton { get; set; }
+        public RaceIndex Race { get; set; }
+        public List<ClassIndex> Class { get; set; }
+        //subclass
+        public SubClassIndex SubClass { get; set; }
+        //familars
+        public List<FamilarMinimalDisplay> Familars { get; set; }
+        //conditions
+        public List<Dictionary<string, string>> Conditions { get; set; }
         public DateTimeOffset DateOfCreation { get; set; }
     }
 }

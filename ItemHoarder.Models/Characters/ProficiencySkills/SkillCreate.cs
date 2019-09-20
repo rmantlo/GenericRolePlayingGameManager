@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ItemHoarder.Data.RoomFolder;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,17 +9,20 @@ namespace ItemHoarder.Models.Characters.ProficiencySkills
 {
     public class SkillCreate
     {
-        public string Name { get; set; }
+        public GameType GameTag { get; set; }
+        public string SkillName { get; set; }
+        public int? SkillRank { get; set; }//PF
         public string Description { get; set; }
-        public string ClassesApplied { get; set; }
-        public string RacesApplied { get; set; }
-        public string BackgroundsApplied { get; set; }
-        public string StatApplied { get; set; }
-        public double Strength { get; set; }
-        public double Dexterity { get; set; }
-        public double Constitution { get; set; }
-        public double Intelligence { get; set; }
-        public double Wisdom { get; set; }
-        public double Charisma { get; set; }
+        public string SpecialInfo { get; set; }
+        public string ActionType { get; set; }
+        public string AbilityStatApplied { get; set; }
+        public string SkillChecks { get; set; }
+        public List<int> ClassesIDs { get; set; }
+        public List<int> RacesIDs { get; set; }
+        public List<int> BackgroundsIDs { get; set; }
+        public bool? TrainedOnly { get; set; }
+        public bool? ArmorCheckPenalty { get; set; }
+        public string AttemptDetails { get; set; }//PF, some skills can try again, others only one time
+        public string Restrictions { get; set; }//PF, restrictions for skill
     }
 }
