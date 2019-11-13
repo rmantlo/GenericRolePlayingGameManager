@@ -1,5 +1,7 @@
 ﻿using ItemHoarder.Data;
 using ItemHoarder.Models.User;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +23,9 @@ namespace ItemHoarder.Service
             using (var ctx = new ApplicationDbContext())
             {
                 var profile = ctx.Profiles.SingleOrDefault(e => e.UserID == _userId);
+                var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(ctx));
+                var role = UserManager.GetRoles(_userId.ToString()).FirstOrDefault();
+
                 return new ProfileInfo
                 {
                     UserID = profile.UserID,
